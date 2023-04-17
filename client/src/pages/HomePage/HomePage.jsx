@@ -80,15 +80,13 @@ function HomePage() {
                   <p>
                     The Story of NCS is a documentary made by NCS Fans that
                     tells how NoCopyrightSounds was born, starting from the
-                    beginning, 2011, back when the YouTube channel was created
-                    by Billy Woodford, it started as a promo channel for free
-                    copyright music but later would become a record label and be
+                    beginning, 2011, back when Billy Woodford decided to create NoCopyrightSounds, it started as a promo channel for free music, and later would become a record label and be
                     considered the #1 source for free copyright music on the
-                    platform and providing a great variety of music genres.
+                    platform while providing a great variety of music genres.
                     <br />
                     But in this documentary, for those who have recently
                     discovered NCS will know more about songs that got deleted
-                    but played a big part to help NCS grow, facts that only some
+                    but played a big part to help the label grow, facts that only some
                     of the OG fans remember or know, and more. Make sure you
                     check out our documentary.
                   </p>

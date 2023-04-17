@@ -1,18 +1,18 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage.jsx";
-import Songs from "./pages/Songs";
-import NotFoundPage from "./pages/NotFoundPage";
-import Navigation from "./components/Navigation";
-import { SongsContext } from "./context/SongsContext";
-import AddSong from "./components/AddSong";
+import Songs from "./pages/Songs.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
+import Navigation from "./components/Navigation.jsx";
+import { SongsContext } from "./context/SongsContext.jsx";
+import AddSong from "./components/AddSong.jsx";
 import "./context/theme.css";
-import Login from "./pages/Login/Login";
-import SignUp from "./pages/SignUp/SignUp";
-import { useAuthContext } from "./hooks/useAuthContext";
-import DeletedSong from "./pages/Song/DeletedSong";
-import Backgrounds from "./pages/Backgrounds/Backgrounds";
-import { BgContextProvider } from "./context/bgsContext";
-import AddBg from "./pages/Backgrounds/components/AddBg";
+import Login from "./pages/Login/Login.jsx";
+import SignUp from "./pages/SignUp/SignUp.jsx";
+import { useAuthContext } from "./hooks/useAuthContext.jsx";
+import DeletedSong from "./pages/Song/DeletedSong.jsx";
+import Backgrounds from "./pages/Backgrounds/Backgrounds.jsx";
+import { BgContextProvider } from "./context/bgsContext.jsx";
+import AddBg from "./pages/Backgrounds/components/AddBg.jsx";
 import axios from "axios";
 
 function App() {
