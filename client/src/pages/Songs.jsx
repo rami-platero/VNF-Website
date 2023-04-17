@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { mainContext } from "../context/SongsContext";
-import Song from "../components/Song";
+import { mainContext } from "../context/SongsContext.jsx";
+import Song from "../components/Song.jsx";
 import "./songs.css";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
