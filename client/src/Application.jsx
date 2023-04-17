@@ -3,7 +3,6 @@ import HomePage from "./pages/HomePage/HomePage.jsx";
 import Songs from "./pages/Songs.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import Navigation from "./components/Navigation.jsx";
-/* import { SongsContext } from "./context/SongsContext.jsx"; */
 import AddSong from "./components/AddSong.jsx";
 import "./context/theme.css";
 import Login from "./pages/Login/Login.jsx";
@@ -18,11 +17,8 @@ import axios from "axios";
 function App() {
   axios.defaults.baseURL = `https://vnf-website-api.onrender.com/`;
   const { user } = useAuthContext();
-  return <h1>HOLA</h1>;
-}
-
-{
-  /* <BgContextProvider>
+  return (
+      <BgContextProvider>
         <BrowserRouter>
           <Navigation />
           <Routes>
@@ -49,7 +45,9 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
-      </BgContextProvider> */
+      </BgContextProvider>
+
+  );
 }
 
 export default App;
