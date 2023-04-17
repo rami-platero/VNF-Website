@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage/HomePage.jsx";
 import Songs from "./pages/Songs.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import Navigation from "./components/Navigation.jsx";
-import { SongsContext } from "../src/context/SongsContext.jsx";
+import { SongsContext } from "./context/SongsContext.jsx";
 import AddSong from "./components/AddSong.jsx";
 import "./context/theme.css";
 import Login from "./pages/Login/Login.jsx";
