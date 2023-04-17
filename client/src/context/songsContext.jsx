@@ -9,7 +9,7 @@ import {
 
 export const mainContext = createContext();
 
-export const SongsContext = ({ children }) => {
+export const SongsContextProvider = ({ children }) => {
   const [delSongs, setDelSongs] = useState([]);
   const [theme, setTheme] = useState("dark");
   const [loading, setLoading] = useState(true);
