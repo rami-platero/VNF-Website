@@ -1,0 +1,37 @@
+.form-bg-container {
+  min-height: 100%;
+  height: auto !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 2.5rem;
+  gap: 2rem;
+}
+
+.form-bg-container-wrapper {
+  max-width: 430px;
+  width: 100%;
+}
+
+.form-bg-container-wrapper form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-bg-container-wrapper form input[type="submit"] {
+  cursor: pointer;
+  background-color: white;
+  padding: 0.7rem;
+  border: 1px solid black;
+  outline: none;
+  transition: 0.2s ease-in-out;
+}
+
+.form-bg-container-wrapper form input[type="submit"]:hover {
+  color: white;
+  background-color: black;
+  transition: 0.2s ease-in-out;
+}
+

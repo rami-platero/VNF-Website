@@ -1,0 +1,31 @@
+{
+  "name": "ncs-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js --ignore client"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cloudinary": "^1.35.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express-fileupload": "^1.4.0",
+    "express.js": "^1.0.0",
+    "fs-extra": "^11.1.1",
+    "jsonwebtoken": "^9.0.0",
+    "mongodb": "^5.2.0",
+    "mongoose": "^7.0.3",
+    "morgan": "^1.10.0",
+    "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

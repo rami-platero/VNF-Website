@@ -1,0 +1,44 @@
+/*INPUTS*/
+.form-container.dark form input,
+.description-input.dark,
+.tracks-inputs.dark input[type="text"] {
+  background-color: rgb(17, 17, 17);
+  color: white;
+}
+
+.form-container.dark form input:focus,
+.description-input.dark:focus,
+.tracks-inputs.dark input[type="text"]:focus {
+  border-bottom: 1px solid rgb(156, 13, 13);
+  background-color: rgb(10, 10, 10);
+}
+
+.form-container.dark form input[type="text"]:not(:placeholder-shown),
+.description-input.dark:not(:placeholder-shown),
+.tracks-inputs.dark input[type="text"]:not(:placeholder-shown) {
+  border-bottom: 1px solid rgb(175, 29, 29);
+}
+
+.artists-input.dark button,
+.add-track.dark {
+  background-color: rgb(24, 24, 24);
+  color: white;
+  border: 1px solid white;
+}
+
+.artists-input.dark button:hover,
+.add-track.dark:hover {
+  color: black;
+  background-color: white;
+}
+
+.form-bg-container-wrapper.dark form input[type="submit"] {
+  background-color: rgb(24, 24, 24);
+  color: white;
+  border: 1px solid white;
+}
+
+.form-bg-container-wrapper.dark form input[type="submit"]:hover {
+  background-color: white;
+  color: black;
+}

@@ -1,0 +1,16 @@
+.background-preview{
+    width: 101%;
+    height: 101%;
+    object-fit: fill;
+}
+
+.drop-bg{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.drop-bg label{
+    font-weight: 600;
+}

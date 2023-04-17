@@ -1,0 +1,100 @@
+.tracks-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tracks-inputs input {
+  width: 100%;
+}
+
+.tracks-inputs input[type="text"] {
+  background-color: white;
+  padding: 0.7rem;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid;
+  transition: 0.2s ease-in-out;
+}
+
+.tracks-inputs input[type="text"]:not(:placeholder-shown) {
+  border-color: rgb(22, 247, 255);
+}
+
+.tracks-inputs input[type="text"]:focus {
+  background-color: rgb(237, 253, 255);
+  border-bottom: 1px solid rgb(22, 247, 255);
+  transition: 0.2s ease-in-out;
+}
+
+.artists-input {
+  display: flex;
+  align-items: flex-end;
+  /* gap: 0.5rem; */
+  width: 100%;
+  justify-content: space-between;
+}
+
+.artist-input {
+  width: 50%;
+  position: relative;
+}
+
+.remove-artist {
+  position: absolute;
+  top: 9px;
+  right: 8px;
+  background-color: red;
+  color: white;
+  width: 18px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.remove-artist:hover {
+  background-color: rgb(179, 2, 2);
+  transition: 0.2s ease-in-out;
+}
+
+.artists-input button {
+  width: 47%;
+}
+
+.add-track{
+    margin-top: .8rem;
+}
+
+.artists-input button,
+.add-track,
+.remove-track {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.remove-track {
+  width: 35%;
+  color: white;
+  background-color: red;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+.remove-track:hover {
+  background-color: rgb(179, 0, 0);
+  transition: 0.2s ease-in-out;
+}
+
+.artists-input button:hover,
+.add-track:hover {
+  color: white;
+  background-color: black;
+  transition: 0.2s ease-in-out;
+}

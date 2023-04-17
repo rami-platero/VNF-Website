@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Oswald:wght@400;500;600;700&display=swap');
+
+.documentary-container.dark  {
+    background: linear-gradient(0deg, rgb(24, 25, 27) 0%, rgba(32,39,44,1) 100%);
+  color: white;
+}
+
+.documentary-wrapper.dark .info-wrapper p{
+    color: rgb(223, 223, 223);
+}
+
+.documentary-wrapper.dark .info-wrapper .watch-btn{
+    border: none;
+}

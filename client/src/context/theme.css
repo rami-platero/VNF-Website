@@ -1,0 +1,187 @@
+@import "./theme/forms.css";
+@import "./theme/main-page.css";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.nav-header.dark {
+  /* background: linear-gradient(0deg, rgb(23, 26, 29) 0%, rgb(31, 31, 31) 100%); */
+  background: rgba(0, 0, 0, 0.63);
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+
+.songs-container {
+  min-height: 100%;
+  height: auto !important;
+}
+
+.songs-container.dark,
+.form-container.dark {
+  background-color: rgb(23, 26, 29);
+  color: white;
+  padding-top: 100px;
+}
+
+.video-container.dark,
+.back-container.dark {
+  background-color: rgb(15, 17, 19);
+  color: white;
+}
+
+.post-container.dark,
+.backgrounds-container.dark,
+.form-bg-container.dark {
+  color: white;
+  background-color: rgb(23, 26, 29);
+}
+
+.songs-container.light,
+.form-container.light {
+  padding-top: 100px;
+}
+
+.song.dark {
+  background-color: rgb(31, 32, 34);
+}
+
+.link.active.dark,
+.link.inactive.dark {
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+
+.link.active.dark {
+  border-bottom: 1px solid white;
+  transition: 0.2s ease-in-out;
+}
+
+.link.inactive.dark:hover {
+  background-color: rgb(233, 233, 233);
+  color: black;
+  transition: 0.2s ease-in-out;
+}
+
+.logo.dark,
+.modal-logo.dark {
+  filter: invert();
+  transition: 0.2s ease-in-out;
+}
+
+/* ADD NEW SONG - PAGE */
+
+.back-btn.light {
+  color: black;
+  background-color: white;
+  transition: 0.2s ease-in-out;
+  border: 1px solid black;
+}
+
+.back-btn.light:hover {
+  color: white;
+  transition: 0.2s ease-in-out;
+  background-color: black;
+}
+
+.add-new.dark,
+.song-info.dark,
+.edit-song.dark {
+  color: white;
+  background: none;
+  transition: 0.2s ease-in-out;
+}
+
+.add-new.dark:hover,
+.edit-song:hover {
+  color: black;
+  background-color: white;
+  transition: 0.2s ease-in-out;
+}
+
+.form-container,
+.form-container.dark,
+.form-container.light {
+  min-height: 100%;
+  height: auto !important;
+}
+
+.artists-inputs.dark button {
+  background: rgb(17, 17, 17);
+  color: white;
+  border: 1px solid white;
+  transition: 0.2s ease-in-out;
+}
+
+.artists-inputs.dark button:hover {
+  background-color: white;
+  color: black;
+  transition: 0.2s ease-in-out;
+}
+
+.drop-container.dark,
+.drop-container-background.dark {
+  background-color: rgb(12, 12, 12);
+  transition: 0.2s ease-in-out;
+}
+
+.drop-container.dark:hover,
+.drop-container-background.dark:hover {
+  background-color: rgb(7, 7, 7);
+  transition: 0.2s ease-in-out;
+}
+
+/*LOGIN - SIGN UP*/
+.login-container.dark {
+  background-color: rgb(23, 26, 29);
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+
+.text-field.dark {
+  background-color: rgb(34, 34, 34);
+}
+
+.text-field.dark input {
+  color: white;
+}
+
+.login-btn.dark {
+  background: none;
+  border: 1.5px solid white;
+  transition: 0.2s ease-in-out;
+}
+
+.login-btn.dark:hover {
+  background-color: white;
+  color: black;
+  transition: 0.2s ease-in-out;
+}
+
+.log-out.dark {
+  border: 1px solid white;
+  background-color: white;
+  color: black;
+}
+
+.log-out.dark:hover {
+  background: none;
+  color: white;
+}
+
+/*BACKGROUNDS*/
+
+.bg-container.dark .download-bg-btn.dark {
+  color: white;
+  border: 1px solid white;
+}
+
+.bg-container.dark .download-bg-btn.dark:hover {
+  color: black;
+  background-color: white;
+  border: 1px solid white;
+}
+
+/*add new bg*/

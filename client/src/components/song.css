@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&display=swap");
+
+* {
+  font-family: "Inter";
+}
+
+.song {
+  box-shadow: rgba(0, 0, 0, 0.103) 0px 3px 8px;
+}
+
+.song.true {
+  position: relative;
+  opacity: 0.5;
+}
+
+.song.true::before {
+  content: "";
+  background-color: rgba(201, 201, 201, 0.596);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* @media screen and (max-width: 670px) {
+  .song {
+    max-width: 100%;
+  }
+} */
+
+/* .song:hover{
+    background-color: rgb(236, 236, 236);
+    transition: 0.2s ease-in-out;
+} */
+
+.song-wrapper {
+  padding: 1rem;
+  transition: 0.2s ease-in-out;
+  cursor: default;
+}
+
+.artwork {
+  overflow: hidden;
+  margin: 0 auto;
+  width: 100%;
+  height: 350px;
+}
+
+.artwork img {
+  margin: auto;
+  object-fit: cover;
+  min-height: 100%;
+  width: 100%;
+  transition: 0.2s ease-in-out;
+}
+
+.artwork img:hover {
+  transform: scale(1.1);
+  transition: 0.2s ease-in-out;
+}
+
+.song-container {
+  font-size: 1rem;
+}
+
+/*INFO*/
+
+.song-name,
+.artist-name,
+.song-upload-date,
+.song-genre {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.artist-name {
+  font-weight: 500;
+  color: rgb(163, 163, 163);
+}
+
+.song-upload-date {
+  margin-bottom: 1.5rem;
+}
+
+.song-status.Deleted {
+  font-size: 1rem;
+  color: red;
+}
+
+.song-status.Private {
+  color: rgb(147, 157, 201);
+  font-size: 1rem;
+}
+
+.song-info span {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.song-genre {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.genre-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(240, 54, 54);
+}
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.actions button {
+  cursor: pointer;
+  width: 150px;
+  padding: 0.4rem 0.5rem;
+}
+
+.remove-song {
+  background-color: red;
+  color: white;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+.edit-song {
+  background-color: white;
+  border: 1px solid;
+  transition: 0.2s ease-in-out;
+}
+
+.remove-song:hover {
+  transition: 0.2s ease-in-out;
+  background-color: rgb(180, 1, 1);
+  color: white;
+}
+
+.edit-song:hover {
+  transition: 0.2s ease-in-out;
+  background-color: black;
+  color: white;
+}
