@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useAuthContext } from "../hooks/useAuthContext";
 
 export const getSongsRequest = async () => {
   return await axios.get("/songs");
