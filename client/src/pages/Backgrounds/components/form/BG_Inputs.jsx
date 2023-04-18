@@ -1,101 +1,18 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import "./bg-inputs.css";
 import { mainContext } from "../../../../context/SongsContext";
+import { useBGForm } from "../../../../hooks/useBGForm";
 
-function BG_Inputs({ tracks, setTracks }) {
+function BG_Inputs() {
   const { theme } = useContext(mainContext);
-
-  const addInputField = (index, e) => {
-    e.preventDefault();
-    //setArtists([...artists, [{ name: "" }]]);
-    setTracks([
-      ...tracks,
-      {
-        artists: [{ name: "" }],
-        name: "",
-        youtube_link: "",
-      },
-    ]);
-  };
-
-  const handleTrackChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...tracks];
-    list[index][name] = value;
-    setTracks(list);
-  };
-
-  const removeTrack = (index, e) => {
-    e.preventDefault();
-    setTracks(
-      tracks.filter((track, idx) => {
-        return idx !== index;
-      })
-    );
-  };
-
-  const addArtist = (trackIndex, e) => {
-    e.preventDefault();
-    setTracks(
-      tracks.map((track, index) => {
-        if (index === trackIndex) {
-          return {
-            ...track,
-            artists: [...track.artists, { name: "" }] /* track.artists.reduce(
-              (arr, el, index) => {
-                arr.push(el);
-                return arr;
-              },
-              [{...track},{ name: "" }]
-            ), */,
-          };
-        } else {
-          return track;
-        }
-      })
-    );
-  };
-
-  const removeArtist = (trackIndex, index) => {
-    setTracks(
-      tracks.map((track, idx) => {
-        if (idx === trackIndex) {
-          return {
-            ...track,
-            artists: track.artists.filter((artist, indexAr) => {
-              return indexAr !== index;
-            }),
-          };
-        } else {
-          return track;
-        }
-      })
-    );
-  };
-
-  const handleArtistChange = (e, trackIndex, artistIndex) => {
-    const { value } = e.target;
-    setTracks(
-      tracks.map((track, index) => {
-        if (index === trackIndex) {
-          return {
-            ...track,
-            artists: track.artists.map((artist, indexArt) => {
-              if (indexArt === artistIndex) {
-                return { name: value };
-              } else {
-                return artist;
-              }
-            }),
-          };
-        } else {
-          return track;
-        }
-      })
-    );
-  };
+  const {addInputField,
+    addArtist,
+    removeTrack,
+    removeArtist,
+    handleArtistChange,
+    handleTrackChange,tracks} = useBGForm()
 
   return (
     <>

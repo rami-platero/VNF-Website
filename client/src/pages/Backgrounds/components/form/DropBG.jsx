@@ -3,11 +3,13 @@ import { useState } from "react";
 import { useContext } from "react";
 import { mainContext } from "../../../../context/SongsContext";
 import "./drop-bg.css";
+import { useBGForm } from "../../../../hooks/useBGForm";
 
-function DropBG({ file, backgroundPreview, setFile, setBackgroundPreview }) {
+function DropBG() {
   const { theme } = useContext(mainContext);
+  const {dragOver,dragEnter,dragLeave,fileDrop,handleImageReader,backgroundPreview} = useBGForm()
 
-  const dragOver = (e) => {
+  /* const dragOver = (e) => {
     e.preventDefault();
   };
   const dragEnter = (e) => {
@@ -47,7 +49,7 @@ function DropBG({ file, backgroundPreview, setFile, setBackgroundPreview }) {
       };
       setBackgroundPreview(fileobj);
     });
-  };
+  }; */
   return (
     <div className="drop-bg">
       <label htmlFor="background">Background</label>

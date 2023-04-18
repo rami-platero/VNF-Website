@@ -26,6 +26,7 @@ export const BgContextProvider = ({ children }) => {
   }, []);
 
   const postBg = async (body, user) => {
+    console.log(body)
     try {
       const res = await postBackground(body, user);
       setData([...data,res.data]);
