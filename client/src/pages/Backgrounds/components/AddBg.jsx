@@ -7,6 +7,7 @@ import BG_Inputs from "./form/BG_Inputs";
 import { BGForm } from "./form/BGForm.jsx";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
+import { useValFields, useValMultiFields } from "../../../hooks/useValFields";
 
 function AddBg() {
   const { theme } = useContext(mainContext);
@@ -26,6 +27,7 @@ function AddBg() {
     tracks,
     file,
     handleSubmit,
+    errors,
   } = BGForm();
 
   return (
@@ -60,9 +62,9 @@ function AddBg() {
                 onChange={(e) => {
                   handleImageReader(e);
                 }}
-                required
               />
             </div>
+            {useValFields(errors, "file") && <p>This field must be filled</p>}
           </div>
           <>
             {tracks.map((track, trackIndex) => {
@@ -80,6 +82,9 @@ function AddBg() {
                       handleTrackChange(e, trackIndex);
                     }}
                   />
+                  {useValFields(errors, "name", trackIndex) && (
+                    <p>This field must be filled</p>
+                  )}
                   <input
                     required
                     type="text"
@@ -91,6 +96,9 @@ function AddBg() {
                       handleTrackChange(e, trackIndex);
                     }}
                   />
+                  {useValFields(errors, "yt_link", trackIndex) && (
+                    <p>This field must be filled</p>
+                  )}
                   {track.artists.map((artist, index) => {
                     return (
                       <div key={index} className={`artists-input ${theme}`}>
@@ -106,6 +114,12 @@ function AddBg() {
                             }}
                             value={artist.name}
                           />
+                          {useValMultiFields(
+                            errors,
+                            index,
+                            "artist_name",
+                            trackIndex
+                          ) && <p>This field must be filled</p>}
                           {track.artists.length > 1 && (
                             <IoIosClose
                               size="1.2rem"
@@ -157,7 +171,7 @@ function AddBg() {
               );
             })}
           </>
-          <input type="submit" /> 
+          <input type="submit" />
         </form>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useContext } from "react";
 import { bgcontext } from "../../../../context/bgsContext";
 import { useNavigate } from "react-router-dom";
+import { formToJSON } from "axios";
 
 export const BGForm = () => {
   const { user } = useAuthContext();
@@ -18,6 +19,7 @@ export const BGForm = () => {
       youtube_link: "",
     },
   ]);
+  const [errors, setErrors] = useState([]);
 
   const dragOver = (e) => {
     e.preventDefault();
@@ -97,7 +99,7 @@ export const BGForm = () => {
         if (index === trackIndex) {
           return {
             ...track,
-            artists: [...track.artists, { name: "" }]
+            artists: [...track.artists, { name: "" }],
           };
         } else {
           return track;
@@ -145,14 +147,49 @@ export const BGForm = () => {
     );
   };
 
+  const validateForm = () => {
+    let errors = [];
+
+    tracks.forEach((track, index) => {
+      if (!track.name.trim()) {
+        errors.push({ index, type: "name" });
+      }
+    });
+
+    tracks.forEach((track, index) => {
+      if (!track.youtube_link.trim()) {
+        errors.push({ index, type: "yt_link" });
+      }
+    });
+
+    tracks.forEach((track,mainIndex) => {
+      track.artists.forEach((artist, index) => {
+        if (!artist.name.trim()) {
+          errors.push({ mainIndex, index, type: "artist_name" });
+          console.log("works")
+        }
+      });
+    });
+
+    if(!file){
+      errors.push({type: "file"})
+    }
+
+    return errors;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user.roles_name.includes("admin")) {
-      postBg({ tracks: [...tracks], file }, user);
+    if (validateForm().length) {
+      setErrors(validateForm());
     } else {
-      console.log("You are not authorized");
+      if (user.roles_name.includes("admin")) {
+        postBg({ tracks: [...tracks], file }, user);
+      } else {
+        console.log("You are not authorized");
+      }
+      navigate("/backgrounds");
     }
-    navigate("/backgrounds");
   };
 
   return {
@@ -170,5 +207,6 @@ export const BGForm = () => {
     handleArtistChange,
     handleTrackChange,
     tracks,
+    errors,
   };
 };
