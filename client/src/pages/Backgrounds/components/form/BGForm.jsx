@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useAuthContext } from "./useAuthContext";
+import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useContext } from "react";
-import { bgcontext } from "../context/bgsContext";
+import { bgcontext } from "../../../../context/bgsContext";
 import { useNavigate } from "react-router-dom";
 
-export const useBGForm = () => {
+export const BGForm = () => {
   const { user } = useAuthContext();
   const { postBg } = useContext(bgcontext);
   const navigate = useNavigate();
@@ -64,7 +64,6 @@ export const useBGForm = () => {
   /*HANDLE TRACKS*/
   const addInputField = (index, e) => {
     e.preventDefault();
-    //setArtists([...artists, [{ name: "" }]]);
     setTracks([
       ...tracks,
       {
@@ -98,13 +97,7 @@ export const useBGForm = () => {
         if (index === trackIndex) {
           return {
             ...track,
-            artists: [...track.artists, { name: "" }] /* track.artists.reduce(
-              (arr, el, index) => {
-                arr.push(el);
-                return arr;
-              },
-              [{...track},{ name: "" }]
-            ), */,
+            artists: [...track.artists, { name: "" }]
           };
         } else {
           return track;
@@ -131,7 +124,6 @@ export const useBGForm = () => {
   };
 
   const handleArtistChange = (e, trackIndex, artistIndex) => {
-    console.log("changing artist");
     const { value } = e.target;
     setTracks(
       tracks.map((track, index) => {

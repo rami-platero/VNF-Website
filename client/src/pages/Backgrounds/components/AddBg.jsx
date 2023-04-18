@@ -1,14 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "./add-bg.css";
 import Logo from "../../../assets/ncs-logo-resized.png";
 import { mainContext } from "../../../context/SongsContext";
 import DropBG from "./form/DropBG";
 import BG_Inputs from "./form/BG_Inputs";
-import { AuthContext } from "../../../context/authContext";
-import { useAuthContext } from "../../../hooks/useAuthContext";
-import { bgcontext } from "../../../context/bgsContext";
-import { useNavigate } from "react-router-dom";
-import { useBGForm } from "../../../hooks/useBGForm.jsx";
+import { BGForm } from "./form/BGForm.jsx";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 
@@ -30,7 +26,8 @@ function AddBg() {
     tracks,
     file,
     handleSubmit,
-  } = useBGForm();
+  } = BGForm();
+
   return (
     <div className={`form-bg-container ${theme}`}>
       <img src={Logo} className={`modal-logo ${theme}`} />
