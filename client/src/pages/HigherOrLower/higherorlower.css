@@ -37,16 +37,18 @@
   width: 50%;
 }
 
-.current-content, .next-content {
+.current-content,
+.next-content {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.current-content .info, .next-content .info{
-    margin-top: .5rem;
-    align-self: self-start;
+.current-content .info,
+.next-content .info {
+  margin-top: 0.5rem;
+  align-self: self-start;
 }
 
 .current-content .song-title,
@@ -64,12 +66,14 @@
 
 .current-content p,
 .current-content .views-amount,
-.next-content p, .next-content .views-amount {
+.next-content p,
+.next-content .views-amount {
   text-align: center;
   align-self: center;
 }
 
-.current-content .views-amount, .next-content .views-amount {
+.current-content .views-amount,
+.next-content .views-amount {
   font-size: 4rem;
   color: rgb(255, 255, 172);
 }
@@ -95,9 +99,9 @@
 .next-content .buttons-high-low {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
   align-items: center;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .next-content button {
@@ -124,32 +128,101 @@
   transition: 0.2s ease-in-out;
 }
 
-.high-low-container .score{
-    padding: 1rem;
-    position: absolute;
-    bottom: 0;
+.high-low-container .score {
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
 }
 
-.gameState{
-    color: black;
-    font-size: 2rem;
-    display: flex;
+.gameState {
+  color: black;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  position: fixed;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -50px;
+  background-color: rgb(255, 255, 255);
+}
+
+.gameState img {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 1100px) {
+  .gameState {
+    width: 70px;
+    height: 70px;
+    margin-top: -35px;
+    margin-left: -35px;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 891px) {
+  /* .gameState{
+    width: 70px;
+    height: 70px;
+    margin-top: -35px;
+    margin-left: -35px;
+    font-size: 1.5rem;
+  } */
+  .gameState {
+    width: 50px;
+    height: 50px;
+    margin-top: -25px;
+    margin-left: -25px;
+    font-size: 1rem;
+  }
+  .high-low-container {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 100%;
-    position: fixed;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100px;
-    height: 100px;
-    margin-top: -50px;
-    margin-left: -50px;
-    background-color: rgb(255, 255, 255);
-}
-
-.gameState img{
+    min-height: 100%;
+    height: auto !important;
+    overflow-y: hidden;
+  }
+  .next,
+  .current {
+    min-height: 100%;
+    height: 50vh;
+    min-width: 100%;
     width: 100%;
-    height: 100%;
+  }
+  .high-low-container img {
+    max-width: 150px;
+    width: 15vh;
+    height: 15vh;
+    aspect-ratio: 1/1;
+  }
+  .current-content .views-amount,
+  .next-content .views-amount {
+    font-size: 2.5rem;
+    color: rgb(255, 255, 172);
+  }
+  .current-content .artists-list,
+  .next-content .artists-list {
+    margin-bottom: 1rem;
+  }
+  .next-content button{
+    padding: .4rem 3rem;
+    font-size: .9rem;
+  }
+  .high-low-container .score{
+    font-size: .8rem;
+    padding: .5rem;
+    left: 0;
+  }
+  .next-content .buttons-high-low p{
+    font-size: .9rem;
+  }
 }
