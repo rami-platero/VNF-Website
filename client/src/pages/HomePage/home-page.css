@@ -124,6 +124,9 @@ main {
   }
 }
 
+
+
+
 .documentary-container {
   display: flex;
   flex-direction: column;
@@ -135,7 +138,7 @@ main {
   margin: 0 auto;
   justify-content: space-between;
   max-width: 1500px;
-  padding: 5rem;
+  padding: 5rem 2rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

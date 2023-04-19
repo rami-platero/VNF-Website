@@ -35,3 +35,8 @@
   transition: 0.2s ease-in-out;
 }
 
+.val-text{
+  font-size: .8rem;
+  color: rgb(255, 61, 61);
+}
+

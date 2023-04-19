@@ -42,7 +42,7 @@ function DeletedInfo({ song, artistsList }) {
           <p>
             <span>Duration:</span> {song.duration}
           </p>
-          <p style={{ color: "red" }}>
+          <p /* style={{ color: "red" }} */>
             <span>Genre:</span> {song.genre}
           </p>
           <p className="trivia">

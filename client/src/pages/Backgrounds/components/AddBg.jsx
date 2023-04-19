@@ -4,10 +4,12 @@ import Logo from "../../../assets/ncs-logo-resized.png";
 import { mainContext } from "../../../context/SongsContext";
 import DropBG from "./form/DropBG";
 import BG_Inputs from "./form/BG_Inputs";
-import { BGForm } from "./form/BGForm.jsx";
+import { BGForm } from "./BGForm.jsx";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { useValFields, useValMultiFields } from "../../../hooks/useValFields";
+import BackButton from "../../../components/UI/BackButton";
+import { memo } from "react";
 
 function AddBg() {
   const { theme } = useContext(mainContext);
@@ -25,23 +27,21 @@ function AddBg() {
     handleArtistChange,
     handleTrackChange,
     tracks,
-    file,
     handleSubmit,
     errors,
   } = BGForm();
 
   return (
     <div className={`form-bg-container ${theme}`}>
+      <BackButton />
       <img src={Logo} className={`modal-logo ${theme}`} />
       <h1>Add Background</h1>
       <div className={`form-bg-container-wrapper ${theme}`}>
         <form onSubmit={handleSubmit}>
-          {/* <DropBG />
-          <BG_Inputs /> */}
           <div className="drop-bg">
             <label htmlFor="background">Background</label>
             <div
-              className={`drop-container-background ${theme}`}
+              className={`drop-container-background ${theme} ${useValFields(errors, "file")}`}
               onDragOver={dragOver}
               onDragEnter={dragEnter}
               onDragLeave={dragLeave}
@@ -64,7 +64,7 @@ function AddBg() {
                 }}
               />
             </div>
-            {useValFields(errors, "file") && <p>This field must be filled</p>}
+            {useValFields(errors, "file") && <p className="val-text">This field must be filled</p>}
           </div>
           <>
             {tracks.map((track, trackIndex) => {
@@ -83,7 +83,7 @@ function AddBg() {
                     }}
                   />
                   {useValFields(errors, "name", trackIndex) && (
-                    <p>This field must be filled</p>
+                    <p className="val-text">This field must be filled</p>
                   )}
                   <input
                     required
@@ -97,10 +97,11 @@ function AddBg() {
                     }}
                   />
                   {useValFields(errors, "yt_link", trackIndex) && (
-                    <p>This field must be filled</p>
+                    <p className="val-text">This field must be filled</p>
                   )}
                   {track.artists.map((artist, index) => {
                     return (
+                      <>
                       <div key={index} className={`artists-input ${theme}`}>
                         <div className="artist-input">
                           <input
@@ -113,13 +114,7 @@ function AddBg() {
                               handleArtistChange(e, trackIndex, index);
                             }}
                             value={artist.name}
-                          />
-                          {useValMultiFields(
-                            errors,
-                            index,
-                            "artist_name",
-                            trackIndex
-                          ) && <p>This field must be filled</p>}
+                          /> 
                           {track.artists.length > 1 && (
                             <IoIosClose
                               size="1.2rem"
@@ -128,10 +123,8 @@ function AddBg() {
                                 removeArtist(trackIndex, index);
                               }}
                             ></IoIosClose>
-                          )}
+                          )}        
                         </div>
-
-                        {/* <div className="artist-actions"> */}
                         {index == track.artists.length - 1 &&
                           track.artists.length <= 8 && (
                             <button
@@ -144,6 +137,14 @@ function AddBg() {
                             </button>
                           )}
                       </div>
+                      {useValMultiFields(
+                        errors,
+                        index,
+                        "artist_name",
+                        trackIndex
+                      ) && <p className="val-text">This field must be filled</p>}
+                      </>
+                      
                     );
                   })}
                   {tracks.length > 1 && (
@@ -178,4 +179,4 @@ function AddBg() {
   );
 }
 
-export default AddBg;
+export default memo(AddBg);

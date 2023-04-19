@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useAuthContext } from "../../../../hooks/useAuthContext";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useContext } from "react";
-import { bgcontext } from "../../../../context/bgsContext";
+import { bgcontext } from "../../../context/bgsContext";
 import { useNavigate } from "react-router-dom";
 import { formToJSON } from "axios";
 
@@ -166,7 +166,6 @@ export const BGForm = () => {
       track.artists.forEach((artist, index) => {
         if (!artist.name.trim()) {
           errors.push({ mainIndex, index, type: "artist_name" });
-          console.log("works")
         }
       });
     });

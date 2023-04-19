@@ -1,0 +1,34 @@
+.back-btn {
+  width: fit-content;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  position: relative;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.329);
+  border: 1px solid white;
+  transition: 0.2s ease-in-out;
+}
+
+.back-btn:hover {
+  transition: 0.2s ease-in-out;
+  border: 1px solid rgb(0, 0, 0);
+  color: black;
+  background-color: rgb(255, 255, 255);
+}
+
+.back-btn.light {
+  color: black;
+  background-color: white;
+  transition: 0.2s ease-in-out;
+  border: 1px solid black;
+}
+
+.back-btn.light:hover {
+  color: white;
+  transition: 0.2s ease-in-out;
+  background-color: black;
+}

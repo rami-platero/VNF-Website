@@ -7,13 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import "./addsong.css";
 import "./newsong.css";
+import BackButton from './UI/BackButton.jsx'
 
 //ICONS
 
-import { IoArrowBack } from "react-icons/io5";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
-import { IoIosRemove } from "react-icons/io";
 
 
 function AddSong() {
@@ -163,15 +162,7 @@ function AddSong() {
 
   return (
     <div className={`form-container ${theme}`}>
-      <button
-        className={`back-btn ${theme}`}
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        <IoArrowBack />
-        Back
-      </button>
+      <BackButton />
       <img src={Logo} className={`modal-logo ${theme}`} />
       <h1 className="title">Add a new song</h1>
       <form onSubmit={handleSubmit}>
@@ -213,13 +204,6 @@ function AddSong() {
                   }}
                 ></IoIosClose>
               )}
-              {/* <IoIosAdd
-                className="add-more"
-                onClick={(e) => {
-                  addInputField();
-                }}
-              />
-              <IoIosRemove className="remove"/> */}
             </div>
           );
         })}

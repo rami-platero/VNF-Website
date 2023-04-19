@@ -123,11 +123,6 @@ function DeletedSong() {
                 </div>
               </div>
             </div>
-
-            {/* <div className="description">
-              <h5>Description</h5>
-              <div>{song.original_description}</div>
-            </div> */}
           </div>
         </div>
       </section>

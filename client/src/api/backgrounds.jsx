@@ -34,7 +34,7 @@ export const putBackground = async (id, body, user) => {
   });
 };
 export const delBackground = async (id, user) => {
-  return await axios.del(`/backgrounds/${id}`, body, {
+  return await axios.delete(`/backgrounds/${id}`, {
     headers: {
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${user.token}`,

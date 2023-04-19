@@ -23,17 +23,6 @@
   height: 100%;
 }
 
-/* @media screen and (max-width: 670px) {
-  .song {
-    max-width: 100%;
-  }
-} */
-
-/* .song:hover{
-    background-color: rgb(236, 236, 236);
-    transition: 0.2s ease-in-out;
-} */
-
 .song-wrapper {
   padding: 1rem;
   transition: 0.2s ease-in-out;
@@ -44,13 +33,12 @@
   overflow: hidden;
   margin: 0 auto;
   width: 100%;
-  height: 350px;
+  aspect-ratio: 1/1;
 }
 
 .artwork img {
   margin: auto;
   object-fit: cover;
-  min-height: 100%;
   width: 100%;
   transition: 0.2s ease-in-out;
 }

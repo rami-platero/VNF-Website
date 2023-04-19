@@ -52,22 +52,6 @@ function HomePage() {
               className="scroll-down"
               size={"4rem"}
             />
-            {/* <div className="player-wrapper">
-              <div className="react-player-wrapper">
-                <ReactPlayer
-                  controls
-                  url={"https://www.youtube.com/watch?v=9O1mGkdKlyE&t=0s"}
-                  config={{
-                    youtube: {
-                      playerVars: { showinfo: 0 },
-                    },
-                  }}
-                  className="react-player"
-                  width="100%"
-                  height="100%"
-                />
-              </div>
-            </div> */}
           </div>
         </div>
         {scroll && (
@@ -83,12 +67,12 @@ function HomePage() {
                     beginning, 2011, back when Billy Woodford decided to create NoCopyrightSounds, it started as a promo channel for free music, and later would become a record label and be
                     considered the #1 source for free copyright music on the
                     platform while providing a great variety of music genres.
-                    <br />
+                    {/* <br />
                     But in this documentary, for those who have recently
                     discovered NCS will know more about songs that got deleted
                     but played a big part to help the label grow, facts that only some
                     of the OG fans remember or know, and more. Make sure you
-                    check out our documentary.
+                    check out our documentary. */}
                   </p>
                     <Link target="_blank" className="watch-btn" to={"https://www.youtube.com/watch?v=9O1mGkdKlyE"}>
                       Watch On YouTube

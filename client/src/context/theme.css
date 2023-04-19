@@ -9,7 +9,7 @@ body {
 
 .nav-header.dark {
   /* background: linear-gradient(0deg, rgb(23, 26, 29) 0%, rgb(31, 31, 31) 100%); */
-  background: rgba(0, 0, 0, 0.63);
+  background: rgba(0, 0, 0, 0.795);
   color: white;
   transition: 0.2s ease-in-out;
 }
@@ -19,11 +19,10 @@ body {
   height: auto !important;
 }
 
-.songs-container.dark,
-.form-container.dark {
+.songs-container.dark {
   background-color: rgb(23, 26, 29);
   color: white;
-  padding-top: 100px;
+  padding-top: 82px;
 }
 
 .video-container.dark,
@@ -39,9 +38,18 @@ body {
   background-color: rgb(23, 26, 29);
 }
 
-.songs-container.light,
-.form-container.light {
+.form-container.dark{
+  background-color: rgb(23, 26, 29);
+  color: white;
   padding-top: 100px;
+}
+
+.form-container.light{
+  padding-top: 100px;
+}
+
+.songs-container.light{
+  padding-top: 82px;
 }
 
 .song.dark {
@@ -72,19 +80,6 @@ body {
 }
 
 /* ADD NEW SONG - PAGE */
-
-.back-btn.light {
-  color: black;
-  background-color: white;
-  transition: 0.2s ease-in-out;
-  border: 1px solid black;
-}
-
-.back-btn.light:hover {
-  color: white;
-  transition: 0.2s ease-in-out;
-  background-color: black;
-}
 
 .add-new.dark,
 .song-info.dark,
