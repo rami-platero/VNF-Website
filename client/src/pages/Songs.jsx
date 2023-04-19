@@ -12,15 +12,7 @@ const Songs = () => {
   //SORT
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  const bgStyle = {
-    "--featuredBG": `url(${delSongs[4]?.background.url})`,
-  };
-  const artistsList = delSongs[4]?.artists
-    .map((artist) => {
-      return artist.name;
-    })
-    .join(", ");
-
+ 
   const setitemsFunction = async () => {
     const res = await getSongsFilter();
     setItems(res.data.sort((a, b) => {
@@ -34,17 +26,17 @@ const Songs = () => {
 
   return (
     <div className={`songs-container ${theme}`}>
-      <div className="featured-song-container" style={{ bgStyle }}>
+      <div className="featured-song-container">
         <div className="featured-song">
-          <img src={delSongs[4]?.artwork?.url} />
+          <img src={"https://res.cloudinary.com/dikp1fayh/image/upload/v1681423383/artworks/bj47nqc9mxhdt7nmpfaf.jpg"} />
           <div className="info">
             <p>Featured Deleted Release</p>
             <div className="data">
-              <h3>{delSongs[4]?.name}</h3>
-              <h5>{artistsList}</h5>
+              <h3>Milton Keynes VIP</h3>
+              <h5>Jarvis</h5>
             </div>
             <div className="link-btn">
-              <a href={delSongs[4]?.link} target="_blank">
+              <a href="https://www.youtube.com/watch?v=fmHoZs9-BLk" target="_blank">
                 <IoLogoYoutube size={"1rem"} /> Watch on YouTube
               </a>
             </div>

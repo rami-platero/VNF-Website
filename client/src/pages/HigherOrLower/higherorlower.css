@@ -1,0 +1,148 @@
+.high-low-container {
+  min-height: 100%;
+  display: flex;
+  color: white;
+  position: relative;
+}
+
+.high-low-container img {
+  width: 100%;
+  max-width: 360px;
+}
+
+.current::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background-image: var(--random1BG);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: brightness(15%);
+}
+
+.next,
+.current {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 100%;
+  width: 50%;
+}
+
+.current-content, .next-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.current-content .info, .next-content .info{
+    margin-top: .5rem;
+    align-self: self-start;
+}
+
+.current-content .song-title,
+.next-content .song-title {
+  font-size: 1.3rem;
+}
+
+.current-content .artists-list,
+.next-content .artists-list {
+  margin-bottom: 2rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: rgb(202, 202, 202);
+}
+
+.current-content p,
+.current-content .views-amount,
+.next-content p, .next-content .views-amount {
+  text-align: center;
+  align-self: center;
+}
+
+.current-content .views-amount, .next-content .views-amount {
+  font-size: 4rem;
+  color: rgb(255, 255, 172);
+}
+
+.next::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background-image: var(--random2BG);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: brightness(15%);
+}
+
+.next-content {
+  position: relative;
+}
+
+.next-content .buttons-high-low {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  align-items: center;
+  margin-top: .5rem;
+}
+
+.next-content button {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 90px;
+  font-size: 1rem;
+  outline: none;
+  background: none;
+  padding: 0.5rem 4rem;
+  color: white;
+  border: 2px solid white;
+  border-radius: 1rem;
+  transition: 0.2s ease-in-out;
+}
+
+.next-content button:hover {
+  background-color: white;
+  color: black;
+  transition: 0.2s ease-in-out;
+}
+
+.high-low-container .score{
+    padding: 1rem;
+    position: absolute;
+    bottom: 0;
+}
+
+.gameState{
+    color: black;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    position: fixed;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -50px;
+    background-color: rgb(255, 255, 255);
+}

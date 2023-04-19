@@ -66,15 +66,18 @@ function Song({ song }) {
           <div className="song-wrapper">
             <div className="song-container">
               <div className={`song-info ${theme}`}>
-                <h3 className="song-name">{song.name}</h3>
-                <h3 className="artist-name">{artistsList}</h3>
-                <h3 className="song-genre">
+                <p className="song-name">{song.name}</p>
+                <p className="artist-name">{artistsList}</p>
+                <p className="song-genre">
                   {/* <div className="genre-circle"></div> */}
                   {song.genre}
-                </h3>
-                <h3 className="song-upload-date">
+                </p>
+                <p>
+                  Views: <span style={{color: "#bebebe"}}>{song.views.toLocaleString("en-US")}</span>
+                </p>
+                <p className="song-upload-date">
                   Date Uploaded: {song.upload_date}
-                </h3>
+                </p>
                 <h3>
                   {/* Status: */}
                   <span className={`song-status ${song.status}`}>

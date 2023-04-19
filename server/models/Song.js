@@ -28,7 +28,7 @@ const songSchema = new Schema({
   },
   original_link: String,
   original_description: String,
-  views: Number,
+  views: { type: String, default: 0 },
   views_date: String,
 });
 

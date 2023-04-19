@@ -26,10 +26,10 @@ const Filters = () => {
               return el;
             })
             .sort((a, b) => {
-              return a.views - b.views;
+              return b.views - a.views;
             })
             .filter((song) => {
-              return song.name.toLowerCase().includes(query);
+              return song.name.toLowerCase().includes(query.toLowerCase())
             })
         );
         break;
@@ -43,7 +43,7 @@ const Filters = () => {
               return a.views - b.views;
             })
             .filter((song) => {
-              return song.name.toLowerCase().includes(query);
+              return song.name.toLowerCase().includes(query.toLowerCase());
             })
         );
         break;
@@ -57,7 +57,7 @@ const Filters = () => {
               return new Date(a.upload_date) - new Date(b.upload_date);
             })
             .filter((song) => {
-              return song.name.toLowerCase().includes(query);
+              return song.name.toLowerCase().includes(query.toLowerCase());
             })
         );
         break;
@@ -71,7 +71,7 @@ const Filters = () => {
               return new Date(b.upload_date) - new Date(a.upload_date);
             })
             .filter((song) => {
-              return song.name.toLowerCase().includes(query);
+              return song.name.toLowerCase().includes(query.toLowerCase());
             })
         );
         break;

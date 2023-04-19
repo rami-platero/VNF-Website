@@ -13,6 +13,8 @@ import Backgrounds from "./pages/Backgrounds/Backgrounds.jsx";
 import { BgContextProvider } from "./context/bgsContext.jsx";
 import AddBg from "./pages/Backgrounds/components/AddBg.jsx";
 import axios from "axios";
+import ScrollToTop from "./components/ScrollToTop.jsx";
+import HigherOrLower from "./pages/HigherOrLower/HigherOrLower.jsx";
 
 function App() {
   axios.defaults.baseURL = `https://vnf-website-api.onrender.com/`;
@@ -21,8 +23,10 @@ function App() {
       <BgContextProvider>
         <BrowserRouter>
           <Navigation />
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/HigherOrLower" element={<HigherOrLower />} />
             <Route path="/deleted-songs" element={<Songs />} />
             <Route path="/backgrounds" element={<Backgrounds />} />
             <Route path="/add-background" element={<AddBg />} />

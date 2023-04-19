@@ -54,17 +54,20 @@
 
 /*INFO*/
 
-.song-name,
-.artist-name,
-.song-upload-date,
-.song-genre {
+.song-info {
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;  
+}
+
+.song-container p{
   font-size: 0.85rem;
   font-weight: 500;
 }
 
 .artist-name {
   font-weight: 500;
-  color: rgb(163, 163, 163);
+  color: #a3a3a3;
 }
 
 .song-upload-date {
@@ -81,7 +84,7 @@
   font-size: 1rem;
 }
 
-.song-info span {
+.song-info h3 span {
   font-size: 1.2rem;
   display: flex;
   align-items: center;
@@ -96,12 +99,8 @@
   gap: 0.5rem;
 }
 
-.genre-circle {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: rgb(240, 54, 54);
-}
+
+
 
 .actions {
   margin-top: 1rem;

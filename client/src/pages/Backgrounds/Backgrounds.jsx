@@ -7,6 +7,7 @@ import { mainContext } from "../../context/SongsContext";
 import BG from "./components/BG";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import BackButton from '../../components/UI/BackButton'
 
 function Backgrounds() {
   const { data } = useContext(bgcontext);
@@ -15,6 +16,7 @@ function Backgrounds() {
   const navigate = useNavigate();
   return (
     <div className={`backgrounds-container ${theme}`}>
+      <BackButton />
       {user!=null && user?.roles_name?.includes("admin") && (
         <button
           onClick={() => {
