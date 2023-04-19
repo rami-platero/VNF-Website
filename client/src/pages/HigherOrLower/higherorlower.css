@@ -3,6 +3,8 @@
   display: flex;
   color: white;
   position: relative;
+  user-select: none;
+  overflow-x: hidden;
 }
 
 .high-low-container img {
@@ -145,4 +147,9 @@
     margin-top: -50px;
     margin-left: -50px;
     background-color: rgb(255, 255, 255);
+}
+
+.gameState img{
+    width: 100%;
+    height: 100%;
 }

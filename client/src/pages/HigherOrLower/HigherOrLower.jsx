@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import "./higherorlower.css";
 import { mainContext } from "../../context/SongsContext";
 import { RiArrowDropDownFill } from "react-icons/ri";
 import { RiArrowDropUpFill } from "react-icons/ri";
+import Loading from "../../assets/loading.gif";
 
 const HigherOrLower = () => {
   const { getSongsFilter } = useContext(mainContext);
@@ -12,26 +13,31 @@ const HigherOrLower = () => {
   const [revealViews, setRevealViews] = useState(false);
   const [gameState, setGameState] = useState(true);
   const [score, setScore] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const getSongs = async () => {
-      const res = await getSongsFilter();
-      setSongs(res.data);
-      let random1 = Math.floor(Math.random() * res.data.length);
-      let random2;
-      do {
-        random2 = Math.floor(Math.random() * res.data.length);
-      } while (random1 === random2);
-      setRandomIndex(random1);
-      setRandomIndex2(random2);
-    };
-    getSongs();
+    if (gameState) {
+      const getSongs = async () => {
+        const res = await getSongsFilter();
+        setSongs(res.data);
+        let random1 = Math.floor(Math.random() * res.data.length);
+        let random2;
+        do {
+          random2 = Math.floor(Math.random() * res.data.length);
+        } while (random1 === random2);
+        setRandomIndex(random1);
+        setRandomIndex2(random2);
+      };
+      getSongs();
+    }
   }, [gameState]);
 
   const handleGame = async (pick) => {
     if (pick === "lower") {
       if (songs[randomIndex2]?.views < songs[randomIndex]?.views) {
+        setLoading(true);
         setScore(score + 1);
+        setEnd(songs[randomIndex2]?.views)
         setRevealViews(true);
         let newRandom;
         await new Promise((resolve) => {
@@ -44,7 +50,10 @@ const HigherOrLower = () => {
           setRandomIndex(randomIndex2);
           setRandomIndex2(newRandom);
           setRevealViews(false);
+          setLoading(false);
         }, 3000);
+        ref.current = 0
+        setState(0)
       } else {
         setGameState(false);
         setScore(0);
@@ -52,6 +61,8 @@ const HigherOrLower = () => {
       }
     } else if (pick === "higher") {
       if (songs[randomIndex2]?.views > songs[randomIndex]?.views) {
+        setLoading(true);
+        setEnd(songs[randomIndex2]?.views)
         setScore(score + 1);
         setRevealViews(true);
         let newRandom;
@@ -65,7 +76,10 @@ const HigherOrLower = () => {
           setRandomIndex(randomIndex2);
           setRandomIndex2(newRandom);
           setRevealViews(false);
+          setLoading(false);
         }, 3000);
+        ref.current = 0
+        setState(0)
       } else {
         setGameState(false);
         setScore(0);
@@ -73,6 +87,25 @@ const HigherOrLower = () => {
       }
     }
   };
+
+  const [state, setState] = useState(0);
+  const [end, setEnd] = useState(null)
+  const ref = useRef(0);
+  const accum = end / 250;
+
+  const updateCounterState = () => {
+    if(ref.current < end){
+        const result = Math.ceil(ref.current + accum)
+        if(result > end) return setState(end)
+        setState(result)
+        ref.current = result
+    }
+    setTimeout(updateCounterState, 1)
+  };
+
+  useEffect(() => {
+      updateCounterState();
+  }, [end]);
 
   return (
     <div className="high-low-container">
@@ -137,7 +170,8 @@ const HigherOrLower = () => {
           ) : (
             <>
               <h1 className="views-amount">
-                {songs[randomIndex2]?.views.toLocaleString("en-US")}
+                {state?.toLocaleString("en-US")}
+                {/* {songs[randomIndex2]?.views.toLocaleString("en-US")} */}
               </h1>
               <h3 style={{ textAlign: "center" }}>VIEWS</h3>
             </>
@@ -145,7 +179,13 @@ const HigherOrLower = () => {
         </div>
       </div>
       <p className="score">Score: {score}</p>
-      <div className="gameState">VS</div>
+      {gameState ? (
+        <div className="gameState">
+          {loading ? <img src={Loading} /> : <>VS</>}
+        </div>
+      ) : (
+        <div className="gameState">X</div>
+      )}
     </div>
   );
 };
