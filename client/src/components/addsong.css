@@ -13,6 +13,17 @@ input[type="number"]::-webkit-inner-spin-button {
   display: none;
 }
 
+.form-container form input[type=time],.form-container form input[type=date] {
+  text-align: left;
+  color: black;
+}
+
+.form-container form input[type="time"]:before, .form-container form input[type="date"]:before {
+  color: #6d6d6d;
+  content: attr(placeholder) !important;
+  margin-right: 0.5em;
+}
+
 .form-container.light,
 .form-container {
   background-color: rgb(255, 255, 255);
@@ -57,8 +68,12 @@ input[type="number"]::-webkit-inner-spin-button {
   transition: 0.2s ease-in-out;
 }
 
-.form-container input[type="text"]:not(:placeholder-shown) {
-  border-color: rgb(22, 247, 255);
+.form-container input:not([type="submit"]):not(:placeholder-shown),.description-input:not(:placeholder-shown) {
+  border-bottom: 1px solid rgb(22, 247, 255);
+}
+
+.form-container input:invalid{
+  border-bottom: none;
 }
 
 .form-container form label {

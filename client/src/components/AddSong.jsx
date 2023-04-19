@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext} from "react";
 import { useState } from "react";
 
 import Logo from "../assets/ncs-logo-resized.png";
@@ -7,13 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import "./addsong.css";
 import "./newsong.css";
-import BackButton from './UI/BackButton.jsx'
+import BackButton from "./UI/BackButton.jsx";
 
 //ICONS
 
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
-
+import { useDropArtwork } from "../hooks/useDrop";
 
 function AddSong() {
   const { postSong, theme } = useContext(mainContext);
@@ -31,7 +31,8 @@ function AddSong() {
     views: "",
     views_date: "",
   });
-  const [artwork, setArtwork] = useState(null);
+  /* const [artwork, setArtwork] = useState(null); */
+  const {artwork,artworkPreview,fileDrop,handleImageReader} = useDropArtwork()
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -56,7 +57,6 @@ function AddSong() {
     setArtists([...artists, { name: "" }]);
   };
 
-  const ref = useRef();
   const { user } = useAuthContext();
 
   const handleSubmit = (e) => {
@@ -80,7 +80,6 @@ function AddSong() {
   };
 
   // ARTOWKR DRAG N DROP
-  const [artworkPreview, setArtworkPreview] = useState(null);
   const dragOver = (e) => {
     e.preventDefault();
   };
@@ -90,40 +89,6 @@ function AddSong() {
   const dragLeave = (e) => {
     e.preventDefault();
   };
-  const fileDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    setArtwork(e.dataTransfer.files[0]);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileobj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      setArtworkPreview(fileobj);
-    });
-  };
-
-  const handleImageReader = (e) => {
-    const file = e.target.files[0];
-    setArtwork(e.target.files[0]);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileobj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      setArtworkPreview(fileobj);
-    });
-  };
-
-  //BACKGROUND DRAG AND DROP
   const [background, setBackground] = useState(null);
   const [backgroundPreview, setBackgroundPreview] = useState(null);
 
@@ -207,19 +172,13 @@ function AddSong() {
             </div>
           );
         })}
-        {/* <label htmlFor="upload_date">Upload Date</label> */}
         <input
-          type="text"
+          type="date"
           placeholder="Upload Date"
           name="upload_date"
           onChange={handleChange}
           required
           autoComplete="off"
-          ref={ref}
-          onFocus={() => {
-            ref.current.type = "date";
-          }}
-          onBlur={() => (ref.current.type = "date")}
         />
         <input
           type="text"
@@ -239,17 +198,12 @@ function AddSong() {
         />
         {/* <label htmlFor="duration">Duration</label> */}
         <input
-          type="text"
           placeholder="Duration"
           name="duration"
           onChange={handleChange}
           autoComplete="off"
           required
-          /* ref={refTime}
-          onFocus={() => {
-            ref.current.type = "time";
-          }}
-          onBlur={() => (ref.current.type = "time")} */
+          type="time"
         />
         <input
           type="text"
@@ -294,7 +248,6 @@ function AddSong() {
           name="original_link"
           onChange={handleChange}
           autoComplete="off"
-          required
         />
         <textarea
           spellcheck="false"
@@ -304,7 +257,6 @@ function AddSong() {
           className={`description-input ${theme}`}
           onChange={handleChange}
           autoComplete="off"
-          required
         />
         <div className="views-inputs">
           <input
@@ -313,15 +265,13 @@ function AddSong() {
             name="views"
             onChange={handleChange}
             autoComplete="off"
-            required
           />
           <input
-            type="text"
+            type="date"
             placeholder="As of Date (Views)"
             onChange={handleChange}
             name="views_date"
             autoComplete="off"
-            required
           />
         </div>
         <label htmlFor="background">Background</label>

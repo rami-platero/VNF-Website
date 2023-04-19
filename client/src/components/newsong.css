@@ -69,10 +69,6 @@ textarea:focus {
   transition: 0.2s ease-in-out;
 }
 
-.form-container-modal input[type="text"]:not(:placeholder-shown) {
-  border-color: rgb(22, 247, 255);
-}
-
 .form-container form,
 .form-container-modal form {
   margin: 0;

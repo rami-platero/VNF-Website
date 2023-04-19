@@ -10,6 +10,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
+import {RiArrowUpDownLine} from "react-icons/ri";
 
 function Navigation() {
   const { theme, handleTheme } = useContext(mainContext);
@@ -52,6 +53,17 @@ function Navigation() {
               >
                 Backgrounds
               </NavLink>
+              <NavLink
+                to={"/HigherOrLower"}
+                onClick={() => {
+                  setOpen(false);
+                }}
+                className={({ isActive }) =>
+                  isActive ? `link active ${theme}` : `link inactive ${theme}`
+                }
+              >
+                Higher or Lower <RiArrowUpDownLine/>
+              </NavLink>
             </div>
           )}
           <div className="pages-nav desktop">
@@ -88,7 +100,6 @@ function Navigation() {
               Backgrounds
             </NavLink>
           </div>
-
           <div className="links">
             <div className="hamburger-container">
               {!open ? (
