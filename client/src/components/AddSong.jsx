@@ -1,4 +1,4 @@
-import { useContext} from "react";
+import { useContext } from "react";
 import { useState } from "react";
 
 import Logo from "../assets/ncs-logo-resized.png";
@@ -32,7 +32,8 @@ function AddSong() {
     views_date: "",
   });
   /* const [artwork, setArtwork] = useState(null); */
-  const {artwork,artworkPreview,fileDrop,handleImageReader} = useDropArtwork()
+  const { artwork, artworkPreview, fileDrop, handleImageReader } =
+    useDropArtwork();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -237,7 +238,6 @@ function AddSong() {
             name="artwork"
             onChange={(e) => {
               handleImageReader(e);
-              setArtwork(e.target.files[0]);
             }}
           />
         </div>

@@ -15,6 +15,9 @@
 }
 
 .songs-container {
+  padding-top: 75px;
+  min-height: 100%;
+  height: auto !important;
   background-color: white;
 }
 

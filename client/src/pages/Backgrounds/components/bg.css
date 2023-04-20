@@ -68,31 +68,6 @@
   }
 }
 
-.progress-text{
-  user-select: none;
-  font-weight: 500;
-  z-index: 8;
-  color: white;
-  background-color: rgb(66, 66, 66);
-  width: fit-content;
-  padding: .3rem;
-  font-size: 1rem;
-}
-
-.progress-text-server{
-  user-select: none;
-  font-weight: 500;
-  z-index: 8;
-  color: rgb(0, 53, 3);
-  width: fit-content;
-  padding: .3rem;
-  font-size: .8rem;
-}
-
-.progress-container{
-  display: flex;
-  align-items: flex-end;
-}
 
 .actions-bg {
   display: flex;

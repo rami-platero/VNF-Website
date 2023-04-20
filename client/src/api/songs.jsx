@@ -1,16 +1,16 @@
 import axios from "axios";
+import { useMemo } from "react";
 
 export const getSongsRequest = async () => {
   return await axios.get("/songs");
 };
 
-export const postNewSong = async (song,user) => {
+export const postNewSong = async (song,user, setProgressSong) => {
   const form = new FormData();
 
   for (let key in song) {
     if (key !== "artists") {
       form.append(key, song[key]);
-      console.log(key, song[key])
     }
   }
   form.append("artists", JSON.stringify(song.artists));
@@ -19,6 +19,11 @@ export const postNewSong = async (song,user) => {
       "Content-Type": "multipart/form-data",
       "Authorization": `Bearer ${user.token}`,
     },
+    onUploadProgress (progressEvent) {
+      const {loaded, total} = progressEvent
+      let percent = Math.floor((loaded*100)/total)
+      setProgressSong(percent)
+      },
   });
 };
 

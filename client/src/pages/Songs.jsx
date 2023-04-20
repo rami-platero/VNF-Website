@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useMemo } from "react";
 import { mainContext } from "../context/SongsContext.jsx";
 import Song from "../components/Song.jsx";
 import "./songs.css";
@@ -8,27 +8,33 @@ import { IoLogoYoutube } from "react-icons/io5";
 import Filters from "./Songs/components/Filters.jsx";
 
 const Songs = () => {
-  const { theme, getSongsFilter, items, setItems, delSongs } = useContext(mainContext);
+  const { theme, delSongs } = useContext(mainContext);
   //SORT
   const { user } = useAuthContext();
   const navigate = useNavigate();
- 
-  const setitemsFunction = async () => {
-    const res = await getSongsFilter();
-    setItems(res.data.sort((a, b) => {
-      return new Date(b.upload_date) - new Date(a.upload_date);
-    }));
-  };
 
-  useEffect(() => {
-    setitemsFunction();
-  }, []);
+  const [query, setQuery] = useState("");
+
+  const itemsFiltered = useMemo(() => {
+    return delSongs?.filter((song) => {
+      return (
+        song?.name?.toLowerCase().includes(query.toLowerCase()) ||
+        song?.artists?.some((artist) => {
+          return artist?.name?.toLowerCase().includes(query.toLowerCase());
+        })
+      );
+    });
+  }, [query, delSongs]);
 
   return (
     <div className={`songs-container ${theme}`}>
       <div className="featured-song-container">
         <div className="featured-song">
-          <img src={"https://res.cloudinary.com/dikp1fayh/image/upload/v1681423383/artworks/bj47nqc9mxhdt7nmpfaf.jpg"} />
+          <img
+            src={
+              "https://res.cloudinary.com/dikp1fayh/image/upload/v1681423383/artworks/bj47nqc9mxhdt7nmpfaf.jpg"
+            }
+          />
           <div className="info">
             <p>Featured Deleted Release</p>
             <div className="data">
@@ -36,7 +42,10 @@ const Songs = () => {
               <h5>Jarvis</h5>
             </div>
             <div className="link-btn">
-              <a href="https://www.youtube.com/watch?v=fmHoZs9-BLk" target="_blank">
+              <a
+                href="https://www.youtube.com/watch?v=fmHoZs9-BLk"
+                target="_blank"
+              >
                 <IoLogoYoutube size={"1rem"} /> Watch on YouTube
               </a>
             </div>
@@ -44,7 +53,7 @@ const Songs = () => {
         </div>
       </div>
       <div className="main-content-songs" style={{ padding: "2.5rem" }}>
-        <Filters setItems={setItems} delSongs={delSongs} />
+        <Filters setQuery={setQuery}/>
         {user?.roles_name?.includes("admin") && (
           <button
             className={`add-new ${theme}`}
@@ -56,7 +65,7 @@ const Songs = () => {
           </button>
         )}
         <div className="songs-wrapper">
-          {items.map((song) => {
+          {itemsFiltered?.map((song) => {
             return <Song key={song._id} song={song} />;
           })}
         </div>

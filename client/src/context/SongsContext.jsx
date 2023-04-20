@@ -15,8 +15,7 @@ export const SongsContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [loadingRemove, setLoadingRemove] = useState(false);
   const [items, setItems] = useState([]);
-  const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState("newest");
+  const [progressSong, setProgressSong] = useState(null);
 
   const handleTheme = (theme) => {
     setTheme(theme);
@@ -33,20 +32,19 @@ export const SongsContextProvider = ({ children }) => {
     }
   };
 
-  const getSongsFilter = async () => {
-    try {
-      setLoading(false);
-      return await getSongsRequest();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const postSong = async (song, user) => {
     try {
-      const res = await postNewSong(song, user);
+      setProgressSong(0);
+      setDelSongs([...delSongs, { name: "loading item",loading: true }]);
+      const res = await postNewSong(
+        song,
+        user,
+        setProgressSong,
+        progressSong
+      );
       setDelSongs([...delSongs, res.data]);
-      setItems([...items, res.data]);
+      setProgressSong(null);
     } catch (error) {
       console.log(error);
     }
@@ -59,11 +57,6 @@ export const SongsContextProvider = ({ children }) => {
       setDelSongs(
         delSongs.filter((song) => {
           return song._id !== id;
-        })
-      );
-      setItems(
-        items.filter((item) => {
-          return item._id !== id;
         })
       );
       setLoadingRemove(false);
@@ -85,9 +78,6 @@ export const SongsContextProvider = ({ children }) => {
   const editSong = async (id, body, user) => {
     const res = await updateSong(id, body, user);
     setDelSongs(res.data);
-    setItems(res.data.filter((item)=>{
-      return item.name.toLowerCase().includes(query);
-    }))
   };
 
   useEffect(() => {
@@ -114,13 +104,8 @@ export const SongsContextProvider = ({ children }) => {
         handleTheme,
         loading,
         loadingRemove,
-        getSongsFilter,
-        items,
-        setItems,
-        query,
-        setQuery,
-        filter,
-        setFilter,
+        progressSong,
+        setDelSongs
       }}
     >
       {children}

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { bgcontext } from "../../../context/bgsContext";
 import Skeleton from "../../../assets/skeleton-image.png";
+import Progress from "../../../components/UI/Progress";
 
 function BG({ bg }) {
   const { theme } = useContext(mainContext);
@@ -42,12 +43,7 @@ function BG({ bg }) {
           )}
         </div>
       ) : (
-        <div className="progress-container">
-          <h3 className="progress-text">{progress}% completed</h3>
-          {progress===100 && (
-            <h3 className="progress-text-server">uploading to server...</h3>
-          )}
-        </div>
+        <Progress progress={progress}/>
       )}
     </div>
   );

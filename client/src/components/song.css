@@ -39,8 +39,13 @@
 .artwork img {
   margin: auto;
   object-fit: cover;
+  aspect-ratio: 1/1;
   width: 100%;
   transition: 0.2s ease-in-out;
+}
+
+.artwork .skeleton-img{
+  animation: opacity 2s alternate infinite;
 }
 
 .artwork img:hover {
@@ -51,6 +56,7 @@
 .song-container {
   font-size: 1rem;
 }
+
 
 /*INFO*/
 
@@ -99,6 +105,30 @@
   gap: 0.5rem;
 }
 
+
+/*SKELETON DIVS*/
+.song-info .song-name.skeleton{
+  height: 15px;
+
+}
+
+.song-info .song-name.skeleton, .song-info .artist-name.skeleton, .song-info .song-genre.skeleton, .song-upload-date.skeleton,.song-views.skeleton, .song-info .song-status.skeleton{
+  background-color: rgb(170, 170, 170);
+  width: 100%;
+  animation: opacity 2s alternate infinite;
+}
+.song-info .artist-name.skeleton{
+  height: 12px;
+  margin-bottom: .8rem;
+}
+.song-info .song-genre.skeleton, .song-views.skeleton, .song-upload-date.skeleton{
+  height: 15px;
+  margin: .1rem 0rem;
+}
+.song-info .song-status.skeleton{
+  margin-top: 1rem;
+  height: 20px;
+}
 
 
 

@@ -14,15 +14,9 @@ body {
   transition: 0.2s ease-in-out;
 }
 
-.songs-container {
-  min-height: 100%;
-  height: auto !important;
-}
-
 .songs-container.dark {
   background-color: rgb(23, 26, 29);
   color: white;
-  padding-top: 82px;
 }
 
 .video-container.dark,
@@ -46,10 +40,6 @@ body {
 
 .form-container.light{
   padding-top: 100px;
-}
-
-.songs-container.light{
-  padding-top: 82px;
 }
 
 .song.dark {
