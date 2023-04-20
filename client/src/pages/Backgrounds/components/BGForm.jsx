@@ -20,6 +20,8 @@ export const BGForm = () => {
     },
   ]);
   const [errors, setErrors] = useState([]);
+  const [progress, setProgress] = useState(0)
+
 
   const dragOver = (e) => {
     e.preventDefault();
@@ -206,6 +208,6 @@ export const BGForm = () => {
     handleArtistChange,
     handleTrackChange,
     tracks,
-    errors,
+    errors
   };
 };

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./add-bg.css";
 import Logo from "../../../assets/ncs-logo-resized.png";
 import { mainContext } from "../../../context/SongsContext";
@@ -28,7 +28,7 @@ function AddBg() {
     handleTrackChange,
     tracks,
     handleSubmit,
-    errors,
+    errors
   } = BGForm();
 
   return (
@@ -174,6 +174,7 @@ function AddBg() {
           </>
           <input type="submit" />
         </form>
+        {/* <h3>{progress}</h3> */}
       </div>
     </div>
   );

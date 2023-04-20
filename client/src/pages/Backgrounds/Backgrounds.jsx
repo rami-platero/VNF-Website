@@ -29,9 +29,9 @@ function Backgrounds() {
       )}
 
       <div className="bg-grid">
-        {data.length !== 0 &&
-          data.map((bg) => {
-            return <BG key={data.customID} bg={bg} />;
+        {data?.length !== 0 &&
+          data?.map((bg) => {
+            return <BG key={data?.customID} bg={bg} />;
           })}
       </div>
     </div>

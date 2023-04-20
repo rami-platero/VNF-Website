@@ -11,6 +11,7 @@ export const bgcontext = createContext();
 
 export const BgContextProvider = ({ children }) => {
   const [data, setData] = useState([]);
+  const [progress, setProgress] = useState(null);
 
   const getBgs = async () => {
     try {
@@ -26,10 +27,12 @@ export const BgContextProvider = ({ children }) => {
   }, []);
 
   const postBg = async (body, user) => {
-    console.log(body)
     try {
-      const res = await postBackground(body, user);
-      setData([...data,res.data]);
+      setData([...data, {loading: true}]);
+      setProgress(0)
+      const res = await postBackground(body, user, setProgress);
+      setData([...data, res.data]);
+      setProgress(null);
     } catch (error) {
       console.log(error);
     }
@@ -63,10 +66,10 @@ export const BgContextProvider = ({ children }) => {
     }
   };
 
-  
-
   return (
-    <bgcontext.Provider value={{data, getBg, postBg, putBg, delBg}}>
+    <bgcontext.Provider
+      value={{ data, getBg, postBg, putBg, delBg, progress, setProgress }}
+    >
       {children}
     </bgcontext.Provider>
   );

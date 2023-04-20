@@ -4,12 +4,11 @@ export const getBackgrounds = async () => {
   return await axios.get("/backgrounds");
 };
 
-export const postBackground = async (body, user) => {
+export const postBackground = async (body, user, setProgress) => {
   const form = new FormData();
   for (let key in body) {
     if (key !== "artists" && key !== "tracks") {
       form.append(key, body[key]);
-      console.log(key, body[key]);
     }
   }
   /* form.append("artists", JSON.stringify(body.artists)); */
@@ -18,6 +17,11 @@ export const postBackground = async (body, user) => {
     headers: {
       "Content-Type": "multipart/form-data",
      "Authorization": `Bearer ${user.token}`,
+    },
+    onUploadProgress (progressEvent) {
+    const {loaded, total} = progressEvent
+    let percent = Math.floor((loaded*100)/total)
+    setProgress(percent)
     },
   });
 };
