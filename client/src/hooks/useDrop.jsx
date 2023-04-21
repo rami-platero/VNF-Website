@@ -14,26 +14,16 @@ export function useDropFile() {
     e.preventDefault();
   };
 
-  const fileDrop = (e) => {
+  const handleFile = (e,data) => {
     e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    setFile(e.dataTransfer.files[0]);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileobj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      setFilePreview(fileobj);
-    });
-  };
-
-  const handleImageReader = (e) => {
-    const file = e.target.files[0];
-    setFile(e.target.files[0]);
+    let file;
+    if (data == "drop") {
+      file = e.dataTransfer.files[0];
+      setFile(e.dataTransfer.files[0]);
+    } else {
+      file = e.target.files[0]
+      setFile(e.target.files[0])
+    }
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.addEventListener("load", () => {
@@ -50,8 +40,7 @@ export function useDropFile() {
   return {
     file,
     filePreview,
-    fileDrop,
-    handleImageReader,
+    handleFile,
     dragOver,
     dragEnter,
     dragLeave,

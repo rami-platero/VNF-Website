@@ -1,38 +1,59 @@
-import React, { useEffect, memo, useCallback } from "react";
 import { useState } from "react";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useContext } from "react";
 import { bgcontext } from "../../../../context/bgsContext";
 import { useNavigate } from "react-router-dom";
-import { formToJSON } from "axios";
 import { useDropFile } from "../../../../hooks/useDrop";
 
+const initialState = [
+  {
+    artists: [{ name: "" }],
+    name: "",
+    youtube_link: "",
+  },
+];
+
 export const BGForm = () => {
+  const navigate = useNavigate();
   const { user } = useAuthContext();
   const { postBg } = useContext(bgcontext);
-  const navigate = useNavigate();
-  const [tracks, setTracks] = useState([
-    {
-      artists: [{ name: "" }],
-      name: "",
-      youtube_link: "",
-    },
-  ]);
+  const [tracks, setTracks] = useState(initialState);
   const [errors, setErrors] = useState([]);
-  const {
-    file,
-    filePreview,
-    dragOver,
-    dragEnter,
-    dragLeave,
-    fileDrop,
-    handleImageReader,
-  } = useDropFile();
-  /* const [submitted, setSubmitted] = useState(false) */
+  const { file, filePreview, dragOver, dragEnter, dragLeave, handleFile } =
+    useDropFile();
+
+  const validateForm = () => {
+    let errors = [];
+
+    tracks.forEach((track, mainIndex) => {
+      if (!track.name.trim()) {
+        errors.push({ mainIndex, type: "name" });
+      }
+    });
+
+    tracks.forEach((track, mainIndex) => {
+      if (!track.youtube_link.trim()) {
+        errors.push({ mainIndex, type: "yt_link" });
+      }
+    });
+
+    tracks.forEach((track, mainIndex) => {
+      track.artists.forEach((artist, index) => {
+        if (!artist.name.trim()) {
+          errors.push({ mainIndex, index, type: "artist_name" });
+        }
+      });
+    });
+
+    if (!file) {
+      errors.push({ type: "file" });
+    }
+
+    return errors;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (validateForm().length) {
       setErrors(validateForm());
     } else {
@@ -63,7 +84,7 @@ export const BGForm = () => {
     const list = [...tracks];
     list[index][name] = value;
     setTracks(list);
-  }
+  };
 
   const removeTrack = (index, e) => {
     e.preventDefault();
@@ -129,44 +150,11 @@ export const BGForm = () => {
     );
   };
 
-  const validateForm = () => {
-    let errors = [];
-
-    tracks.forEach((track, mainIndex) => {
-      if (!track.name.trim()) {
-        errors.push({ mainIndex, type: "name" });
-      }
-    });
-
-    tracks.forEach((track, mainIndex) => {
-      if (!track.youtube_link.trim()) {
-        errors.push({ mainIndex, type: "yt_link" });
-      }
-    });
-
-    tracks.forEach((track, mainIndex) => {
-      track.artists.forEach((artist, index) => {
-        if (!artist.name.trim()) {
-          errors.push({ mainIndex, index, type: "artist_name" });
-        }
-      });
-    });
-
-    if (!file) {
-      errors.push({ type: "file" });
-    }
-    console.log(errors)
-
-    return errors;
-  };
-
-
   return {
     dragOver,
     dragEnter,
     dragLeave,
-    fileDrop,
-    handleImageReader,
+    handleFile,
     filePreview,
     handleSubmit,
     addInputField,

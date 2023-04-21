@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo, useCallback, useEffect } from "react";
+import React, { useContext } from "react";
 import "./add-bg.css";
 import "./bg-inputs.css";
 import "./drop-bg.css";
@@ -17,8 +17,7 @@ function AddBg() {
     dragOver,
     dragEnter,
     dragLeave,
-    fileDrop,
-    handleImageReader,
+    handleFile,
     filePreview,
     addInputField,
     addArtist,
@@ -64,7 +63,9 @@ function AddBg() {
               onDragOver={dragOver}
               onDragEnter={dragEnter}
               onDragLeave={dragLeave}
-              onDrop={fileDrop}
+              onDrop={(e)=>{
+                handleFile(e,"drop")
+              }}
             >
               <h2>Drag And Drop</h2>
               {filePreview != null && (
@@ -78,8 +79,8 @@ function AddBg() {
                 type="file"
                 placeholder="Background"
                 name="background"
-                onChange={(e) => {
-                  handleImageReader(e);
+                onChange={(e)=>{
+                  handleFile(e,"input")
                 }}
               />
             </div>

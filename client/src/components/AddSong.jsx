@@ -15,24 +15,32 @@ import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { useDropFile } from "../hooks/useDrop";
 
+const initialForm = {
+  name: "",
+  upload_date: "",
+  status: "",
+  genre: "",
+  duration: "",
+  link: "",
+  original_link: "",
+  original_description: "",
+  views: "",
+  views_date: "",
+};
+
 function AddSong() {
   const { postSong, theme } = useContext(mainContext);
   const navigate = useNavigate();
   const [artists, setArtists] = useState([{ name: "" }]);
-  const [form, setForm] = useState({
-    name: "",
-    upload_date: "",
-    status: "",
-    genre: "",
-    duration: "",
-    link: "",
-    original_link: "",
-    original_description: "",
-    views: "",
-    views_date: "",
-  });
-  const { file, filePreview, fileDrop, handleImageReader } =
-    useDropFile();
+  const [form, setForm] = useState(initialForm);
+  const {
+    file,
+    filePreview,
+    handleFile,
+    dragEnter,
+    dragLeave,
+    dragOver,
+  } = useDropFile();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -74,38 +82,19 @@ function AddSong() {
   };
 
   // ARTOWKR DRAG N DROP
-  const dragOver = (e) => {
-    e.preventDefault();
-  };
-  const dragEnter = (e) => {
-    e.preventDefault();
-  };
-  const dragLeave = (e) => {
-    e.preventDefault();
-  };
   const [background, setBackground] = useState(null);
   const [backgroundPreview, setBackgroundPreview] = useState(null);
 
-  const backgroundDrop = (e) => {
+  const handleBackground = (e, data) => {
     e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    setBackground(e.dataTransfer.files[0]);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileobj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      setBackgroundPreview(fileobj);
-    });
-  };
-
-  const handleBackgroundReader = (e) => {
-    const file = e.target.files[0];
-    setBackground(e.target.files[0]);
+    let file;
+    if (data == "drop") {
+      file = e.dataTransfer.files[0];
+      setBackground(e.dataTransfer.files[0]);
+    } else {
+      file = e.target.files[0]
+      setBackground(e.target.files[0])
+    }
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.addEventListener("load", () => {
@@ -215,7 +204,9 @@ function AddSong() {
           onDragOver={dragOver}
           onDragEnter={dragEnter}
           onDragLeave={dragLeave}
-          onDrop={fileDrop}
+          onDrop={(e)=>{
+            handleFile(e,"drop")
+          }}
         >
           <h2>Drag And Drop</h2>
           {filePreview != null && (
@@ -229,8 +220,8 @@ function AddSong() {
             type="file"
             placeholder="Artwork"
             name="artwork"
-            onChange={(e) => {
-              handleImageReader(e);
+            onChange={(e)=>{
+              handleFile(e,"input")
             }}
           />
         </div>
@@ -273,7 +264,9 @@ function AddSong() {
           onDragEnter={dragEnter}
           onDragOver={dragOver}
           onDragLeave={dragLeave}
-          onDrop={backgroundDrop}
+          onDrop={(e) => {
+            handleBackground(e,"drop");
+          }}
         >
           <h2>Drag And Drop</h2>
           {backgroundPreview != null && (
@@ -288,7 +281,7 @@ function AddSong() {
             placeholder="Background"
             name="background"
             onChange={(e) => {
-              handleBackgroundReader(e);
+              handleBackground(e,"input");
             }}
           />
         </div>
