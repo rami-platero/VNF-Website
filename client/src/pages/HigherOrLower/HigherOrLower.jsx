@@ -32,6 +32,7 @@ const HigherOrLower = () => {
     }
   }, [gameState]);
 
+
   const handleGame = async (pick) => {
     if (pick === "lower") {
       if (songs[randomIndex2]?.views < songs[randomIndex]?.views) {
@@ -158,14 +159,14 @@ const HigherOrLower = () => {
                  handleGame("higher");
                }}
              >
-               {/* <RiArrowDropUpFill size={"1rem"}/> */} Higher
+              Higher
              </button>
              <button
                onClick={() => {
                  handleGame("lower");
                }}
              >
-               {/* <RiArrowDropDownFill size={"1rem"}/> */} Lower
+              Lower
              </button>
              <p>views than {songs[randomIndex]?.name}</p>
            </div>
@@ -173,7 +174,6 @@ const HigherOrLower = () => {
            <>
              <h1 className="views-amount">
                {state?.toLocaleString("en-US")}
-               {/* {songs[randomIndex2]?.views.toLocaleString("en-US")} */}
              </h1>
              <h3 style={{ textAlign: "center" }}>VIEWS</h3>
            </>

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo } from "react";
+import React, { useContext, useState, useMemo, useCallback, useEffect } from "react";
 import "./add-bg.css";
 import "./bg-inputs.css";
 import "./drop-bg.css";
@@ -190,7 +190,6 @@ function AddBg() {
           </>
           <input type="submit" />
         </form>
-        {/* <h3>{progress}</h3> */}
       </div>
     </div>
   );

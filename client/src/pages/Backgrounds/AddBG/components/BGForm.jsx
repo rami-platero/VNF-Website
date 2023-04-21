@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from "react";
+import React, { useEffect, memo, useCallback } from "react";
 import { useState } from "react";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useContext } from "react";
@@ -28,6 +28,22 @@ export const BGForm = () => {
     fileDrop,
     handleImageReader,
   } = useDropFile();
+  /* const [submitted, setSubmitted] = useState(false) */
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (validateForm().length) {
+      setErrors(validateForm());
+    } else {
+      if (user.roles_name.includes("admin")) {
+        postBg({ tracks: [...tracks], file }, user);
+      } else {
+        console.log("You are not authorized");
+      }
+      navigate("/backgrounds");
+    }
+  };
 
   /*HANDLE TRACKS*/
   const addInputField = (index, e) => {
@@ -47,7 +63,7 @@ export const BGForm = () => {
     const list = [...tracks];
     list[index][name] = value;
     setTracks(list);
-  };
+  }
 
   const removeTrack = (index, e) => {
     e.preventDefault();
@@ -144,19 +160,6 @@ export const BGForm = () => {
     return errors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm().length) {
-      setErrors(validateForm());
-    } else {
-      if (user.roles_name.includes("admin")) {
-        postBg({ tracks: [...tracks], file }, user);
-      } else {
-        console.log("You are not authorized");
-      }
-      navigate("/backgrounds");
-    }
-  };
 
   return {
     dragOver,

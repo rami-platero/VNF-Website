@@ -32,6 +32,14 @@ export const SongsContextProvider = ({ children }) => {
     }
   };
 
+  const getSongsFilter = async () => {
+    try {
+      return await getSongsRequest();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   const postSong = async (song, user) => {
     try {
@@ -105,7 +113,8 @@ export const SongsContextProvider = ({ children }) => {
         loading,
         loadingRemove,
         progressSong,
-        setDelSongs
+        setDelSongs,
+        getSongsFilter
       }}
     >
       {children}

@@ -23,7 +23,6 @@
 }
 
 .single-bg-wrapper {
-  flex-wrap: wrap;
   width: 100%;
   max-width: 1500px;
   height: 100vh;
@@ -104,7 +103,7 @@
 
 @media screen and (max-width: 1147px) {
   .button-align {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
   }
   .single-bg-wrapper {
     margin-top: 2rem;
