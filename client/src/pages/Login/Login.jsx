@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import "./login.css";
-import { mainContext} from "../../context/SongsContext";
+import { themecontext} from "../../context/themeContext";
 import { useLogin } from "../../hooks/useLogin";
 
 function Login() {
@@ -14,7 +14,7 @@ function Login() {
     await login(email, password);
   };
 
-  const { theme } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
 
   return (
     <div className={`login-container ${theme}`}>

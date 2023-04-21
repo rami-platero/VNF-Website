@@ -4,16 +4,16 @@ import { NavLink } from "react-router-dom";
 import Logo from "../assets/ncs-logo-resized.png";
 import { IoMoon } from "react-icons/io5";
 import { IoSunnyOutline } from "react-icons/io5";
-import { mainContext } from "../context/SongsContext";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
 import {RiArrowUpDownLine} from "react-icons/ri";
+import { themecontext } from "../context/themeContext";
 
 function Navigation() {
-  const { theme, handleTheme } = useContext(mainContext);
+  const { theme, handleTheme } = useContext(themecontext);
   const { logout } = useLogout();
   const { user } = useAuthContext();
   const [open, setOpen] = useState(false);

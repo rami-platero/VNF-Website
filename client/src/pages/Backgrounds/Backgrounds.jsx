@@ -3,15 +3,15 @@ import "./backgrounds.css";
 import { useContext } from "react";
 import { bgcontext } from "../../context/bgsContext.jsx";
 import { memo } from "react";
-import { mainContext } from "../../context/SongsContext";
 import BG from "./components/Background";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import BackButton from '../../components/UI/BackButton'
+import { themecontext } from "../../context/themeContext";
 
 function Backgrounds() {
   const { data } = useContext(bgcontext);
-  const { theme } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
   const { user } = useAuthContext();
   const navigate = useNavigate();
   return (

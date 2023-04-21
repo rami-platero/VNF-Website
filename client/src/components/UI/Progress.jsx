@@ -1,9 +1,10 @@
 import React, { useContext, memo } from "react";
 import "./progress.css";
-import { mainContext } from "../../context/SongsContext";
+import { themecontext } from "../../context/themeContext";
 
 function Progress({ progress }) {
-  const { theme } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
+
   const styles = {
     "--progressWidth": "30px",
   };

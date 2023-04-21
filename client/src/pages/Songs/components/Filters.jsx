@@ -1,12 +1,14 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import "./filters.css";
 import { mainContext } from "../../../context/SongsContext";
 import { memo } from "react";
 import { RxDropdownMenu, RxSize } from "react-icons/rx";
+import { themecontext } from "../../../context/themeContext";
 
 const Filters = ({ setQuery }) => {
-  const { delSongs, theme, setDelSongs } = useContext(mainContext);
+  const { delSongs, setDelSongs } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
   const handleChange = (e) => {
     setQuery(e.target.value);
   };

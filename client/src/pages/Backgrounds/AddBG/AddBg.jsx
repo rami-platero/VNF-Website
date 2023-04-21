@@ -3,16 +3,16 @@ import "./add-bg.css";
 import "./bg-inputs.css";
 import "./drop-bg.css";
 import Logo from "../../../assets/ncs-logo-resized.png";
-import { mainContext } from "../../../context/SongsContext";
 import { BGForm } from "./components/BGForm";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { useValFields } from "../../../hooks/useValFields";
 import BackButton from "../../../components/UI/BackButton";
 import { memo } from "react";
+import { themecontext } from "../../../context/themeContext";
 
 function AddBg() {
-  const { theme } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
   const {
     dragOver,
     dragEnter,

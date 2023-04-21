@@ -1,9 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage.jsx";
-import Songs from "./pages/Songs.jsx";
+import Songs from "./pages/Songs/Songs.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import Navigation from "./components/Navigation.jsx";
-import AddSong from "./components/AddSong.jsx";
+import AddSong from "./pages/AddSong/AddSong.jsx";
 import AddBg from "./pages/Backgrounds/AddBG/AddBg.jsx";
 import "./context/theme.css";
 import Login from "./pages/Login/Login.jsx";

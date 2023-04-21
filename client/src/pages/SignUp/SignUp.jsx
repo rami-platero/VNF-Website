@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import "./signup.css";
-import { mainContext } from "../../context/SongsContext";
+import { themecontext } from "../../context/themeContext";
 import { useSignup } from "../../hooks/useSignUp";
 
 function SignUp() {
@@ -14,7 +14,8 @@ function SignUp() {
     await signup(email, password);
   };
 
-  const { theme } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
+
 
   return (
     <div className={`login-container ${theme}`}>

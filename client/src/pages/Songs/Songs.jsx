@@ -1,15 +1,16 @@
-import { useContext, useEffect, useState, useMemo } from "react";
-import { mainContext } from "../context/SongsContext.jsx";
-import Song from "../components/Song.jsx";
+import { useContext, useState, useMemo } from "react";
+import { mainContext } from "../../context/SongsContext.jsx";
+import Song from "./components/Song.jsx";
 import "./songs.css";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "../../hooks/useAuthContext.jsx";
 import { IoLogoYoutube } from "react-icons/io5";
-import Filters from "./Songs/components/Filters.jsx";
+import {themecontext} from '../../context/themeContext.jsx'
+import Filters from './components/Filters.jsx'
 
 const Songs = () => {
-  const { theme, delSongs } = useContext(mainContext);
-  //SORT
+  const { delSongs } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
   const { user } = useAuthContext();
   const navigate = useNavigate();
 

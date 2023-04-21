@@ -1,19 +1,20 @@
 import { useContext } from "react";
 import { useState } from "react";
 
-import Logo from "../assets/ncs-logo-resized.png";
-import { mainContext } from "../context/SongsContext";
+import Logo from "../../assets/ncs-logo-resized.png";
+import { mainContext } from "../../context/SongsContext";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import "./addsong.css";
 import "./newsong.css";
-import BackButton from "./UI/BackButton.jsx";
+import BackButton from "../../components/UI/BackButton.jsx";
 
 //ICONS
 
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
-import { useDropFile } from "../hooks/useDrop";
+import { useDropFile } from "../../hooks/useDrop";
+import { themecontext } from "../../context/themeContext";
 
 const initialForm = {
   name: "",
@@ -29,7 +30,8 @@ const initialForm = {
 };
 
 function AddSong() {
-  const { postSong, theme } = useContext(mainContext);
+  const { postSong } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
   const navigate = useNavigate();
   const [artists, setArtists] = useState([{ name: "" }]);
   const [form, setForm] = useState(initialForm);

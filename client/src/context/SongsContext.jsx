@@ -11,16 +11,9 @@ export const mainContext = createContext();
 
 export const SongsContextProvider = ({ children }) => {
   const [delSongs, setDelSongs] = useState([]);
-  const [theme, setTheme] = useState("dark");
   const [loading, setLoading] = useState(true);
   const [loadingRemove, setLoadingRemove] = useState(false);
-  const [items, setItems] = useState([]);
   const [progressSong, setProgressSong] = useState(null);
-
-  const handleTheme = (theme) => {
-    setTheme(theme);
-    localStorage.setItem("theme", theme);
-  };
 
   const getSongs = async () => {
     try {
@@ -89,13 +82,6 @@ export const SongsContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("theme")) {
-      handleTheme(localStorage.getItem("theme"));
-      localStorage.setItem("theme", localStorage.getItem("theme"));
-    } else {
-      localStorage.setItem("theme", "dark");
-      handleTheme("dark");
-    }
     getSongs();
   }, []);
 
@@ -107,9 +93,6 @@ export const SongsContextProvider = ({ children }) => {
         removeSong,
         editSong,
         getSingleSong,
-        theme,
-        setTheme,
-        handleTheme,
         loading,
         loadingRemove,
         progressSong,

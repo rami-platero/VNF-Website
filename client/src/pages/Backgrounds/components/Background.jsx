@@ -2,15 +2,15 @@ import { useContext } from "react";
 import "./bg.css";
 
 import { IoMdDownload } from "react-icons/io";
-import { mainContext } from "../../../context/SongsContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { bgcontext } from "../../../context/bgsContext";
 import Skeleton from "../../../assets/skeleton-image.png";
 import Progress from "../../../components/UI/Progress";
+import { themecontext } from "../../../context/themeContext";
 
 function BG({ bg }) {
-  const { theme } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
   const { user } = useAuthContext();
   const { delBg, progress } = useContext(bgcontext);
   const navigate = useNavigate();

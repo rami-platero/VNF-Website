@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { themecontext } from "../../context/themeContext";
 import { mainContext } from "../../context/SongsContext";
 import "./deleted-song.css";
 import { IoArrowBack } from "react-icons/io5";
@@ -13,8 +14,8 @@ function DeletedSong() {
   const navigate = useNavigate()
   const { customID } = useParams();
   const { getSingleSong } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
   const [song, setSong] = useState({});
-  const { theme } = useContext(mainContext);
   const getSong = async () => {
     if (customID) {
       const post = await getSingleSong(customID);

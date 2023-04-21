@@ -1,20 +1,20 @@
 import { useContext, useRef, useState } from "react";
 import "./home-page.css";
 import docVideo from "./NCS-Documentary-trailer.mp4";
-import VNFLogo from "./vnf-logo.png";
 import ReactPlayer from "react-player";
 import { RxDoubleArrowDown } from "react-icons/rx";
-import { mainContext } from "../../context/SongsContext";
 import { Link } from "react-router-dom";
+import { themecontext } from "../../context/themeContext";
 
 function HomePage() {
+  const { theme } = useContext(themecontext);
   const [scroll, setScroll] = useState(false);
   const scrollRef = useRef(null);
 
   const executeScroll = () => {
     scrollRef.current.scrollIntoView();
   };
-  const { theme } = useContext(mainContext);
+
 
   return (
     <main>

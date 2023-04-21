@@ -1,18 +1,20 @@
-import { useContext, memo, useEffect } from "react";
+import { useContext, memo} from "react";
 import "./song.css";
 import { IoIosLock } from "react-icons/io";
 import { IoIosCloseCircle } from "react-icons/io";
-import { mainContext } from "../context/SongsContext";
+import { mainContext } from "../../../context/SongsContext";
 import { useState } from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import EditSong from "./EditSong";
-import Skeleton from "../assets/skeleton-image.png";
-import Progress from "./UI/Progress";
+import Skeleton from "../../../assets/skeleton-image.png";
+import Progress from "../../../components/UI/Progress";
+import { themecontext } from "../../../context/themeContext";
 
 const Song = ({ song }) => {
-  const { removeSong, theme, loadingRemove, progressSong } =
+  const { removeSong, loadingRemove, progressSong } =
     useContext(mainContext);
+    const { theme } = useContext(themecontext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleEdit = async () => {
     setModalIsOpen(true);

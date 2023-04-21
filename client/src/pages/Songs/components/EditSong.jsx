@@ -2,17 +2,18 @@ import { useContext, useRef } from "react";
 import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
-import { IoIosRemove } from "react-icons/io";
-import Logo from "../assets/ncs-logo-resized.png";
-import { mainContext } from "../context/SongsContext";
+import Logo from "../../../assets/ncs-logo-resized.png";
+import { mainContext } from "../../../context/SongsContext";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../hooks/useAuthContext";
-import "./addsong.css";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import { IoArrowBack } from "react-icons/io5";
+import { themecontext } from "../../../context/themeContext";
+import '../../AddSong/addsong.css'
 
 
 function EditSong({ setModalIsOpen, song }) {
-  const { editSong, theme } = useContext(mainContext);
+  const { editSong } = useContext(mainContext);
+  const { theme } = useContext(themecontext);
   const navigate = useNavigate();
   const [artists, setArtists] = useState(song.artists);
   const [form, setForm] = useState({
