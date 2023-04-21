@@ -58,6 +58,8 @@
   padding: 1rem;
   width: 100%;
   max-width: 600px;
+  border-radius: .5rem;
+  /* box-shadow: rgba(10, 156, 144, 0.7) 0px 0px 20px; */
 }
 
 .tracks-bg-grid-container h1 {
