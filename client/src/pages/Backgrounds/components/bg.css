@@ -4,29 +4,6 @@
   gap: 0.5rem;
 }
 
-.bg-container .download-bg-btn {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-  gap: 0.3rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: fit-content;
-  background: none;
-  border: 1px solid black;
-  font-size: 0.8rem;
-  padding: 0.3rem;
-  transition: 0.2s ease-in-out;
-}
-
-.bg-container .download-bg-btn:hover {
-  color: white;
-  background-color: black;
-  border: 1px solid black;
-  transition: 0.2s ease-in-out;
-}
-
 .bg-image-wrapper {
   overflow: hidden;
   margin: 0 auto;
@@ -48,7 +25,7 @@
   transition: 0.2s ease-in-out;
 }
 
-.skeleton-bg{
+.skeleton-bg {
   aspect-ratio: 16/9;
   margin: auto;
   object-fit: cover;
@@ -63,11 +40,10 @@
   0% {
     opacity: 50%;
   }
-  100%{
+  100% {
     opacity: 100%;
   }
 }
-
 
 .actions-bg {
   display: flex;
@@ -87,4 +63,39 @@
 .actions-bg button:hover {
   background-color: rgb(184, 0, 0);
   transition: 0.2s ease-in-out;
+}
+
+.download-bg-btn {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  gap: 0.3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+  background: none;
+  border: 1px solid black;
+  font-size: 0.8rem;
+  padding: 0.3rem;
+  transition: 0.2s ease-in-out;
+  position: relative;
+}
+
+.download-bg-btn:hover {
+  color: white;
+  background-color: black;
+  border: 1px solid black;
+  transition: 0.2s ease-in-out;
+}
+
+.download-bg-btn.dark {
+  color: white;
+  border: 1px solid white;
+}
+
+.download-bg-btn.dark:hover {
+  color: black;
+  background-color: white;
+  border: 1px solid white;
 }

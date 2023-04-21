@@ -13,7 +13,7 @@ import BackButton from "./UI/BackButton.jsx";
 
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
-import { useDropArtwork } from "../hooks/useDrop";
+import { useDropFile } from "../hooks/useDrop";
 
 function AddSong() {
   const { postSong, theme } = useContext(mainContext);
@@ -31,9 +31,8 @@ function AddSong() {
     views: "",
     views_date: "",
   });
-  /* const [artwork, setArtwork] = useState(null); */
-  const { artwork, artworkPreview, fileDrop, handleImageReader } =
-    useDropArtwork();
+  const { file, filePreview, fileDrop, handleImageReader } =
+    useDropFile();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -62,18 +61,12 @@ function AddSong() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
-      ...form,
-      artists: { ...artists },
-      artwork,
-      background: background,
-    });
     postSong(
       {
         ...form,
         artists: [...artists],
-        artwork: artwork,
-        background: background,
+        artwork: file,
+        background,
       },
       user
     );
@@ -225,10 +218,10 @@ function AddSong() {
           onDrop={fileDrop}
         >
           <h2>Drag And Drop</h2>
-          {artworkPreview != null && (
+          {filePreview != null && (
             <img
-              src={artworkPreview.src}
-              alt={artworkPreview.name}
+              src={filePreview.src}
+              alt={filePreview.name}
               className="artwork-preview"
             />
           )}

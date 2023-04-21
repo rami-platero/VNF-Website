@@ -9,19 +9,5 @@ export const useValFields = (errors, name, index) => {
         return el.type === name;
       }
     });
-  }, [errors]);
-};
-
-export const useValMultiFields = (errors, index, name, mainIndex) => {
-  return useMemo(() => {
-    return errors.some((el) => {
-      if (mainIndex) {
-        return (
-          el.index === index && el.type === name && el.mainIndex === mainIndex
-        );
-      } else {
-        return el.index === index && el.type === name;
-      }
-    });
-  }, [errors]);
+  }, [errors, name]);
 };

@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo } from "react";
 import { useState } from "react";
-import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useContext } from "react";
-import { bgcontext } from "../../../context/bgsContext";
+import { bgcontext } from "../../../../context/bgsContext";
 import { useNavigate } from "react-router-dom";
 import { formToJSON } from "axios";
+import { useDropFile } from "../../../../hooks/useDrop";
 
 export const BGForm = () => {
   const { user } = useAuthContext();
   const { postBg } = useContext(bgcontext);
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
-  const [backgroundPreview, setBackgroundPreview] = useState(null);
   const [tracks, setTracks] = useState([
     {
       artists: [{ name: "" }],
@@ -20,50 +19,15 @@ export const BGForm = () => {
     },
   ]);
   const [errors, setErrors] = useState([]);
-  const [progress, setProgress] = useState(0)
-
-
-  const dragOver = (e) => {
-    e.preventDefault();
-  };
-  const dragEnter = (e) => {
-    e.preventDefault();
-  };
-  const dragLeave = (e) => {
-    e.preventDefault();
-  };
-  const fileDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    setFile(e.dataTransfer.files[0]);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileobj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      setBackgroundPreview(fileobj);
-    });
-  };
-
-  const handleImageReader = (e) => {
-    const file = e.target.files[0];
-    setFile(e.target.files[0]);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileobj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      setBackgroundPreview(fileobj);
-    });
-  };
+  const {
+    file,
+    filePreview,
+    dragOver,
+    dragEnter,
+    dragLeave,
+    fileDrop,
+    handleImageReader,
+  } = useDropFile();
 
   /*HANDLE TRACKS*/
   const addInputField = (index, e) => {
@@ -152,19 +116,19 @@ export const BGForm = () => {
   const validateForm = () => {
     let errors = [];
 
-    tracks.forEach((track, index) => {
+    tracks.forEach((track, mainIndex) => {
       if (!track.name.trim()) {
-        errors.push({ index, type: "name" });
+        errors.push({ mainIndex, type: "name" });
       }
     });
 
-    tracks.forEach((track, index) => {
+    tracks.forEach((track, mainIndex) => {
       if (!track.youtube_link.trim()) {
-        errors.push({ index, type: "yt_link" });
+        errors.push({ mainIndex, type: "yt_link" });
       }
     });
 
-    tracks.forEach((track,mainIndex) => {
+    tracks.forEach((track, mainIndex) => {
       track.artists.forEach((artist, index) => {
         if (!artist.name.trim()) {
           errors.push({ mainIndex, index, type: "artist_name" });
@@ -172,9 +136,10 @@ export const BGForm = () => {
       });
     });
 
-    if(!file){
-      errors.push({type: "file"})
+    if (!file) {
+      errors.push({ type: "file" });
     }
+    console.log(errors)
 
     return errors;
   };
@@ -199,7 +164,7 @@ export const BGForm = () => {
     dragLeave,
     fileDrop,
     handleImageReader,
-    backgroundPreview,
+    filePreview,
     handleSubmit,
     addInputField,
     addArtist,
@@ -208,6 +173,6 @@ export const BGForm = () => {
     handleArtistChange,
     handleTrackChange,
     tracks,
-    errors
+    errors,
   };
 };

@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import "./bg.css";
+
 import { IoMdDownload } from "react-icons/io";
 import { mainContext } from "../../../context/SongsContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { bgcontext } from "../../../context/bgsContext";
 import Skeleton from "../../../assets/skeleton-image.png";
@@ -12,6 +13,7 @@ function BG({ bg }) {
   const { theme } = useContext(mainContext);
   const { user } = useAuthContext();
   const { delBg, progress } = useContext(bgcontext);
+  const navigate = useNavigate();
   const handleRemove = () => {
     if (user?.roles_name?.includes("admin")) {
       delBg(bg?._id, user);
@@ -21,7 +23,12 @@ function BG({ bg }) {
   };
   return (
     <div className={`bg-container ${theme}`}>
-      <div className="bg-image-wrapper">
+      <div
+        className="bg-image-wrapper"
+        onClick={() => {
+          navigate(`/backgrounds/${bg?.customID}`);
+        }}
+      >
         {!bg?.loading ? (
           <img src={bg?.file?.url} />
         ) : (
@@ -43,7 +50,7 @@ function BG({ bg }) {
           )}
         </div>
       ) : (
-        <Progress progress={progress}/>
+        <Progress progress={progress} />
       )}
     </div>
   );

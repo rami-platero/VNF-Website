@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useMemo } from "react";
 import "./add-bg.css";
+import "./bg-inputs.css";
+import "./drop-bg.css";
 import Logo from "../../../assets/ncs-logo-resized.png";
 import { mainContext } from "../../../context/SongsContext";
-import DropBG from "./form/DropBG";
-import BG_Inputs from "./form/BG_Inputs";
-import { BGForm } from "./BGForm.jsx";
+import { BGForm } from "./components/BGForm";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
-import { useValFields, useValMultiFields } from "../../../hooks/useValFields";
+import { useValFields } from "../../../hooks/useValFields";
 import BackButton from "../../../components/UI/BackButton";
 import { memo } from "react";
 
@@ -19,7 +19,7 @@ function AddBg() {
     dragLeave,
     fileDrop,
     handleImageReader,
-    backgroundPreview,
+    filePreview,
     addInputField,
     addArtist,
     removeTrack,
@@ -28,8 +28,24 @@ function AddBg() {
     handleTrackChange,
     tracks,
     handleSubmit,
-    errors
+    errors,
   } = BGForm();
+
+  const validField = (mainIndex, name, index) => {
+    if (!index) {
+      return errors.some((el) => {
+        return el.mainIndex === mainIndex && el.type === name;
+      });
+    } else {
+      return errors.some((el) => {
+        return (
+          el.mainContext === mainIndex &&
+          el.type === "artist_name" &&
+          el.index === index
+        );
+      });
+    }
+  };
 
   return (
     <div className={`form-bg-container ${theme}`}>
@@ -41,17 +57,20 @@ function AddBg() {
           <div className="drop-bg">
             <label htmlFor="background">Background</label>
             <div
-              className={`drop-container-background ${theme} ${useValFields(errors, "file")}`}
+              className={`drop-container-background ${theme} ${useValFields(
+                errors,
+                "file"
+              )}`}
               onDragOver={dragOver}
               onDragEnter={dragEnter}
               onDragLeave={dragLeave}
               onDrop={fileDrop}
             >
               <h2>Drag And Drop</h2>
-              {backgroundPreview != null && (
+              {filePreview != null && (
                 <img
-                  src={backgroundPreview.src}
-                  alt={backgroundPreview.name}
+                  src={filePreview.src}
+                  alt={filePreview.name}
                   className="background-preview"
                 />
               )}
@@ -64,7 +83,9 @@ function AddBg() {
                 }}
               />
             </div>
-            {useValFields(errors, "file") && <p className="val-text">This field must be filled</p>}
+            {useValFields(errors, "file") && (
+              <p className="val-text">This field must be filled</p>
+            )}
           </div>
           <>
             {tracks.map((track, trackIndex) => {
@@ -82,7 +103,7 @@ function AddBg() {
                       handleTrackChange(e, trackIndex);
                     }}
                   />
-                  {useValFields(errors, "name", trackIndex) && (
+                  {validField(trackIndex, "name") && (
                     <p className="val-text">This field must be filled</p>
                   )}
                   <input
@@ -96,55 +117,51 @@ function AddBg() {
                       handleTrackChange(e, trackIndex);
                     }}
                   />
-                  {useValFields(errors, "yt_link", trackIndex) && (
+                  {validField(trackIndex, "yt_link") && (
                     <p className="val-text">This field must be filled</p>
                   )}
                   {track.artists.map((artist, index) => {
                     return (
                       <>
-                      <div key={index} className={`artists-input ${theme}`}>
-                        <div className="artist-input">
-                          <input
-                            required
-                            type="text"
-                            placeholder="Artist"
-                            name="artist"
-                            autoComplete="off"
-                            onChange={(e) => {
-                              handleArtistChange(e, trackIndex, index);
-                            }}
-                            value={artist.name}
-                          /> 
-                          {track.artists.length > 1 && (
-                            <IoIosClose
-                              size="1.2rem"
-                              className="remove-artist"
-                              onClick={() => {
-                                removeArtist(trackIndex, index);
+                        <div key={index} className={`artists-input ${theme}`}>
+                          <div className="artist-input">
+                            <input
+                              required
+                              type="text"
+                              placeholder="Artist"
+                              name="artist"
+                              autoComplete="off"
+                              onChange={(e) => {
+                                handleArtistChange(e, trackIndex, index);
                               }}
-                            ></IoIosClose>
-                          )}        
+                              value={artist.name}
+                            />
+                            {track.artists.length > 1 && (
+                              <IoIosClose
+                                size="1.2rem"
+                                className="remove-artist"
+                                onClick={() => {
+                                  removeArtist(trackIndex, index);
+                                }}
+                              ></IoIosClose>
+                            )}
+                          </div>
+                          {index == track.artists.length - 1 &&
+                            track.artists.length <= 8 && (
+                              <button
+                                onClick={(e) => {
+                                  addArtist(trackIndex, e);
+                                }}
+                                className="add-artist"
+                              >
+                                <IoIosAdd size="1.2rem" /> Add Artist
+                              </button>
+                            )}
                         </div>
-                        {index == track.artists.length - 1 &&
-                          track.artists.length <= 8 && (
-                            <button
-                              onClick={(e) => {
-                                addArtist(trackIndex, e);
-                              }}
-                              className="add-artist"
-                            >
-                              <IoIosAdd size="1.2rem" /> Add Artist
-                            </button>
-                          )}
-                      </div>
-                      {useValMultiFields(
-                        errors,
-                        index,
-                        "artist_name",
-                        trackIndex
-                      ) && <p className="val-text">This field must be filled</p>}
+                        {validField(trackIndex, "artist_name", index) && (
+                          <p className="val-text">This field must be filled</p>
+                        )}
                       </>
-                      
                     );
                   })}
                   {tracks.length > 1 && (
@@ -154,7 +171,6 @@ function AddBg() {
                         removeTrack(trackIndex, e);
                       }}
                     >
-                      {/* <IoIosClose size="1.2rem"></IoIosClose> */}
                       Remove Track
                     </button>
                   )}

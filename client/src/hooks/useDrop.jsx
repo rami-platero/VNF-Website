@@ -1,13 +1,23 @@
-import React from 'react'
-import { useState } from 'react';
+import React from "react";
+import { useState } from "react";
 
-export function useDropArtwork() {
-  const [artwork, setArtwork] = useState(null);
-  const [artworkPreview, setArtworkPreview] = useState(null);
+export function useDropFile() {
+  const [file, setFile] = useState(null);
+  const [filePreview, setFilePreview] = useState(null);
+  const dragOver = (e) => {
+    e.preventDefault();
+  };
+  const dragEnter = (e) => {
+    e.preventDefault();
+  };
+  const dragLeave = (e) => {
+    e.preventDefault();
+  };
+
   const fileDrop = (e) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    setArtwork(e.dataTransfer.files[0]);
+    setFile(e.dataTransfer.files[0]);
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.addEventListener("load", () => {
@@ -17,13 +27,13 @@ export function useDropArtwork() {
         size: file.size,
         src: reader.result,
       };
-      setArtworkPreview(fileobj);
+      setFilePreview(fileobj);
     });
   };
 
   const handleImageReader = (e) => {
     const file = e.target.files[0];
-    setArtwork(e.target.files[0]);
+    setFile(e.target.files[0]);
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.addEventListener("load", () => {
@@ -33,9 +43,17 @@ export function useDropArtwork() {
         size: file.size,
         src: reader.result,
       };
-      setArtworkPreview(fileobj);
+      setFilePreview(fileobj);
     });
   };
 
-  return {artwork,artworkPreview,fileDrop,handleImageReader}
+  return {
+    file,
+    filePreview,
+    fileDrop,
+    handleImageReader,
+    dragOver,
+    dragEnter,
+    dragLeave,
+  };
 }

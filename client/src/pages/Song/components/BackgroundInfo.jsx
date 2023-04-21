@@ -4,6 +4,7 @@ import "./background-info.css";
 import { IoMdDownload } from "react-icons/io";
 import { mainContext } from "../../../context/SongsContext";
 import { memo } from "react";
+import DownloadButton from "../../../components/UI/DownloadButton";
 
 function BackgroundInfo({ song }) {
   const [URL, setURL] = useState("");
@@ -41,15 +42,11 @@ function BackgroundInfo({ song }) {
       <div className="background-container">
         <div className="background-wrapper">
           <img src={song.background?.url} />
-          <Link to={URL} className="download-bg">
+          <DownloadButton link={URL}/>
+          {/* <Link to={URL} className="download-bg">
             <IoMdDownload></IoMdDownload> Download
-          </Link>
+          </Link> */}
         </div>
-        {/* {sameBackground.length!==0 && (
-          <div className="more-backgrounds">
-            <h3>Deleted songs that used this background</h3>
-          </div>
-        )} */}
       </div>
     </section>
   );

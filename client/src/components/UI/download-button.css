@@ -1,0 +1,23 @@
+.download-btn {
+  color: white;
+  border: 1px solid white;
+  text-decoration: none;
+  cursor: pointer;
+  gap: 0.3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+  background: none;
+  font-size: 0.8rem;
+  padding: 0.3rem;
+  transition: 0.2s ease-in-out;
+  position: relative;
+}
+
+.download-btn:hover {
+  color: black;
+  background-color: white;
+  border: 1px solid white;
+  transition: 0.2s ease-in-out;
+}
