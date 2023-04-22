@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import "./bg.css";
-
 import { IoMdDownload } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
@@ -9,20 +8,21 @@ import Skeleton from "../../../assets/skeleton-image.png";
 import Progress from "../../../components/UI/Progress";
 import { themecontext } from "../../../context/themeContext";
 
-function BG({ bg }) {
+function BGItem({ bg }) {
   const { theme } = useContext(themecontext);
   const { user } = useAuthContext();
-  const { delBg, progress } = useContext(bgcontext);
+  const { delBg, progress, idRemove, setIdRemove } = useContext(bgcontext);
   const navigate = useNavigate();
   const handleRemove = () => {
     if (user?.roles_name?.includes("admin")) {
+      setIdRemove(bg?._id)
       delBg(bg?._id, user);
     } else {
       console.log("you are not authorized");
     }
   };
   return (
-    <div className={`bg-container ${theme}`}>
+    <div className={`bg-container ${theme} ${idRemove===bg?._id}`}>
       <div
         className="bg-image-wrapper"
         onClick={() => {
@@ -56,4 +56,4 @@ function BG({ bg }) {
   );
 }
 
-export default BG;
+export default BGItem;

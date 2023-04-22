@@ -4,6 +4,31 @@
   gap: 0.5rem;
 }
 
+.bg-container.true {
+  pointer-events: none;
+  position: relative;
+  animation: opacity 1.5s alternate infinite;
+}
+
+.bg-container.true::before {
+  z-index: 1;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: .9;
+}
+
+.bg-container.dark.true::before {
+  background-color: rgb(75, 75, 75);
+}
+
+.bg-container.true::before {
+  background-color: rgb(133, 133, 133);
+}
+
 .bg-image-wrapper {
   overflow: hidden;
   margin: 0 auto;

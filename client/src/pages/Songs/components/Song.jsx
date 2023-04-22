@@ -1,4 +1,4 @@
-import { useContext, memo} from "react";
+import { useContext, memo } from "react";
 import "./song.css";
 import { IoIosLock } from "react-icons/io";
 import { IoIosCloseCircle } from "react-icons/io";
@@ -12,14 +12,13 @@ import Progress from "../../../components/UI/Progress";
 import { themecontext } from "../../../context/themeContext";
 
 const Song = ({ song }) => {
-  const { removeSong, loadingRemove, progressSong } =
+  const { removeSong, loadingRemove, progressSong, idRemove, setIdRemove } =
     useContext(mainContext);
-    const { theme } = useContext(themecontext);
+  const { theme } = useContext(themecontext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleEdit = async () => {
     setModalIsOpen(true);
   };
-  const [idRemove, setIdRemove] = useState(null);
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const artistsList = song?.artists
@@ -28,8 +27,8 @@ const Song = ({ song }) => {
     })
     .join(", ");
   const handleRemove = () => {
-    setIdRemove(song?.customID);
     if (user != null) {
+      setIdRemove(song?._id);
       removeSong(song?._id, user);
     } else {
       console.log("you can't remove a song if you are not logged in");
@@ -51,13 +50,7 @@ const Song = ({ song }) => {
       {modalIsOpen ? (
         <EditSong setModalIsOpen={setModalIsOpen} song={song} />
       ) : (
-        <div
-          className={
-            idRemove === song?.customID
-              ? `song ${theme} ${loadingRemove}`
-              : `song ${theme}`
-          }
-        >
+        <div className={`song ${theme} ${idRemove === song?._id}`}>
           <div className="artwork" onClick={handleSongDiv}>
             {song?.loading ? (
               <img src={Skeleton} className="skeleton-img" />
@@ -140,6 +133,6 @@ const Song = ({ song }) => {
       )}
     </>
   );
-}
+};
 
 export default memo(Song);

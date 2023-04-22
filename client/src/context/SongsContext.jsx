@@ -12,7 +12,7 @@ export const mainContext = createContext();
 export const SongsContextProvider = ({ children }) => {
   const [delSongs, setDelSongs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loadingRemove, setLoadingRemove] = useState(false);
+  const [idRemove, setIdRemove] = useState(null);
   const [progressSong, setProgressSong] = useState(null);
 
   const getSongs = async () => {
@@ -33,17 +33,11 @@ export const SongsContextProvider = ({ children }) => {
     }
   };
 
-
   const postSong = async (song, user) => {
     try {
       setProgressSong(0);
-      setDelSongs([...delSongs, { name: "loading item",loading: true }]);
-      const res = await postNewSong(
-        song,
-        user,
-        setProgressSong,
-        progressSong
-      );
+      setDelSongs([...delSongs, { name: "loading item", loading: true }]);
+      const res = await postNewSong(song, user, setProgressSong, progressSong);
       setDelSongs([...delSongs, res.data]);
       setProgressSong(null);
     } catch (error) {
@@ -53,14 +47,13 @@ export const SongsContextProvider = ({ children }) => {
 
   const removeSong = async (id, user) => {
     try {
-      setLoadingRemove(true);
       await delSong(id, user);
       setDelSongs(
         delSongs.filter((song) => {
           return song._id !== id;
         })
       );
-      setLoadingRemove(false);
+      setIdRemove(null);
     } catch (error) {
       setLoadingRemove(false);
       console.log(error);
@@ -94,10 +87,11 @@ export const SongsContextProvider = ({ children }) => {
         editSong,
         getSingleSong,
         loading,
-        loadingRemove,
+        idRemove,
+        setIdRemove,
         progressSong,
         setDelSongs,
-        getSongsFilter
+        getSongsFilter,
       }}
     >
       {children}
