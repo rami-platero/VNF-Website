@@ -10,6 +10,7 @@ import { useValFields } from "../../../hooks/useValFields";
 import BackButton from "../../../components/UI/BackButton";
 import { memo } from "react";
 import { themecontext } from "../../../context/themeContext";
+import useDynamicFields from "../../../hooks/useDynamicFields";
 
 function AddBg() {
   const { theme } = useContext(themecontext);
@@ -19,16 +20,16 @@ function AddBg() {
     dragLeave,
     handleFile,
     filePreview,
-    addInputField,
     addArtist,
-    removeTrack,
     removeArtist,
     handleArtistChange,
-    handleTrackChange,
     tracks,
+    setTracks,
+    initialForm,
     handleSubmit,
     errors,
   } = BGForm();
+  const {handleDynamicChange, removeDynamicField, addDynamicField} = useDynamicFields(tracks,setTracks,...initialForm)
 
   const validField = (mainIndex, name, index) => {
     if (!index) {
@@ -101,7 +102,7 @@ function AddBg() {
                     autoComplete="off"
                     value={track.name}
                     onChange={(e) => {
-                      handleTrackChange(e, trackIndex);
+                      handleDynamicChange(e, trackIndex);
                     }}
                   />
                   {validField(trackIndex, "name") && (
@@ -115,7 +116,7 @@ function AddBg() {
                     autoComplete="off"
                     value={track.youtube_link}
                     onChange={(e) => {
-                      handleTrackChange(e, trackIndex);
+                      handleDynamicChange(e, trackIndex);
                     }}
                   />
                   {validField(trackIndex, "yt_link") && (
@@ -169,7 +170,7 @@ function AddBg() {
                     <button
                       className="remove-track"
                       onClick={(e) => {
-                        removeTrack(trackIndex, e);
+                        removeDynamicField(trackIndex, e);
                       }}
                     >
                       Remove Track
@@ -178,7 +179,7 @@ function AddBg() {
                   {tracks.length - 1 === trackIndex && tracks.length <= 10 && (
                     <button
                       onClick={(e) => {
-                        addInputField(trackIndex, e);
+                        addDynamicField(trackIndex, e);
                       }}
                       className={`add-track ${theme}`}
                     >

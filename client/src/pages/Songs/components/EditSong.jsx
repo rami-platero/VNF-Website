@@ -10,11 +10,9 @@ import { IoArrowBack } from "react-icons/io5";
 import { themecontext } from "../../../context/themeContext";
 import '../../AddSong/addsong.css'
 
-
 function EditSong({ setModalIsOpen, song }) {
   const { editSong } = useContext(mainContext);
   const { theme } = useContext(themecontext);
-  const navigate = useNavigate();
   const [artists, setArtists] = useState(song.artists);
   const [form, setForm] = useState({
     name: song.name,
@@ -218,17 +216,9 @@ function EditSong({ setModalIsOpen, song }) {
                   }}
                 ></IoIosClose>
               )}
-              {/* <IoIosAdd
-                className="add-more"
-                onClick={(e) => {
-                  addInputField();
-                }}
-              />
-              <IoIosRemove className="remove"/> */}
             </div>
           );
         })}
-        {/* <label htmlFor="upload_date">Upload Date</label> */}
         <input
           defaultValue={song.upload_date}
           type="text"
@@ -261,20 +251,14 @@ function EditSong({ setModalIsOpen, song }) {
           autoComplete="off"
           required
         />
-        {/* <label htmlFor="duration">Duration</label> */}
         <input
           defaultValue={song.duration}
-          type="text"
+          type="time"
           placeholder="Duration"
           name="duration"
           onChange={handleChange}
           autoComplete="off"
           required
-          /* ref={refTime}
-          onFocus={() => {
-            ref.current.type = "time";
-          }}
-          onBlur={() => (ref.current.type = "time")} */
         />
         <input
           defaultValue={song.genre}

@@ -15,6 +15,7 @@ import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { useDropFile } from "../../hooks/useDrop";
 import { themecontext } from "../../context/themeContext";
+import useDynamicFields from "../../hooks/useDynamicFields";
 
 const initialForm = {
   name: "",
@@ -35,6 +36,8 @@ function AddSong() {
   const navigate = useNavigate();
   const [artists, setArtists] = useState([{ name: "" }]);
   const [form, setForm] = useState(initialForm);
+  const [background, setBackground] = useState(null);
+  const [backgroundPreview, setBackgroundPreview] = useState(null);
   const {
     file,
     filePreview,
@@ -44,27 +47,10 @@ function AddSong() {
     dragOver,
   } = useDropFile();
 
+  const {handleDynamicChange,removeDynamicField,addDynamicField} = useDynamicFields(artists,setArtists,{name:""})
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleArtistChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...artists];
-    list[index][name] = value;
-    setArtists(list);
-  };
-
-  const removeField = (index) => {
-    setArtists(
-      artists.filter((artist, idx) => {
-        return idx !== index;
-      })
-    );
-  };
-
-  const addInputField = () => {
-    setArtists([...artists, { name: "" }]);
   };
 
   const { user } = useAuthContext();
@@ -82,11 +68,8 @@ function AddSong() {
     );
     navigate("/deleted-songs");
   };
-
+  
   // ARTOWKR DRAG N DROP
-  const [background, setBackground] = useState(null);
-  const [backgroundPreview, setBackgroundPreview] = useState(null);
-
   const handleBackground = (e, data) => {
     e.preventDefault();
     let file;
@@ -135,13 +118,13 @@ function AddSong() {
                 className="artist-field"
                 value={artist.name}
                 onChange={(e) => {
-                  handleArtistChange(e, index);
+                  handleDynamicChange(e, index);
                 }}
                 autoComplete="off"
                 required
               />
               {artists.length - 1 === index && artists.length <= 10 && (
-                <button onClick={addInputField} className="add-artist">
+                <button onClick={addDynamicField} className="add-artist">
                   <IoIosAdd size="1.2rem" /> Add artist
                 </button>
               )}
@@ -150,7 +133,7 @@ function AddSong() {
                   size="1.2rem"
                   className="remove"
                   onClick={() => {
-                    removeField(index);
+                    removeDynamicField(index);
                   }}
                 ></IoIosClose>
               )}
@@ -183,12 +166,11 @@ function AddSong() {
         />
         {/* <label htmlFor="duration">Duration</label> */}
         <input
+          type="time"
           placeholder="Duration"
           name="duration"
           onChange={handleChange}
           autoComplete="off"
-          required
-          type="time"
         />
         <input
           type="text"

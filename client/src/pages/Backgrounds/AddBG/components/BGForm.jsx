@@ -5,7 +5,7 @@ import { bgcontext } from "../../../../context/bgsContext";
 import { useNavigate } from "react-router-dom";
 import { useDropFile } from "../../../../hooks/useDrop";
 
-const initialState = [
+const initialForm = [
   {
     artists: [{ name: "" }],
     name: "",
@@ -17,7 +17,7 @@ export const BGForm = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const { postBg } = useContext(bgcontext);
-  const [tracks, setTracks] = useState(initialState);
+  const [tracks, setTracks] = useState(initialForm);
   const [errors, setErrors] = useState([]);
   const { file, filePreview, dragOver, dragEnter, dragLeave, handleFile } =
     useDropFile();
@@ -67,33 +67,6 @@ export const BGForm = () => {
   };
 
   /*HANDLE TRACKS*/
-  const addInputField = (index, e) => {
-    e.preventDefault();
-    setTracks([
-      ...tracks,
-      {
-        artists: [{ name: "" }],
-        name: "",
-        youtube_link: "",
-      },
-    ]);
-  };
-
-  const handleTrackChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...tracks];
-    list[index][name] = value;
-    setTracks(list);
-  };
-
-  const removeTrack = (index, e) => {
-    e.preventDefault();
-    setTracks(
-      tracks.filter((track, idx) => {
-        return idx !== index;
-      })
-    );
-  };
 
   const addArtist = (trackIndex, e) => {
     e.preventDefault();
@@ -157,13 +130,12 @@ export const BGForm = () => {
     handleFile,
     filePreview,
     handleSubmit,
-    addInputField,
     addArtist,
-    removeTrack,
     removeArtist,
     handleArtistChange,
-    handleTrackChange,
     tracks,
     errors,
+    setTracks,
+    initialForm
   };
 };
