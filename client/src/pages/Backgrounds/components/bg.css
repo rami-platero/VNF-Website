@@ -18,7 +18,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  opacity: .9;
+  opacity: 0.9;
 }
 
 .bg-container.dark.true::before {
@@ -30,6 +30,7 @@
 }
 
 .bg-image-wrapper {
+  cursor: pointer;
   overflow: hidden;
   margin: 0 auto;
   aspect-ratio: 16/9;

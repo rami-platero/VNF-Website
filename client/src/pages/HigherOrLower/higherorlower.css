@@ -1,5 +1,5 @@
 .high-low-container {
-  min-height: 100%;
+  height: 100vh;
   display: flex;
   color: white;
   position: relative;

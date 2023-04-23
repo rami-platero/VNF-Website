@@ -72,7 +72,6 @@ const Song = ({ song }) => {
                   <div className="artist-name skeleton"></div>
                   <div className="song-genre skeleton"></div>
                   <div className="song-views skeleton"></div>
-                  <div className="song-upload-date skeleton"></div>
                   <div className={`song-status skeleton`}></div>
                 </div>
               ) : (
@@ -80,16 +79,13 @@ const Song = ({ song }) => {
                   <p className="song-name">{song?.name}</p>
                   <p className="artist-name">{artistsList}</p>
                   <p className="song-genre">{song?.genre}</p>
-                  <p>
+                  <p className="song-views">
                     Views:{" "}
-                    <span style={{ color: "#bebebe" }}>
+                    <span style={{ color: "#a3a3a3" }}>
                       {song?.views?.toLocaleString("en-US")}
                     </span>
                   </p>
-                  <p className="song-upload-date">
-                    Date Uploaded: {song?.upload_date}
-                  </p>
-                  <h3>
+                  <div className="song-last-row">
                     <span className={`song-status ${song?.status}`}>
                       {song?.status != "Deleted" ? (
                         <>
@@ -98,12 +94,13 @@ const Song = ({ song }) => {
                         </>
                       ) : (
                         <>
-                          <IoIosCloseCircle color="red" />
+                          <IoIosCloseCircle/>
                           {song?.status?.toUpperCase()}
                         </>
                       )}
                     </span>
-                  </h3>
+                    <p className="song-upload-date">{song?.upload_date}</p>
+                  </div>
                   {user?.roles_name?.includes("admin") && (
                     <div className="actions">
                       <button

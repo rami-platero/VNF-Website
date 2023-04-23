@@ -96,6 +96,7 @@
 }
 
 .original-info span {
+  user-select: none;
   padding: 0.5rem;
   color: white;
   background-color: rgb(32, 32, 32);
@@ -127,6 +128,7 @@
 
 .post-container .description p {
   margin-bottom: 0.7rem;
+  user-select: none;
 }
 
 .description-text::-webkit-scrollbar-track {

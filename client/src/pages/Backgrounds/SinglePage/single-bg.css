@@ -8,6 +8,10 @@
   overflow-y: hidden;
 }
 
+.single-bg-container.dark::before {
+  background-color: rgb(23, 26, 29);
+}
+
 .single-bg-container::before {
   background-repeat: no-repeat;
   background-size: cover;
@@ -57,7 +61,7 @@
   padding: 1rem;
   width: 100%;
   max-width: 600px;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   /* box-shadow: rgba(10, 156, 144, 0.7) 0px 0px 20px; */
 }
 

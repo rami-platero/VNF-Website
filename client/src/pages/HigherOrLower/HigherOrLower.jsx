@@ -188,7 +188,6 @@ const HigherOrLower = () => {
      ) : <div className="gameState">X</div>}
    </div>
     }
-   
     </>
   )
 };

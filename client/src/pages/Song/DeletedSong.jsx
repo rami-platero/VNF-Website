@@ -5,13 +5,13 @@ import { mainContext } from "../../context/SongsContext";
 import "./deleted-song.css";
 import { IoArrowBack } from "react-icons/io5";
 import ReactPlayer from "react-player";
-import { Link } from "react-router-dom";
 import { IoCopyOutline } from "react-icons/io5";
 import DeletedInfo from "./components/DeletedInfo";
 import BackgroundInfo from "./components/BackgroundInfo";
+import toast, { Toaster } from "react-hot-toast";
 
 function DeletedSong() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { customID } = useParams();
   const { getSingleSong } = useContext(mainContext);
   const { theme } = useContext(themecontext);
@@ -38,12 +38,25 @@ function DeletedSong() {
     "--bgURL": `url(https://i3.ytimg.com/vi/${bgURL}/maxresdefault.jpg)`,
   };
 
+  const copy = () => {
+    toast.success("Copied to clipboard", {
+      position:"bottom-center",
+      style: {
+        backgroundColor: "#111314",
+        color: "white",
+      }
+    });
+  };
+
   return (
     <div className={`post-container ${theme}`}>
       <section className={`video-container ${theme}`} style={someStyle}>
-        <button className={`back-btn`} onClick={()=>{
-          navigate(-1)
-        }}>
+        <button
+          className={`back-btn`}
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
           <IoArrowBack />
           Back
         </button>
@@ -78,6 +91,7 @@ function DeletedSong() {
                   <span
                     onClick={() => {
                       navigator.clipboard.writeText(song.original_link);
+                      copy();
                     }}
                     style={{ cursor: "pointer" }}
                   >
@@ -116,6 +130,7 @@ function DeletedSong() {
                     style={{ cursor: "pointer" }}
                     onClick={() => {
                       navigator.clipboard.writeText(song.original_description);
+                      copy()
                     }}
                   />
                 </p>
@@ -127,6 +142,7 @@ function DeletedSong() {
           </div>
         </div>
       </section>
+      <Toaster />
       <DeletedInfo song={song} artistsList={artistsList} />
       {song.background != null && <BackgroundInfo song={song} />}
     </div>

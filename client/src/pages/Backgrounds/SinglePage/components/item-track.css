@@ -4,13 +4,12 @@
 
 .item-container .item-wrapper {
   padding: 1rem;
-  /* cursor: pointer;
-  transition: 0.2s ease-in-out; */
+  transition: 0.2s ease-in-out;
 }
-/* .item-container .item-wrapper:hover {
+.item-container .item-wrapper:hover {
   background-color: rgb(16, 16, 20);
   transition: 0.2s ease-in-out;
-} */
+}
 
 .item-container .item-wrapper img {
   max-width: 250px;

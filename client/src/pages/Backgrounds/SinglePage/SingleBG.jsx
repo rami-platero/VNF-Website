@@ -7,9 +7,11 @@ import "./single-bg.css";
 import ItemTrack from "./components/ItemTrack";
 import DownloadButton from "../../../components/UI/DownloadButton.jsx";
 import BackButton from "../../../components/UI/BackButton";
+import { themecontext } from "../../../context/themeContext";
 
 function SingleBG() {
   const [bg, setBg] = useState(null);
+  const {theme} = useContext(themecontext)
   const { customID } = useParams();
   const { getBg } = useContext(bgcontext);
   const getPost = async () => {
@@ -26,7 +28,7 @@ function SingleBG() {
   return (
     <div
       style={{ "--singleBG": `url(${bg?.file?.url})` }}
-      className="single-bg-container"
+      className={`single-bg-container ${theme}`}
     >
       {bg && 
       <div className="single-bg-wrapper">

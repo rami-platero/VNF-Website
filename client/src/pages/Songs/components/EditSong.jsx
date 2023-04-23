@@ -9,6 +9,7 @@ import { useAuthContext } from "../../../hooks/useAuthContext";
 import { IoArrowBack } from "react-icons/io5";
 import { themecontext } from "../../../context/themeContext";
 import '../../AddSong/addsong.css'
+import BackButton from "../../../components/UI/BackButton";
 
 function EditSong({ setModalIsOpen, song }) {
   const { editSong } = useContext(mainContext);
@@ -158,15 +159,7 @@ function EditSong({ setModalIsOpen, song }) {
 
   return (
     <div className={`form-container modal ${theme}`}>
-      <button
-        className={`back-btn`}
-        onClick={() => {
-          setModalIsOpen(false)
-        }}
-      >
-        <IoArrowBack />
-        Back
-      </button>
+      <BackButton />
       {/* <IoIosClose
         size="3rem"
         className="close"

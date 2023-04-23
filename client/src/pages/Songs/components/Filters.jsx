@@ -54,7 +54,7 @@ const Filters = ({ setQuery }) => {
     <div className="filters-wrapper">
       <div className={`input-search ${theme}`}>
         <IoSearchOutline style={{ marginLeft: ".5rem" }} />
-        <input type="text" placeholder="Search..." onChange={handleChange} />
+        <input type="search" placeholder="Search..." onChange={handleChange} />
       </div>
       <div className="filter-by">
         <label htmlFor="filters">Filter by</label>

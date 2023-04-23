@@ -21,7 +21,7 @@
 }
 
 .progress-loading-bar.dark::before {
-  background-color: rgb(3, 104, 11);
+  background-color: rgb(18, 180, 32);
 }
 
 .progress-loading-bar.dark {

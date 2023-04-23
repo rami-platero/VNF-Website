@@ -16,40 +16,45 @@ import axios from "axios";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import HigherOrLower from "./pages/HigherOrLower/HigherOrLower.jsx";
 import SingleBG from "./pages/Backgrounds/SinglePage/SingleBG.jsx";
+import { useContext } from "react";
+import { themecontext } from "./context/themeContext.jsx";
 
 function App() {
   axios.defaults.baseURL = `https://vnf-website-api.onrender.com/`;
   const { user } = useAuthContext();
+  const {theme} = useContext(themecontext)
   return (
     <BgContextProvider>
       <BrowserRouter>
         <Navigation />
         <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/HigherOrLower" element={<HigherOrLower />} />
-          <Route path="/deleted-songs" element={<Songs />} />
-          <Route path="/backgrounds" element={<Backgrounds />} />
-          <Route path="/backgrounds/:customID" element={<SingleBG />} />
-          <Route path="/add-background" element={<AddBg />} />
-          <Route
-            path="/add-deleted-song"
-            element={user ? <AddSong /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/deleted-song/:customID/:name"
-            element={<DeletedSong />}
-          />
-          <Route
-            path="/login"
-            element={!user ? <Login /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/signup"
-            element={!user ? <SignUp /> : <Navigate to="/" />}
-          />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <div className={`routes-container ${theme}`}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/HigherOrLower" element={<HigherOrLower />} />
+            <Route path="/deleted-songs" element={<Songs />} />
+            <Route path="/backgrounds" element={<Backgrounds />} />
+            <Route path="/backgrounds/:customID" element={<SingleBG />} />
+            <Route path="/add-background" element={<AddBg />} />
+            <Route
+              path="/add-deleted-song"
+              element={user ? <AddSong /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/deleted-song/:customID/:name"
+              element={<DeletedSong />}
+            />
+            <Route
+              path="/login"
+              element={!user ? <Login /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/signup"
+              element={!user ? <SignUp /> : <Navigate to="/" />}
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </BgContextProvider>
   );

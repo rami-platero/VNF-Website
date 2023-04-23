@@ -1,55 +1,49 @@
 /*INPUTS*/
-.form-container.dark form input,
+.form-container.dark form input:not([type="submit"]),
 .description-input.dark,
 .tracks-inputs.dark input[type="text"] {
+  border-bottom: 1px solid white;
   background-color: rgb(17, 17, 17);
   color: white;
+}
+
+.form-container.dark form input[type="submit"],.form-bg-container-wrapper.dark form input[type="submit"],.artists-input.dark button,
+.add-track.dark {
+  border: 1px solid white;
+  background-color: rgb(17, 17, 17);
+  color: white;
+}
+
+.form-container.dark form input[type="submit"]:hover,.form-bg-container-wrapper.dark form input[type="submit"]:hover, .artists-input.dark button:hover,
+.add-track.dark:hover{
+  background-color: white;
+  color: black;
 }
 
 .form-container.dark form input:focus,
 .description-input.dark:focus,
 .tracks-inputs.dark input[type="text"]:focus {
-  border-bottom: 1px solid rgb(156, 13, 13);
+  border-bottom: 1px solid rgb(48, 189, 207);
   background-color: rgb(10, 10, 10);
 }
 
 .form-container.dark input:not([type="submit"]):not(:placeholder-shown),
 .description-input.dark:not(:placeholder-shown),
 .tracks-inputs.dark input[type="text"]:not(:placeholder-shown) {
-  border-bottom: 1px solid rgb(175, 29, 29);
+  border-bottom: 1px solid rgb(48, 189, 207);
 }
 
-.form-container.dark form input[type=time],.form-container.dark form input[type=date] {
+.form-container.dark form input[type="time"],
+.form-container.dark form input[type="date"] {
   text-align: left;
   color: white;
 }
 
-.form-container.dark form input[type="time"]:before, .form-container.dark form input[type="date"]:before {
+.form-container.dark form input[type="time"]:before,
+.form-container.dark form input[type="date"]:before {
   color: #6d6d6d;
   content: attr(placeholder) !important;
   margin-right: 0.5em;
 }
 
-.artists-input.dark button,
-.add-track.dark {
-  background-color: rgb(24, 24, 24);
-  color: white;
-  border: 1px solid white;
-}
 
-.artists-input.dark button:hover,
-.add-track.dark:hover {
-  color: black;
-  background-color: white;
-}
-
-.form-bg-container-wrapper.dark form input[type="submit"] {
-  background-color: rgb(24, 24, 24);
-  color: white;
-  border: 1px solid white;
-}
-
-.form-bg-container-wrapper.dark form input[type="submit"]:hover {
-  background-color: white;
-  color: black;
-}

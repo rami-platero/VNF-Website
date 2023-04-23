@@ -7,6 +7,17 @@ body {
   padding: 0;
 }
 
+.routes-container {
+  min-height: 100%;
+  transition: 0.2s ease-in-out;
+}
+
+.routes-container.dark {
+  background-color: #0c0d0f;
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+
 .nav-header.dark {
   /* background: linear-gradient(0deg, rgb(23, 26, 29) 0%, rgb(31, 31, 31) 100%); */
   background: rgba(0, 0, 0, 0.795);
@@ -14,14 +25,14 @@ body {
   transition: 0.2s ease-in-out;
 }
 
-.songs-container.dark {
-  background-color: rgb(23, 26, 29);
+/* .songs-container.dark {
+  background-color: #0c0d0f;
   color: white;
-}
+} */
 
 .video-container.dark,
 .back-container.dark {
-  background-color: rgb(15, 17, 19);
+  background-color: #0c0d0f;
   color: white;
 }
 
@@ -29,16 +40,16 @@ body {
 .backgrounds-container.dark,
 .form-bg-container.dark {
   color: white;
-  background-color: rgb(23, 26, 29);
+  background-color: #0c0d0f;
 }
 
-.form-container.dark{
-  background-color: rgb(23, 26, 29);
+.form-container.dark {
+  background-color: #0c0d0f;
   color: white;
   padding-top: 100px;
 }
 
-.form-container.light{
+.form-container.light {
   padding-top: 100px;
 }
 
@@ -119,11 +130,6 @@ body {
 }
 
 /*LOGIN - SIGN UP*/
-.login-container.dark {
-  background-color: rgb(23, 26, 29);
-  color: white;
-  transition: 0.2s ease-in-out;
-}
 
 .text-field.dark {
   background-color: rgb(34, 34, 34);
@@ -157,7 +163,5 @@ body {
 }
 
 /*BACKGROUNDS*/
-
-
 
 /*add new bg*/

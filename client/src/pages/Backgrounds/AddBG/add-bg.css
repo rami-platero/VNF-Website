@@ -37,6 +37,10 @@
 
 .val-text{
   font-size: .8rem;
-  color: rgb(255, 61, 61);
+  color: #ff3d3d;
+}
+
+.input-val.true{
+  border-bottom: 1px solid #ff1c1c !important;
 }
 

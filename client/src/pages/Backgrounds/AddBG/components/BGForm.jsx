@@ -5,15 +5,14 @@ import { bgcontext } from "../../../../context/bgsContext";
 import { useNavigate } from "react-router-dom";
 import { useDropFile } from "../../../../hooks/useDrop";
 
-const initialForm = [
-  {
-    artists: [{ name: "" }],
-    name: "",
-    youtube_link: "",
-  },
-];
-
 export const BGForm = () => {
+  const initialForm = [
+    {
+      artists: [{ name: "" }],
+      name: "",
+      youtube_link: "",
+    },
+  ];
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const { postBg } = useContext(bgcontext);
@@ -136,6 +135,6 @@ export const BGForm = () => {
     tracks,
     errors,
     setTracks,
-    initialForm
+    initialForm,
   };
 };

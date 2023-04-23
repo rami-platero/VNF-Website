@@ -9,7 +9,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
-import {RiArrowUpDownLine} from "react-icons/ri";
+import { RiArrowUpDownLine } from "react-icons/ri";
 import { themecontext } from "../context/themeContext";
 
 function Navigation() {
@@ -28,9 +28,6 @@ function Navigation() {
         <ul>
           {open && window.innerWidth <= 1200 && (
             <div className={`pages-nav ham ${theme}`}>
-              <NavLink className={"navlink-logo"} to={"/"} src={Logo}>
-                <img src={Logo} className={`logo ${theme}`} />
-              </NavLink>
               <NavLink
                 onClick={() => {
                   setOpen(false);
@@ -62,7 +59,7 @@ function Navigation() {
                   isActive ? `link active ${theme}` : `link inactive ${theme}`
                 }
               >
-                Higher or Lower <RiArrowUpDownLine/>
+                Higher or Lower <RiArrowUpDownLine />
               </NavLink>
             </div>
           )}
@@ -99,6 +96,17 @@ function Navigation() {
             >
               Backgrounds
             </NavLink>
+            <NavLink
+              to={"/HigherOrLower"}
+              onClick={() => {
+                setOpen(false);
+              }}
+              className={({ isActive }) =>
+                isActive ? `link active ${theme}` : `link inactive ${theme}`
+              }
+            >
+              Higher or Lower <RiArrowUpDownLine />
+            </NavLink>
           </div>
           <div className="links">
             <div className="hamburger-container">
@@ -119,6 +127,9 @@ function Navigation() {
                   size={"2rem"}
                 />
               )}
+              <NavLink to={"/"} src={Logo}>
+                <img src={Logo} className={`logo ${theme}`} />
+              </NavLink>
             </div>
             <div className="auth-links">
               {theme == "dark" ? (
@@ -164,7 +175,6 @@ function Navigation() {
                   </NavLink>
                 </>
               )}
-
               {user && (
                 <button className={`log-out ${theme}`} onClick={handleLogout}>
                   Log Out

@@ -17,7 +17,7 @@ function Login() {
   const { theme } = useContext(themecontext);
 
   return (
-    <div className={`login-container ${theme}`}>
+    <div className={`login-container`}>
       <h1>LOGIN</h1>
       <form onSubmit={handleSubmit}>
         <div className={`text-field ${theme}`}>

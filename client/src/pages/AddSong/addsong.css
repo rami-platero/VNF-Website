@@ -46,16 +46,16 @@ input[type="number"]::-webkit-inner-spin-button {
   width: 100%;
 }
 
-.form-container input[type="text"],
-.form-container input[type="date"],
-.form-container input[type="time"],
-.form-container input[type="number"],
+.form-container form input[type="text"],
+.form-container form input[type="date"],
+.form-container form input[type="time"],
+.form-container form input[type="number"],
 .description-input {
   background-color: white;
   padding: 0.7rem;
   border: none;
   outline: none;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid black;
   transition: 0.2s ease-in-out;
 }
 
@@ -69,7 +69,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .form-container input:not([type="submit"]):not(:placeholder-shown),.description-input:not(:placeholder-shown) {
-  border-bottom: 1px solid rgb(22, 247, 255);
+  border-bottom: 1px solid rgb(13, 196, 202);
 }
 
 .form-container input:invalid{

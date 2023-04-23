@@ -1,10 +1,13 @@
 .backgrounds-container{
-  padding: 2.5rem;
+  margin: 0 auto;
+  padding: 1rem;
   min-height: 100%;
   height: auto !important;
+  max-width: 1600px;
   padding-top: 100px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1rem;
 }
 
@@ -44,4 +47,16 @@
     minmax(var(--auto-grid-min-size), 1fr)
   );
   gap: 1rem;
+}
+
+.backgrounds-title {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: 1rem;
+}
+
+.backgrounds-title h4 {
+  font-weight: 500;
 }

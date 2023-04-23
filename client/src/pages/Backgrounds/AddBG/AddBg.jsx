@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./add-bg.css";
 import "./bg-inputs.css";
 import "./drop-bg.css";
@@ -25,11 +25,15 @@ function AddBg() {
     handleArtistChange,
     tracks,
     setTracks,
-    initialForm,
     handleSubmit,
     errors,
   } = BGForm();
-  const {handleDynamicChange, removeDynamicField, addDynamicField} = useDynamicFields(tracks,setTracks,...initialForm)
+  const { handleDynamicChange, removeDynamicField, addDynamicField } =
+    useDynamicFields(tracks, setTracks, {
+      artists: [{ name: "" }],
+      name: "",
+      youtube_link: "",
+    });
 
   const validField = (mainIndex, name, index) => {
     if (!index) {
@@ -64,8 +68,8 @@ function AddBg() {
               onDragOver={dragOver}
               onDragEnter={dragEnter}
               onDragLeave={dragLeave}
-              onDrop={(e)=>{
-                handleFile(e,"drop")
+              onDrop={(e) => {
+                handleFile(e, "drop");
               }}
             >
               <h2>Drag And Drop</h2>
@@ -80,8 +84,8 @@ function AddBg() {
                 type="file"
                 placeholder="Background"
                 name="background"
-                onChange={(e)=>{
-                  handleFile(e,"input")
+                onChange={(e) => {
+                  handleFile(e, "input");
                 }}
               />
             </div>
@@ -104,6 +108,7 @@ function AddBg() {
                     onChange={(e) => {
                       handleDynamicChange(e, trackIndex);
                     }}
+                    className={`input-val ${validField(trackIndex, "name")}`}
                   />
                   {validField(trackIndex, "name") && (
                     <p className="val-text">This field must be filled</p>
@@ -118,6 +123,7 @@ function AddBg() {
                     onChange={(e) => {
                       handleDynamicChange(e, trackIndex);
                     }}
+                    className={`input-val ${validField(trackIndex, "yt_link")}`}
                   />
                   {validField(trackIndex, "yt_link") && (
                     <p className="val-text">This field must be filled</p>
@@ -137,6 +143,11 @@ function AddBg() {
                                 handleArtistChange(e, trackIndex, index);
                               }}
                               value={artist.name}
+                              className={`input-val ${validField(
+                                trackIndex,
+                                "artist_name",
+                                index
+                              )}`}
                             />
                             {track.artists.length > 1 && (
                               <IoIosClose
@@ -190,7 +201,7 @@ function AddBg() {
               );
             })}
           </>
-          <input type="submit" />
+          <input type="submit" value={"Submit"}/>
         </form>
       </div>
     </div>
