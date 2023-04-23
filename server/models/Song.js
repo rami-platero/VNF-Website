@@ -8,7 +8,7 @@ const songSchema = new Schema({
     },
   ],
   customID: {
-    type: String,
+    type: Number,
     unique: true,
     default: Math.floor(Math.random() * (999999 - 100000 + 1) + 10000),
   },
@@ -28,7 +28,7 @@ const songSchema = new Schema({
   },
   original_link: String,
   original_description: String,
-  views: { type: String, default: 0 },
+  views: { type: Number, default: 0 },
   views_date: String,
 });
 
