@@ -4,7 +4,7 @@ import { connect } from "mongoose";
 
 export const connectDB = async ()=> {
     try {
-        await connect(process.env.MONGO_DB)
+        await connect(process.env.MONGODB_URI)
         console.log('connected to db')
     } catch (error) {
         console.log("error, couldn't connect to DB")
@@ -14,7 +14,7 @@ connectDB()
 
 import { MongoClient, ServerApiVersion } from 'mongodb';
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(process.env.MONGO_DB, {
+const client = new MongoClient(process.env.MONGODB_URI, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
