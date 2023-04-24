@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import Logo from "../../assets/ncs-logo-resized.png";
 import { mainContext } from "../../context/SongsContext";
@@ -8,6 +8,8 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import "./addsong.css";
 import "./newsong.css";
 import BackButton from "../../components/UI/BackButton.jsx";
+import useDynamicFields from "../../hooks/useDynamicFields";
+import { bgcontext } from "../../context/bgsContext";
 
 //ICONS
 
@@ -15,7 +17,7 @@ import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { useDropFile } from "../../hooks/useDrop";
 import { themecontext } from "../../context/themeContext";
-import useDynamicFields from "../../hooks/useDynamicFields";
+import { BiDownArrowAlt } from "react-icons/bi";
 
 const initialForm = {
   name: "",
@@ -26,7 +28,7 @@ const initialForm = {
   link: "",
   original_link: "",
   original_description: "",
-  views: "",
+  views: 0,
   views_date: "",
 };
 
@@ -38,16 +40,14 @@ function AddSong() {
   const [form, setForm] = useState(initialForm);
   const [background, setBackground] = useState(null);
   const [backgroundPreview, setBackgroundPreview] = useState(null);
-  const {
-    file,
-    filePreview,
-    handleFile,
-    dragEnter,
-    dragLeave,
-    dragOver,
-  } = useDropFile();
+  const { file, filePreview, handleFile, dragEnter, dragLeave, dragOver } =
+    useDropFile();
+  const { data } = useContext(bgcontext);
+  const [selectBG, setSelectBG] = useState("default");
+  const dropRef = useRef(null);
 
-  const {handleDynamicChange,removeDynamicField,addDynamicField} = useDynamicFields(artists,setArtists,{name:""})
+  const { handleDynamicChange, removeDynamicField, addDynamicField } =
+    useDynamicFields(artists, setArtists, { name: "" });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -59,16 +59,16 @@ function AddSong() {
     e.preventDefault();
     postSong(
       {
+        background,
         ...form,
         artists: [...artists],
         artwork: file,
-        background,
       },
       user
     );
     navigate("/deleted-songs");
   };
-  
+
   // ARTOWKR DRAG N DROP
   const handleBackground = (e, data) => {
     e.preventDefault();
@@ -77,8 +77,8 @@ function AddSong() {
       file = e.dataTransfer.files[0];
       setBackground(e.dataTransfer.files[0]);
     } else {
-      file = e.target.files[0]
-      setBackground(e.target.files[0])
+      file = e.target.files[0];
+      setBackground(e.target.files[0]);
     }
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -148,14 +148,33 @@ function AddSong() {
           required
           autoComplete="off"
         />
-        <input
-          type="text"
-          placeholder="Status"
-          name="status"
-          onChange={handleChange}
-          autoComplete="off"
-          required
-        />
+        <label htmlFor="status" style={{ alignSelf: "center" }}>
+          Status
+        </label>
+        <div className={`radio-inputs ${theme}`}>
+          <div className="radio-input-wrapper">
+            <input
+              type="radio"
+              name="status"
+              autocomplete="off"
+              value="Deleted"
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="status">Deleted</label>
+          </div>
+          <div className="radio-input-wrapper">
+            <input
+              type="radio"
+              name="status"
+              autocomplete="off"
+              value="Private"
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="status">Private</label>
+          </div>
+        </div>
         <input
           type="text"
           placeholder="YouTube Link (Re-Upload)"
@@ -164,7 +183,6 @@ function AddSong() {
           autoComplete="off"
           required
         />
-        {/* <label htmlFor="duration">Duration</label> */}
         <input
           type="time"
           placeholder="Duration"
@@ -188,8 +206,8 @@ function AddSong() {
           onDragOver={dragOver}
           onDragEnter={dragEnter}
           onDragLeave={dragLeave}
-          onDrop={(e)=>{
-            handleFile(e,"drop")
+          onDrop={(e) => {
+            handleFile(e, "drop");
           }}
         >
           <h2>Drag And Drop</h2>
@@ -204,8 +222,8 @@ function AddSong() {
             type="file"
             placeholder="Artwork"
             name="artwork"
-            onChange={(e)=>{
-              handleFile(e,"input")
+            onChange={(e) => {
+              handleFile(e, "input");
             }}
           />
         </div>
@@ -243,33 +261,87 @@ function AddSong() {
           />
         </div>
         <label htmlFor="background">Background</label>
-        <div
-          className={`drop-container-background ${theme}`}
-          onDragEnter={dragEnter}
-          onDragOver={dragOver}
-          onDragLeave={dragLeave}
-          onDrop={(e) => {
-            handleBackground(e,"drop");
-          }}
-        >
-          <h2>Drag And Drop</h2>
-          {backgroundPreview != null && (
-            <img
-              src={backgroundPreview.src}
-              alt={backgroundPreview.name}
-              className="background-preview"
-            />
-          )}
-          <input
-            type="file"
-            placeholder="Background"
-            name="background"
-            onChange={(e) => {
-              handleBackground(e,"input");
+        <div className={`select-background ${theme}`}>
+          <div
+            className="select-bg-wrapper"
+            onClick={() => {
+              dropRef.current.scrollIntoView();
             }}
-          />
+          >
+            <input
+              type="radio"
+              name="bg"
+              value="new-bg"
+              onChange={() => {
+                setSelectBG("existing");
+              }}
+            />
+            <label htmlFor="bg">Use an existing background</label>
+            <BiDownArrowAlt size={"1rem"} className="select-bg-icon" />
+          </div>
+          <div className={`existing-bgs-selector ${selectBG} ${theme}`}>
+            {data?.map((bg) => {
+              return (
+                <div className="bg-select-item">
+                  <input
+                    type="radio"
+                    name="bg"
+                    value={bg}
+                    onChange={()=>{
+                      console.log("changed to",bg)
+                    }}
+                  />
+                  <img src={bg?.file?.url} />
+                  <div className="background-checked"></div>
+                </div>
+              );
+            })}
+          </div>
+          <div
+            className="select-bg-wrapper"
+            onClick={() => {
+              dropRef.current.scrollIntoView();
+            }}
+          >
+            <input
+              type="radio"
+              name="bg"
+              value="existing"
+              onChange={() => {
+                setSelectBG("new-bg");
+              }}
+            />
+            <label htmlFor="bg">Upload a new background</label>
+            <BiDownArrowAlt size={"1rem"} className="select-bg-icon" />
+          </div>
+          <div
+            className={`drop-container-background height ${theme} ${selectBG}`}
+            onDragEnter={dragEnter}
+            onDragOver={dragOver}
+            onDragLeave={dragLeave}
+            onDrop={(e) => {
+              handleBackground(e, "drop");
+            }}
+          >
+            <h2>Drag And Drop</h2>
+            {backgroundPreview != null && (
+              <img
+                src={backgroundPreview.src}
+                alt={backgroundPreview.name}
+                className="background-preview"
+              />
+            )}
+            <input
+              type="file"
+              placeholder="Background"
+              name="background"
+              onChange={(e) => {
+                handleBackground(e, "input");
+              }}
+            />
+          </div>
         </div>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" ref={dropRef} />
       </form>
     </div>
   );

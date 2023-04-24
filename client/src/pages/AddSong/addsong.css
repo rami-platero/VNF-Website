@@ -13,12 +13,14 @@ input[type="number"]::-webkit-inner-spin-button {
   display: none;
 }
 
-.form-container form input[type=time],.form-container form input[type=date] {
+.form-container form input[type="time"],
+.form-container form input[type="date"] {
   text-align: left;
   color: black;
 }
 
-.form-container form input[type="time"]:before, .form-container form input[type="date"]:before {
+.form-container form input[type="time"]:before,
+.form-container form input[type="date"]:before {
   color: #6d6d6d;
   content: attr(placeholder) !important;
   margin-right: 0.5em;
@@ -68,11 +70,12 @@ input[type="number"]::-webkit-inner-spin-button {
   transition: 0.2s ease-in-out;
 }
 
-.form-container input:not([type="submit"]):not(:placeholder-shown),.description-input:not(:placeholder-shown) {
+.form-container input:not([type="submit"]):not(:placeholder-shown),
+.description-input:not(:placeholder-shown) {
   border-bottom: 1px solid rgb(13, 196, 202);
 }
 
-.form-container input:invalid{
+.form-container input:invalid {
   border-bottom: none;
 }
 
@@ -135,20 +138,26 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .drop-container-background {
+  overflow: hidden;
   cursor: pointer;
   border: 1px dotted gray;
   width: 100%;
-  height: 240px;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: 0.2s ease-in-out;
   background-color: rgb(233, 233, 233);
+  transition: 0.2s ease-in-out;
 }
 
-.drop-container-background.true{
+.drop-container-background.height {
+  transition: max-height 0.7s linear;
+  opacity: 0;
+  max-height: 0px;
+}
+
+.drop-container-background.true {
   border: 1px solid rgb(255, 41, 41);
 }
 
@@ -198,3 +207,199 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #cccccc;
 }
+
+.radio-inputs {
+  display: flex;
+  gap: 1rem;
+}
+
+.radio-input-wrapper {
+  position: relative;
+  margin-bottom: 0.8rem;
+}
+
+.radio-input-wrapper input {
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.radio-input-wrapper label {
+  position: relative;
+  cursor: pointer;
+  padding: 0.5rem 2rem;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  transition: 0.1s ease-in-out;
+}
+
+.radio-input-wrapper input:hover + label {
+  background-color: rgb(243, 243, 243);
+  transition: 0.1s ease-in-out;
+}
+
+.radio-input-wrapper input:checked + label {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+.select-background {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.select-background .select-bg-wrapper {
+  position: relative;
+  margin: 0 auto;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  width: 100%;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.1s ease-in-out;
+}
+
+.select-background .select-bg-wrapper input {
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.drop-container-background.new-bg {
+  opacity: 100%;
+  max-height: 240px;
+}
+
+.existing-bgs-selector.existing {
+  max-height: 400px;
+  transition: max-height 0.7s linear;
+}
+.existing-bgs-selector.new-bg {
+  display: none;
+}
+.existing-bgs-selector.default {
+  display: none;
+}
+
+.existing-bgs-selector {
+  display: none;
+  padding: 1rem 1rem 1rem 0.5rem;
+  max-width: 100%;
+  border: 2px solid black;
+  width: 100%;
+  height: 100%;
+  max-height: 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.8rem, 1fr));
+  grid-row-gap: 0.3rem;
+  grid-column-gap: 1rem;
+  overflow-y: scroll;
+  transition: max-height 0.7s linear;
+  overflow-x: hidden;
+}
+
+.bg-select-item input{
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 4;
+  height: 100%;
+}
+
+.bg-select-item .background-checked{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  content: "";
+  transition: 0.2s ease-in-out;
+}
+
+.bg-select-item img {
+  max-width: 150px;
+  aspect-ratio: 16/9;
+  z-index: 2;
+}
+
+.bg-select-item input:checked ~ .background-checked{
+  background-color: rgb(0, 0, 0);
+  box-shadow: rgba(0, 0, 0, 1) 0px 2px 10px;
+  transition: 0.2s ease-in-out;
+}
+
+
+.existing-bgs-selector.dark {
+  border: 2px solid white;
+}
+
+.bg-select-item {
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 0.13rem;
+}
+
+.bg-select-item:hover {
+  transition: 0.2s ease-in-out;
+  background-color: rgb(0, 0, 0);
+}
+
+.existing-bgs-selector.dark .bg-select-item:hover {
+  transition: 0.2s ease-in-out;
+  background-color: white;
+}
+
+/* .existing-bgs-selector.dark{
+  border: 1px solid white;
+}
+ */
+.existing-bgs-selector.dark::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #181818;
+}
+
+.existing-bgs-selector::-webkit-scrollbar {
+  width: 10px;
+  background-color: #181818;
+}
+
+.existing-bgs-selector::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #707070;
+}
+
+.existing-bgs-selector::-webkit-scrollbar-track {
+  background-color: #dfdfdf;
+}
+
+
+
+/* .select-background .select-bg-wrapper .select-bg-icon{
+  transform: rotate(180deg);
+  transition: 0.5s ease-in-out;
+} */

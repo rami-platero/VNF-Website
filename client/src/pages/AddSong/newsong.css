@@ -71,6 +71,8 @@ textarea:focus {
 
 .form-container form,
 .form-container-modal form {
+  max-width: 500px;
+  width: 100%;
   margin: 0;
   display: flex;
   flex-direction: column;

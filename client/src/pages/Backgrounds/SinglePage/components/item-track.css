@@ -1,5 +1,6 @@
 .item-container {
   margin: 0 auto;
+  width: 100%;
 }
 
 .item-container .item-wrapper {

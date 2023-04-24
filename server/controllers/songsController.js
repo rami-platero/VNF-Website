@@ -1,6 +1,18 @@
 import Song from "../models/Song.js";
 import { deleteArtwork, uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
+import Background from "../models/Background.js";
+
+const createID = async ()=>{
+  let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
+  let exists = await Background.findOne({ customID });
+  console.log(exists);
+  while (exists) {
+    customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
+    exists = await Background.findOne({ customID });
+  }
+  return customID
+}
 
 export const getSongs = async (req, res) => {
   try {
@@ -14,18 +26,13 @@ export const getSongs = async (req, res) => {
 export const newSong = async (req, res) => {
   try {
     let artwork;
-    let background;
+    /*CREATE CUSTOM ID*/
+    const customID = await createID()
     //BACKGROUND & ARTWORK
     if (req.files?.background && req.files?.artwork) {
       //BACKGROUND
-      console.log("both images")
-      const bg_result = await uploadImage(req.files.background.tempFilePath);
-      background = {
-        name: req.files.background.tempFilePath,
-        url: bg_result.secure_url,
-        public_id: bg_result.public_id,
-      };
-      await fs.remove(req.files.background.tempFilePath);
+      const bgID = await Song.handleBG(req.files.background,req.body)
+      console.log("bgID is", bgID)
       //ARTWORK
       const art_result = await uploadImage(req.files.artwork.tempFilePath);
       artwork = {
@@ -36,7 +43,8 @@ export const newSong = async (req, res) => {
       //
       const newSong = new Song({
         ...req.body,
-        background,
+        customID,
+        background: bgID,
         artwork,
         artists: JSON.parse(req.body.artists),
       });
@@ -44,16 +52,18 @@ export const newSong = async (req, res) => {
       return res.send(newSong);
     }
     //ONLY ARTWORK
-    if (req.files?.artwork && req.files?.background==null) {
+    if (req.files?.artwork && !req.files?.background) {
       const result = await uploadImage(req.files.artwork.tempFilePath);
       artwork = {
         url: result.secure_url,
         public_id: result.public_id,
       };
       await fs.remove(req.files.artwork.tempFilePath);
+      const {background, ...rest} = req.body
       const newSong = new Song({
-        ...req.body,
+        rest,
         artwork,
+        customID,
         artists: JSON.parse(req.body.artists),
       });
       await newSong.save();
@@ -61,28 +71,23 @@ export const newSong = async (req, res) => {
     }
     // ONLY BACKGROUND
     if (req.files?.background) {
-      console.log("background")
-      const result = await uploadImage(req.files.background.tempFilePath);
-      background = {
-        name: req.files.background.tempFilePath,
-        url: result.secure_url,
-        public_id: result.public_id,
-      };
-      await fs.remove(req.files.background.tempFilePath);
+      const bgID = await Song.handleBG(req.files.background,req.body)
       const newSong = new Song({
         ...req.body,
-        background,
+        customID,
+        background: bgID,
         artists: JSON.parse(req.body.artists),
       });
       await newSong.save();
       return res.send(newSong);
     }
     //NO ARTWORK AND BACKGROUND
-    if (req.files?.artwork==null && req.files?.background==null) {
-      console.log("no images")
+    if (!req.files?.artwork && !req.files?.background) {
+      const {background, ...rest} = req.body
       const newSong = new Song({
-        ...req.body,
+        ...rest,
         artists: JSON.parse(req.body.artists),
+        customID,
       });
       await newSong.save();
       return res.send(newSong);
@@ -94,7 +99,7 @@ export const newSong = async (req, res) => {
 
 export const getSong = async (req, res) => {
   try {
-    const song = await Song.findOne({"customID": req.params.id});
+    const song = await Song.findOne({ customID: req.params.id }).populate("background");
     return res.send(song);
   } catch (error) {
     return res.status(500).json({ message: error.message });

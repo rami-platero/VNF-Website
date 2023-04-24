@@ -1,4 +1,6 @@
 import { Schema, model } from "mongoose";
+import Background from "./Background.js";
+import { newBackground } from "../controllers/bgsController.js";
 
 const songSchema = new Schema({
   name: String,
@@ -10,7 +12,6 @@ const songSchema = new Schema({
   customID: {
     type: Number,
     unique: true,
-    default: Math.floor(Math.random() * (999999 - 100000 + 1) + 10000),
   },
   upload_date: String,
   status: String,
@@ -22,14 +23,47 @@ const songSchema = new Schema({
     public_id: String,
   },
   background: {
-    name: String,
-    url: String,
-    public_id: String,
+    ref: "Background",
+    required: false,
+    type: Schema.Types.ObjectId,
   },
   original_link: String,
   original_description: String,
   views: { type: Number, default: 0 },
   views_date: String,
 });
+
+songSchema.statics.handleBG = async function (file, body) {
+  console.log(JSON.parse(body.artists));
+  const background = await Background.findOne({ "file.name": file.name });
+  if (background) {
+    console.log("bg exists")
+    const exists = background.tracks.some((track) => {
+      return track.name === body.name && track.youtube_link == body.link;
+    });
+    if (exists) {
+      console.log("track already exists")
+      return background._id;
+    } else {
+      console.log("adding track")
+      await Background.updateOne(
+        { _id: background._id },
+        {
+          $push: {
+            tracks: {
+              name: body.name,
+              youtube_link: body.link,
+              artists: JSON.parse(body.artists),
+            },
+          },
+        }
+      );
+      return background._id;
+    }
+  }
+  console.log("passed this section tho");
+  const createBG = newBackground(file, body);
+  return createBG;
+};
 
 export default model("Song", songSchema);

@@ -33,10 +33,10 @@ export const postBackground = async (req, res) => {
       await fs.remove(req.files.file.tempFilePath);
       let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
       let exists = await Background.findOne({ customID });
-      console.log(exists)
+      console.log(exists);
       while (exists) {
         customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
-        exists = await Background.findOne({ customID })
+        exists = await Background.findOne({ customID });
       }
       const bg = new Background({
         customID,
@@ -79,5 +79,47 @@ export const delBackground = async (req, res) => {
     return res.sendStatus(204);
   } catch (error) {
     return res.status(500).json({ message: error.message });
+  }
+};
+export const newBackground = async (bgFile,body) => {
+  try {
+    let file;
+    //UPLOAD TO CLOUDINARY
+    const result = await uploadImage(bgFile.tempFilePath);
+    const dwLink = result?.secure_url?.split("upload/");
+    dwLink?.splice(
+      1,
+      0,
+      `upload/fl_attachment:${
+        bgFile.name.replace(/[\(\)']+/g, "").split(".")[0]
+      }/`
+    );
+    file = {
+      name: bgFile.name,
+      download_link: dwLink.join(""),
+      url: result.secure_url,
+      public_id: result.public_id,
+    };
+    await fs.remove(bgFile.tempFilePath);
+    let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
+    let exists = await Background.findOne({ customID });
+    console.log(exists);
+    while (exists) {
+      customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
+      exists = await Background.findOne({ customID });
+    }
+    const bg = new Background({
+      customID,
+      tracks: {
+        name: body.name,
+        youtube_link: body.link,
+        artists: JSON.parse(body.artists)
+      },
+      file,
+    });
+    const savedBG = await bg.save();
+    return savedBG._id
+  } catch (error) {
+    console.log(error)
   }
 };

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useMemo } from "react";
 
 export const getSongsRequest = async () => {
   return await axios.get("/songs");

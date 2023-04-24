@@ -10,7 +10,7 @@ function BackgroundInfo({ song }) {
   const [URL, setURL] = useState("");
   const { delSongs } = useContext(mainContext);
 
-  const downloadImage = () => {
+  /* const downloadImage = () => {
     const currURL = song?.background?.url?.split("upload/");
     currURL?.splice(
       1,
@@ -22,10 +22,10 @@ function BackgroundInfo({ song }) {
 
   useEffect(() => {
     downloadImage();
-  }, []);
+  }, []); */
 
   const bg = {
-    "--bg": `url(${song.background?.url})`,
+    "--bg": `url(${song.background?.file?.url})`,
   };
 
   /* const sameBackground = delSongs.filter((delSong) => {
@@ -41,8 +41,8 @@ function BackgroundInfo({ song }) {
       <h1>Background</h1>
       <div className="background-container">
         <div className="background-wrapper">
-          <img src={song.background?.url} />
-          <DownloadButton link={URL}/>
+          <img src={song.background?.file?.url} />
+          <DownloadButton link={song.background?.file?.download_link}/>
           {/* <Link to={URL} className="download-bg">
             <IoMdDownload></IoMdDownload> Download
           </Link> */}

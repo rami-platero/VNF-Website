@@ -20,6 +20,22 @@
   color: black;
 }
 
+.radio-inputs .radio-input-wrapper label{
+  background-color: rgb(17, 17, 17);
+  border: 1px solid white;
+  color: white;
+}
+
+.radio-inputs .radio-input-wrapper input:hover + label{
+  background-color: rgb(7, 7, 7);
+}
+
+.radio-inputs .radio-input-wrapper input:checked + label{
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+
 .form-container.dark form input:focus,
 .description-input.dark:focus,
 .tracks-inputs.dark input[type="text"]:focus {
@@ -46,4 +62,15 @@
   margin-right: 0.5em;
 }
 
+.select-background.dark .select-bg-wrapper{
+  color: white;
+  background-color: rgb(17, 17, 17);
+  border: 1px solid white;
+}
+
+.existing-bgs-selector.dark .bg-select-item input:checked ~ .background-checked{
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgb(255, 255, 255) 0px 2px 5px;
+  transition: 0.1s ease-in-out;
+}
 
