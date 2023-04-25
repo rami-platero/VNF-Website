@@ -1,39 +1,54 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import Logo from "../../../assets/ncs-logo-resized.png";
 import { mainContext } from "../../../context/SongsContext";
-import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { IoArrowBack } from "react-icons/io5";
 import { themecontext } from "../../../context/themeContext";
-import '../../AddSong/addsong.css'
+import "../../AddSong/addsong.css";
 import BackButton from "../../../components/UI/BackButton";
+import "./edit-song.css";
+import useDynamicFields from "../../../hooks/useDynamicFields";
 
-function EditSong({ setModalIsOpen, song }) {
-  const { editSong } = useContext(mainContext);
+function EditSong({ setModalIsOpen }) {
+  const { editSong, getSingleSong, idEdit } = useContext(mainContext);
   const { theme } = useContext(themecontext);
-  const [artists, setArtists] = useState(song.artists);
-  const [form, setForm] = useState({
-    name: song.name,
-    upload_date: song.upload_date,
-    status: song.status,
-    genre: song.genre,
-    duration: song.duration,
-    link: song.link,
-    original_link: song.original_link,
-    original_description: song.original_description,
-    views: song.views,
-    views_date: song.views_date,
-  });
+  const [song, setSong] = useState(null);
+  const [artists, setArtists] = useState(null);
+  const [form, setForm] = useState(null);
   const [artwork, setArtwork] = useState(null);
+  const getSong = async () => {
+    const res = await getSingleSong(idEdit);
+    setSong(res);
+    setArtists(res?.artists);
+    setForm({
+      name: res?.name,
+      upload_date: res?.upload_date,
+      status: res?.status,
+      genre: res?.genre,
+      duration: res?.duration,
+      link: res?.link,
+      original_link: res?.original_link,
+      original_description: res?.original_description,
+      views: res?.views,
+      views_date: res?.views_date,
+    })
+  };
+
+  useEffect(() => {
+    getSong();
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleArtistChange = (e, index) => {
+  const { handleDynamicChange, removeDynamicField, addDynamicField } =
+    useDynamicFields(artists, setArtists, { name: "" });
+
+  /* const handleArtistChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...artists];
     list[index][name] = value;
@@ -50,7 +65,7 @@ function EditSong({ setModalIsOpen, song }) {
 
   const addInputField = () => {
     setArtists([...artists, { name: "" }]);
-  };
+  }; */
 
   const ref = useRef();
   const { user } = useAuthContext();
@@ -58,120 +73,30 @@ function EditSong({ setModalIsOpen, song }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     editSong(
-      song._id,
+      song?._id,
       {
         ...form,
         artists: [...artists],
-        /* artwork: artwork,
-        background: background, */
       },
       user
     );
     setModalIsOpen(false)
   };
 
-  // ARTOWKR DRAG N DROP
-  const [artworkPreview, setArtworkPreview] = useState({
-    src: song.artwork?.url,
-    name: song.artwork?.name,
-  });
-  const dragOver = (e) => {
-    e.preventDefault();
-  };
-  const dragEnter = (e) => {
-    e.preventDefault();
-  };
-  const dragLeave = (e) => {
-    e.preventDefault();
-  };
-  const fileDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    setArtwork(e.dataTransfer.files[0]);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileobj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      setArtworkPreview(fileobj);
-    });
-  };
-
-  const handleImageReader = (e) => {
-    const file = e.target.files[0];
-    setArtwork(e.target.files[0]);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileobj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      setArtworkPreview(fileobj);
-    });
-  };
-
-  //BACKGROUND DRAG AND DROP
-  const [background, setBackground] = useState(null);
-  const [backgroundPreview, setBackgroundPreview] = useState({
-    src: song.background?.url,
-    name: song.background?.name,
-  });
-
-  const backgroundDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    setBackground(e.dataTransfer.files[0]);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileobj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      setBackgroundPreview(fileobj);
-    });
-  };
-
-  const handleBackgroundReader = (e) => {
-    const file = e.target.files[0];
-    setBackground(e.target.files[0]);
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
-      let fileobj = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        src: reader.result,
-      };
-      setBackgroundPreview(fileobj);
-    });
-  };
-
   return (
     <div className={`form-container modal ${theme}`}>
-      <BackButton />
-      {/* <IoIosClose
+      <IoIosClose
         size="3rem"
         className="close"
         onClick={() => {
           setModalIsOpen(false);
         }}
-      /> */}
+      />
       <img src={Logo} className={`modal-logo ${theme}`} />
       <h1 className="title">Edit song</h1>
       <form onSubmit={handleSubmit}>
         <input
-          defaultValue={song.name}
+          defaultValue={song?.name}
           type="text"
           placeholder="Song name"
           name="name"
@@ -180,7 +105,7 @@ function EditSong({ setModalIsOpen, song }) {
           required
           autoFocus
         />
-        {artists.map((artist, index) => {
+        {artists?.map((artist, index) => {
           return (
             <div key={index} className={`artists-inputs ${theme}`}>
               <input
@@ -188,24 +113,25 @@ function EditSong({ setModalIsOpen, song }) {
                 type="text"
                 placeholder="Artist Name"
                 className="artist-field"
-                value={artist.name}
+                defaultValue={artist?.name}
+                /* value={artist?.name} */
                 onChange={(e) => {
-                  handleArtistChange(e, index);
+                  handleDynamicChange(e, index);
                 }}
                 autoComplete="off"
                 required
               />
-              {artists.length - 1 === index && artists.length <= 10 && (
-                <button onClick={addInputField} className="add-artist">
+              {artists?.length - 1 === index && artists?.length <= 10 && (
+                <button onClick={addDynamicField} className="add-artist">
                   <IoIosAdd size="1.2rem" /> Add artist
                 </button>
               )}
-              {artists.length > 1 && (
+              {artists?.length > 1 && (
                 <IoIosClose
                   size="1.2rem"
                   className="remove"
                   onClick={() => {
-                    removeField(index);
+                    removeDynamicField(index);
                   }}
                 ></IoIosClose>
               )}
@@ -213,7 +139,7 @@ function EditSong({ setModalIsOpen, song }) {
           );
         })}
         <input
-          defaultValue={song.upload_date}
+          defaultValue={song?.upload_date}
           type="text"
           placeholder="Upload Date"
           name="upload_date"
@@ -227,7 +153,7 @@ function EditSong({ setModalIsOpen, song }) {
           onBlur={() => (ref.current.type = "date")}
         />
         <input
-          defaultValue={song.status}
+          defaultValue={song?.status}
           type="text"
           placeholder="Status"
           name="status"
@@ -236,7 +162,7 @@ function EditSong({ setModalIsOpen, song }) {
           required
         />
         <input
-          defaultValue={song.link}
+          defaultValue={song?.link}
           type="text"
           placeholder="YouTube Link (Re-Upload)"
           name="link"
@@ -245,7 +171,7 @@ function EditSong({ setModalIsOpen, song }) {
           required
         />
         <input
-          defaultValue={song.duration}
+          defaultValue={song?.duration}
           type="time"
           placeholder="Duration"
           name="duration"
@@ -254,7 +180,7 @@ function EditSong({ setModalIsOpen, song }) {
           required
         />
         <input
-          defaultValue={song.genre}
+          defaultValue={song?.genre}
           type="text"
           placeholder="Main Genre"
           name="genre"
@@ -262,10 +188,10 @@ function EditSong({ setModalIsOpen, song }) {
           autoComplete="off"
           required
         />
-        <label htmlFor="artwork" style={{ alignSelf: "center" }}>
+        {/* <label htmlFor="artwork" style={{ alignSelf: "center" }}>
           Artwork
-        </label>
-        <div
+        </label> */}
+        {/* <div
           className={`drop-container ${theme}`}
           onDragOver={dragOver}
           onDragEnter={dragEnter}
@@ -289,7 +215,7 @@ function EditSong({ setModalIsOpen, song }) {
               setArtwork(e.target.files[0]);
             }}
           />
-        </div>
+        </div> */}
         <h5>Original Info</h5>
         <input
           defaultValue={song?.original_link}
@@ -298,7 +224,6 @@ function EditSong({ setModalIsOpen, song }) {
           name="original_link"
           onChange={handleChange}
           autoComplete="off"
-          
         />
         <textarea
           defaultValue={song?.original_description}
@@ -309,7 +234,6 @@ function EditSong({ setModalIsOpen, song }) {
           className={`description-input ${theme}`}
           onChange={handleChange}
           autoComplete="off"
-         
         />
         <div className="views-inputs">
           <input
@@ -319,7 +243,6 @@ function EditSong({ setModalIsOpen, song }) {
             name="views"
             onChange={handleChange}
             autoComplete="off"
-            
           />
           <input
             defaultValue={song?.views_date}
@@ -328,10 +251,9 @@ function EditSong({ setModalIsOpen, song }) {
             onChange={handleChange}
             name="views_date"
             autoComplete="off"
-            
           />
         </div>
-        <label htmlFor="background">Background</label>
+        {/* <label htmlFor="background">Background</label>
         <div
           className={`drop-container-background ${theme}`}
           onDragOver={dragOver}
@@ -355,7 +277,7 @@ function EditSong({ setModalIsOpen, song }) {
               handleBackgroundReader(e);
             }}
           />
-        </div>
+        </div> */}
         <input type="submit" value="Submit" />
       </form>
     </div>

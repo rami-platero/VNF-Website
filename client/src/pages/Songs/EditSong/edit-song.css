@@ -1,0 +1,58 @@
+.form-container-modal input:not([type="submit"]):focus {
+  background-color: rgb(237, 253, 255);
+  border-bottom: 1px solid rgb(22, 247, 255);
+  transition: 0.2s ease-in-out;
+}
+
+.form-container-modal form {
+  max-width: 500px;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-container-modal input[type="submit"]:hover {
+  color: white;
+  background-color: black;
+  transition: 0.2s ease-in-out;
+}
+
+.form-container.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100%;
+  min-height: 100vh;
+  padding: 3.5rem;
+}
+
+
+.close {
+  color: rgb(0, 0, 0);
+  align-self: right;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: gray;
+}
+
+.form-container.modal.dark .close{
+  color: rgb(255, 255, 255);
+}
+
+.modal-logo {
+    width: 100px;
+    height: 45px;
+    margin-bottom: 1rem;
+}

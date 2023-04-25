@@ -4,9 +4,32 @@ export const getSongsRequest = async () => {
   return await axios.get("/songs");
 };
 
-export const postNewSong = async (song,user, setProgressSong) => {
+export const postNewSong = async (song, user, setProgressSong) => {
   const form = new FormData();
 
+  for (let key in song) {
+    if (key !== "artists") {
+      form.append(key, song[key]);
+    }
+  }
+  form.append("artists", JSON.stringify(song.artists));
+
+  return await axios.post("/songs", form, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${user.token}`,
+    },
+    onUploadProgress(progressEvent) {
+      const { loaded, total } = progressEvent;
+      let percent = Math.floor((loaded * 100) / total);
+      setProgressSong(percent);
+    },
+  });
+};
+
+export const postSongExistingBG = async (song, user) => {
+  console.log(song);
+  const form = new FormData();
   for (let key in song) {
     if (key !== "artists") {
       form.append(key, song[key]);
@@ -16,13 +39,8 @@ export const postNewSong = async (song,user, setProgressSong) => {
   return await axios.post("/songs", form, {
     headers: {
       "Content-Type": "multipart/form-data",
-      "Authorization": `Bearer ${user.token}`,
+      Authorization: `Bearer ${user.token}`,
     },
-    onUploadProgress (progressEvent) {
-      const {loaded, total} = progressEvent
-      let percent = Math.floor((loaded*100)/total)
-      setProgressSong(percent)
-      },
   });
 };
 
@@ -31,7 +49,7 @@ export const delSong = async (id, user) => {
     return await axios.delete(`/songs/${id}`, {
       headers: {
         "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${user.token}`,
+        Authorization: `Bearer ${user.token}`,
       },
     });
   } else {
@@ -39,17 +57,24 @@ export const delSong = async (id, user) => {
   }
 };
 
-export const updateSong = async (id, body,user) => {
+export const updateSong = async (id, body, user) => {
   if (user) {
-    return await axios.put(`/songs/${id}`, body, {
+    const form = new FormData();
+    for (let key in body) {
+      if (key !== "artists") {
+        form.append(key, body[key]);
+      }
+    }
+    form.append("artists", JSON.stringify(body.artists));
+    return await axios.put(`/songs/${id}`, form, {
       headers: {
         "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${user.token}`,
+        Authorization: `Bearer ${user.token}`,
       },
     });
   }
 };
 
 export const singleSong = async (id) => {
-    return await axios.get(`/songs/${id}`);
+  return await axios.get(`/songs/${id}`);
 };

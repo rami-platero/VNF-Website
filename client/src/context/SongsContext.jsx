@@ -5,6 +5,7 @@ import {
   postNewSong,
   singleSong,
   updateSong,
+  postSongExistingBG
 } from "../api/songs.jsx";
 
 export const mainContext = createContext();
@@ -14,6 +15,7 @@ export const SongsContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [idRemove, setIdRemove] = useState(null);
   const [progressSong, setProgressSong] = useState(null);
+  const [idEdit, setIdEdit] = useState(null)
 
   const getSongs = async () => {
     try {
@@ -40,6 +42,16 @@ export const SongsContextProvider = ({ children }) => {
       const res = await postNewSong(song, user, setProgressSong, progressSong);
       setDelSongs([...delSongs, res.data]);
       setProgressSong(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const postSongwithBG = async (song, user) => {
+    try {
+      setDelSongs([...delSongs, { name: "loading item", loading: true }]);
+      const res = await postSongExistingBG(song, user);
+      setDelSongs([...delSongs, res.data]);
     } catch (error) {
       console.log(error);
     }
@@ -92,6 +104,9 @@ export const SongsContextProvider = ({ children }) => {
         progressSong,
         setDelSongs,
         getSongsFilter,
+        postSongwithBG,
+        idEdit,
+        setIdEdit
       }}
     >
       {children}

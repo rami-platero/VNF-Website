@@ -6,7 +6,6 @@ import { mainContext } from "../../context/SongsContext";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import "./addsong.css";
-import "./newsong.css";
 import BackButton from "../../components/UI/BackButton.jsx";
 import useDynamicFields from "../../hooks/useDynamicFields";
 import { bgcontext } from "../../context/bgsContext";
@@ -33,7 +32,7 @@ const initialForm = {
 };
 
 function AddSong() {
-  const { postSong } = useContext(mainContext);
+  const { postSong,postSongwithBG } = useContext(mainContext);
   const { theme } = useContext(themecontext);
   const navigate = useNavigate();
   const [artists, setArtists] = useState([{ name: "" }]);
@@ -57,19 +56,32 @@ function AddSong() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postSong(
-      {
-        background,
-        ...form,
-        artists: [...artists],
-        artwork: file,
-      },
-      user
-    );
+    if (background instanceof File) {
+      postSong(
+        {
+          background,
+          ...form,
+          artists: [...artists],
+          artwork: file,
+        },
+        user
+      );
+    } else {
+      console.log("existing background")
+      postSongwithBG(
+        {
+          background,
+          ...form,
+          artists: [...artists],
+          artwork: file,
+        },
+        user
+      )
+    }
     navigate("/deleted-songs");
   };
 
-  // ARTOWKR DRAG N DROP
+  // ARTWORK DRAG N DROP
   const handleBackground = (e, data) => {
     e.preventDefault();
     let file;
@@ -287,8 +299,8 @@ function AddSong() {
                     type="radio"
                     name="bg"
                     value={bg}
-                    onChange={()=>{
-                      console.log("changed to",bg)
+                    onChange={() => {
+                      setBackground(bg._id);
                     }}
                   />
                   <img src={bg?.file?.url} />

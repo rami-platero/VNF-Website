@@ -6,17 +6,23 @@ import { mainContext } from "../../../context/SongsContext";
 import { useState } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
-import EditSong from "./EditSong";
+import EditSong from "../EditSong/EditSong";
 import Skeleton from "../../../assets/skeleton-image.png";
 import Progress from "../../../components/UI/Progress";
 import { themecontext } from "../../../context/themeContext";
 
-const Song = ({ song }) => {
-  const { removeSong, loadingRemove, progressSong, idRemove, setIdRemove } =
-    useContext(mainContext);
+const Song = ({ song, setModalIsOpen }) => {
+  const {
+    removeSong,
+    loadingRemove,
+    progressSong,
+    idRemove,
+    setIdRemove,
+    setIdEdit,
+  } = useContext(mainContext);
   const { theme } = useContext(themecontext);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleEdit = async () => {
+    setIdEdit(song.customID);
     setModalIsOpen(true);
   };
   const navigate = useNavigate();
@@ -47,87 +53,83 @@ const Song = ({ song }) => {
 
   return (
     <>
-      {modalIsOpen ? (
-        <EditSong setModalIsOpen={setModalIsOpen} song={song} />
-      ) : (
-        <div className={`song ${theme} ${idRemove === song?._id}`}>
-          <div className="artwork" onClick={handleSongDiv}>
+      <div className={`song ${theme} ${idRemove === song?._id}`}>
+        <div className="artwork" onClick={handleSongDiv}>
+          {song?.loading ? (
+            <img src={Skeleton} className="skeleton-img" />
+          ) : (
+            <img
+              src={
+                song?.artwork?.url
+                  ? song?.artwork.url
+                  : "https://i1.sndcdn.com/artworks-000211899247-bb6aub-t500x500.jpg"
+              }
+            />
+          )}
+        </div>
+        <div className="song-wrapper">
+          <div className="song-container">
             {song?.loading ? (
-              <img src={Skeleton} className="skeleton-img" />
+              <div className={`song-info ${theme}`}>
+                <div className="song-name skeleton"></div>
+                <div className="artist-name skeleton"></div>
+                <div className="song-genre skeleton"></div>
+                <div className="song-views skeleton"></div>
+                <div className={`song-status skeleton`}></div>
+              </div>
             ) : (
-              <img
-                src={
-                  song?.artwork?.url
-                    ? song?.artwork.url
-                    : "https://i1.sndcdn.com/artworks-000211899247-bb6aub-t500x500.jpg"
-                }
-              />
+              <div className={`song-info ${theme}`}>
+                <p className="song-name">{song?.name}</p>
+                <p className="artist-name">{artistsList}</p>
+                <p className="song-genre">{song?.genre}</p>
+                <p className="song-views">
+                  Views:{" "}
+                  <span style={{ color: "#a3a3a3" }}>
+                    {song?.views?.toLocaleString("en-US")}
+                  </span>
+                </p>
+                <div className="song-last-row">
+                  <span className={`song-status ${song?.status}`}>
+                    {song?.status != "Deleted" ? (
+                      <>
+                        <IoIosLock></IoIosLock>
+                        {song?.status?.toUpperCase()}
+                      </>
+                    ) : (
+                      <>
+                        <IoIosCloseCircle />
+                        {song?.status?.toUpperCase()}
+                      </>
+                    )}
+                  </span>
+                  <p className="song-upload-date">{song?.upload_date}</p>
+                </div>
+                {user?.roles_name?.includes("admin") && (
+                  <div className="actions">
+                    <button
+                      className={`remove-song ${theme}`}
+                      onClick={handleRemove}
+                      disabled={loadingRemove}
+                    >
+                      Remove
+                    </button>
+                    <button
+                      className={`edit-song ${theme}`}
+                      onClick={handleEdit}
+                      disabled={loadingRemove}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+            {progressSong && song?.loading && (
+              <Progress progress={progressSong} />
             )}
           </div>
-          <div className="song-wrapper">
-            <div className="song-container">
-              {song?.loading ? (
-                <div className={`song-info ${theme}`}>
-                  <div className="song-name skeleton"></div>
-                  <div className="artist-name skeleton"></div>
-                  <div className="song-genre skeleton"></div>
-                  <div className="song-views skeleton"></div>
-                  <div className={`song-status skeleton`}></div>
-                </div>
-              ) : (
-                <div className={`song-info ${theme}`}>
-                  <p className="song-name">{song?.name}</p>
-                  <p className="artist-name">{artistsList}</p>
-                  <p className="song-genre">{song?.genre}</p>
-                  <p className="song-views">
-                    Views:{" "}
-                    <span style={{ color: "#a3a3a3" }}>
-                      {song?.views?.toLocaleString("en-US")}
-                    </span>
-                  </p>
-                  <div className="song-last-row">
-                    <span className={`song-status ${song?.status}`}>
-                      {song?.status != "Deleted" ? (
-                        <>
-                          <IoIosLock></IoIosLock>
-                          {song?.status?.toUpperCase()}
-                        </>
-                      ) : (
-                        <>
-                          <IoIosCloseCircle/>
-                          {song?.status?.toUpperCase()}
-                        </>
-                      )}
-                    </span>
-                    <p className="song-upload-date">{song?.upload_date}</p>
-                  </div>
-                  {user?.roles_name?.includes("admin") && (
-                    <div className="actions">
-                      <button
-                        className={`remove-song ${theme}`}
-                        onClick={handleRemove}
-                        disabled={loadingRemove}
-                      >
-                        Remove
-                      </button>
-                      <button
-                        className={`edit-song ${theme}`}
-                        onClick={handleEdit}
-                        disabled={loadingRemove}
-                      >
-                        Edit
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
-              {progressSong && song?.loading && (
-                <Progress progress={progressSong} />
-              )}
-            </div>
-          </div>
         </div>
-      )}
+      </div>
     </>
   );
 };
