@@ -13,8 +13,6 @@ export const verifyToken = async (req,res,next)=>{
     }
 
     const token = authorization.split(" ")[1]
-    /* console.log("token is",token)
-    console.log("process env secret is ", process.env.SECRET) */
 
     const {_id} = jwt.verify(token, process.env.SECRET)
     req.userid = await User.findOne({_id}).select('_id')

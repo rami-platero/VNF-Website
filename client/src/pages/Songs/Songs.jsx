@@ -40,7 +40,7 @@ const Songs = () => {
               <div className="featured-song">
                 <img
                   src={
-                    "https://res.cloudinary.com/dikp1fayh/image/upload/v1681423383/artworks/bj47nqc9mxhdt7nmpfaf.jpg"
+                    "https://i1.sndcdn.com/artworks-000085438916-dd1u8z-t500x500.jpg"
                   }
                 />
                 <div className="info">

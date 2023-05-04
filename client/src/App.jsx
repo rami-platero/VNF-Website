@@ -20,7 +20,7 @@ import { useContext } from "react";
 import { themecontext } from "./context/themeContext.jsx";
 
 function App() {
-  axios.defaults.baseURL = `http://localhost:4000/`;
+  axios.defaults.baseURL = `https://vnf.onrender.com/`;
   const { user } = useAuthContext();
   const {theme} = useContext(themecontext)
   return (

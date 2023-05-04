@@ -89,3 +89,4 @@ userSchema.statics.login = async function (email, password) {
 };
 
 export default model("User", userSchema);
+

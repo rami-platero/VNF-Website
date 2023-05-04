@@ -47,7 +47,7 @@ function Login() {
         <button
           type="submit"
           className={`login-btn ${theme}`}
-          disabled={isLoading}
+          /* disabled={isLoading} */
         >
           Log In
         </button>
