@@ -9,12 +9,20 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import BackButton from "../../components/UI/BackButton";
 import { themecontext } from "../../context/themeContext";
 import { BiLandscape } from "react-icons/bi";
+import usePagination from "../../hooks/usePagination";
+import Pagination from "../../components/UI/Pagination";
 
 function Backgrounds() {
   const { data } = useContext(bgcontext);
   const { theme } = useContext(themecontext);
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  const {
+    itemsPerPage,
+    handlePage,
+    currentItems,
+    currentPage,
+  } = usePagination(data);
   return (
     <div className={`backgrounds-container`}>
       <BackButton />
@@ -39,6 +47,13 @@ function Backgrounds() {
             return <BGItem key={bg?.customID} bg={bg} />;
           })}
       </div>
+      {currentItems.length > itemsPerPage && (
+              <Pagination
+                totalPosts={itemsFiltered.length}
+                handlePage={handlePage}
+                currentPage={currentPage}
+              />
+            )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useContext, useState, useMemo } from "react";
+import { useContext, useState, useMemo, useEffect } from "react";
 import { mainContext } from "../../context/SongsContext.jsx";
 import Song from "./components/Song.jsx";
 import "./songs.css";
@@ -9,6 +9,8 @@ import { themecontext } from "../../context/themeContext.jsx";
 import Filters from "./components/Filters.jsx";
 import { AiOutlineYoutube } from "react-icons/ai";
 import EditSong from "./EditSong/EditSong.jsx";
+import Pagination from "../../components/UI/Pagination.jsx";
+import usePagination from "../../hooks/usePagination.jsx";
 
 const Songs = () => {
   const { delSongs } = useContext(mainContext);
@@ -27,6 +29,18 @@ const Songs = () => {
         })
       );
     });
+  }, [query, delSongs]);
+
+  const {
+    setCurrentPage,
+    handlePage,
+    currentItems,
+    currentPage,
+    itemsPerPage
+  } = usePagination(itemsFiltered);
+
+  useEffect(() => {
+    setCurrentPage(1);
   }, [query, delSongs]);
 
   return (
@@ -78,7 +92,7 @@ const Songs = () => {
               <h4>Deleted Songs</h4>
             </div>
             <div className="songs-wrapper">
-              {itemsFiltered?.map((song) => {
+              {currentItems?.map((song) => {
                 return (
                   <Song
                     key={song._id}
@@ -88,6 +102,13 @@ const Songs = () => {
                 );
               })}
             </div>
+            {currentItems.length > itemsPerPage && (
+              <Pagination
+                totalPosts={itemsFiltered.length}
+                handlePage={handlePage}
+                currentPage={currentPage}
+              />
+            )}
           </main>
         </>
       )}
