@@ -1,0 +1,19 @@
+.engagement {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0rem;
+  position: relative;
+ /*  background: radial-gradient(circle, rgb(20, 22, 27) 0%, #0a0b0d 100%); */
+  width: 100%;
+  .wrapper{
+    background-color: rgba(0, 0, 0, 0.288);
+    border-radius: 15px;
+    padding: 5rem;
+      > p {
+        color: rgb(184, 184, 184);
+      }
+  }
+}

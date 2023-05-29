@@ -15,8 +15,19 @@ header {
 }
 
 .nav-container {
-  width: 1280px;
+  width: 100%;
+  max-width: 1600px;
   margin: auto;
+
+  .logo{
+    width: 40px;
+    height: 20px;
+    transition: 0.2s ease-in-out;
+    &:hover{
+      transition: 0.2s ease-in-out;
+      opacity: 0.85;
+    }
+  }
 }
 
 .nav-container ul {
@@ -151,9 +162,6 @@ header {
     padding: 0;
     display: flex;
     flex-direction: column-reverse;
-  }
-  .navlink-logo {
-    display: none;
   }
   .pages-nav.ham.dark {
     /* background: linear-gradient(180deg, rgb(23, 26, 29) 0%, rgb(34, 36, 39) 100%); */

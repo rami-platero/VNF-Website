@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./navigation.css";
 import { NavLink } from "react-router-dom";
-import Logo from "../assets/ncs-logo-resized.png";
+import Logo from "../assets/vnf_logo.png";
 import { IoMoon } from "react-icons/io5";
 import { IoSunnyOutline } from "react-icons/io5";
 import { useLogout } from "../hooks/useLogout";
@@ -68,7 +68,7 @@ function Navigation() {
               onClick={() => {
                 setOpen(false);
               }}
-              className={"navlink-logo"}
+              className={"logo"}
               to={"/"}
               src={Logo}
             >
