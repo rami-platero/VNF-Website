@@ -7,6 +7,20 @@ main {
   height: auto !important;
 }
 
+.home-page{
+  .topics{
+
+    .separator{
+      background: radial-gradient(
+        circle,
+        rgb(238, 238, 238) 0%,
+        rgba(15, 15, 19, 0) 100%
+      );
+    }
+  }
+  
+}
+
 .main-content {
   position: relative;
   display: flex;
@@ -29,8 +43,12 @@ main {
 
 .content-wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-image: url("./hero_bg.png");
   background-position: center;
   background-size: auto;
@@ -117,7 +135,7 @@ main {
 } */
 
 .content-wrapper .row-1 .wrapper p span {
-  text-decoration: underline;
+  color: rgb(255, 135, 56);
 }
 
 @media screen and (max-width: 1208px) {
@@ -175,23 +193,6 @@ main {
   transition: 0.2s ease-in-out;
 }
 
-.back-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.overlay {
-  overflow-y: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  filter: brightness(5%) grayscale(10%);
-  background-color: rgba(0, 0, 0, 0.98);
-}
-
 .scroll-down {
   position: absolute;
   bottom: 20px;
@@ -211,3 +212,5 @@ main {
     opacity: 100;
   }
 }
+
+

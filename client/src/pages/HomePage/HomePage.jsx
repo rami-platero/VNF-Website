@@ -1,14 +1,13 @@
 import { useContext, useRef, useState } from "react";
 import "./home-page.css";
-import docVideo from "./NCS-Documentary-trailer.mp4";
 import { RxDoubleArrowDown } from "react-icons/rx";
 import { themecontext } from "../../context/themeContext";
 import Engagement from "./sections/Engagement";
 import Documentary from "./sections/Documentary";
 import WBM from "./wbm_logo.png";
 import YT from "./yt_logo.png";
-import DS from './Discord-Logo.png'
-import './dark_theme.css'
+import DS from "./Discord-Logo.png";
+import "./dark_theme.css";
 
 function HomePage() {
   const { theme } = useContext(themecontext);
@@ -20,28 +19,18 @@ function HomePage() {
   };
 
   return (
-    <main>
-      <div className="main-container">
-        <div className="main-content">
-         {/*  <div className="overlay">
-            <video
-              className="back-video"
-              src={docVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-            ></video>
-          </div> */}
+      <div className="home-page">
           <div className="content-wrapper">
             <div className="row-1">
               <div className="wrapper">
-              <h1>VIP NCS Fans</h1>
-              <p>
-                In this website you'll find the recovered and information about the unrecovered media that was deleted and lost of the record label{" "}
-                <span>NoCopyrightSounds</span>
-              </p>
-              <button className="learn-more-btn">Learn More</button>
+                <h1>VIP NCS Fans</h1>
+                <p>
+                  Discover the lost and recovered media that has been released
+                  throughout the years. This is the official website of our
+                  community,
+                  <span> built by fans for NCS fans.</span>
+                </p>
+                <button className="learn-more-btn">Learn More</button>
               </div>
               <div className="sources">
                 <p className="source-title">Sources and Tools</p>
@@ -53,9 +42,6 @@ function HomePage() {
                 </div>
               </div>
             </div>
-           {/*   <div className="row-2">
-              <img src="../src/pages/HomePage/catalogue.png" />
-            </div> */}
             <RxDoubleArrowDown
               onClick={async () => {
                 await new Promise((resolve) => {
@@ -68,15 +54,14 @@ function HomePage() {
               size={"4rem"}
             />
           </div>
-        </div>
         {scroll && (
           <div ref={scrollRef} className={`topics ${theme}`}>
-            <Engagement />
             <Documentary />
+            <Engagement />
+            <div className="separator"></div>
           </div>
         )}
       </div>
-    </main>
   );
 }
 
