@@ -6,11 +6,11 @@ export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
 
-  const login = async (email, password) => {
+  const login = async ({email, password}) => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("https://vnf.onrender.com/login", {
+    const response = await fetch("http://localhost:4000/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -27,5 +27,5 @@ export const useLogin = () => {
     }
   };
 
-  return { login, isLoading, error };
+  return { login, isLoading, error,setError};
 };

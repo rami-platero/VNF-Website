@@ -29,20 +29,20 @@ const userSchema = new Schema(
 userSchema.statics.signup = async function (email, password, roles) {
   // validation
   if (!email || !password) {
-    throw Error("All fields must be filled");
+    throw Error(JSON.stringify({password: "This field must be filled", email: "This field must be filled"}));
   }
 
   const exists = await this.findOne({ email });
 
   if (exists) {
-    throw Error("Email already in use");
+    throw Error(JSON.stringify({email:"Email already in use"}));
   }
 
   if (!validator.isEmail(email)) {
-    throw Error("Email is not valid");
+    throw Error(JSON.stringify({email: "Email is not valid"}));
   }
   if (!validator.isStrongPassword(password)) {
-    throw Error("Password not strong enough");
+    throw Error(JSON.stringify({password: "Password is not strong enough"}));
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -55,13 +55,11 @@ userSchema.statics.signup = async function (email, password, roles) {
     user.roles = foundRoles.map(role => role._id)
   } else {
     const role = await Role.findOne({name:"user"})
-    console.log("role.name is",role.name)
     user.roles = [role._id]
     user.roles_name = [role.name]
   }
 
   const savedUser = await user.save()
-  console.log("saved user is",savedUser)
 
   return savedUser;
 };
@@ -70,19 +68,19 @@ userSchema.statics.signup = async function (email, password, roles) {
 
 userSchema.statics.login = async function (email, password) {
   if (!email || !password) {
-    throw Error("All fields must be filled");
+    throw Error(JSON.stringify({password: "This field must be filled", email: "This field must be filled"}));
   }
 
   const user = await this.findOne({ email });
 
   if (!user) {
-    throw Error("Incorrect email");
+    throw Error(JSON.stringify({email:"This email hasn't been registered"}));
   }
 
   const match = await bcrypt.compare(password, user.password);
 
   if (!match) {
-    throw Error("Incorrect password");
+    throw Error({password: "Incorrect password"});
   }
 
   return user;

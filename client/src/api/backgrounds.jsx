@@ -11,7 +11,6 @@ export const postBackground = async (body, user, setProgress) => {
       form.append(key, body[key]);
     }
   }
-  /* form.append("artists", JSON.stringify(body.artists)); */
   form.append("tracks", JSON.stringify(body.tracks));
   return await axios.post("/backgrounds", form, {
     headers: {

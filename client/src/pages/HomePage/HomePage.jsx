@@ -8,6 +8,9 @@ import WBM from "./wbm_logo.png";
 import YT from "./yt_logo.png";
 import DS from "./Discord-Logo.png";
 import "./dark_theme.css";
+import SongsSection from "./sections/SongsSection";
+import BackgroundsSection from "./sections/BackgroundsSection";
+import ContributeSection from "./sections/ContributeSection";
 
 function HomePage() {
   const { theme } = useContext(themecontext);
@@ -59,6 +62,9 @@ function HomePage() {
             <Documentary />
             <Engagement />
             <div className="separator"></div>
+            <SongsSection/>
+            <BackgroundsSection/>
+            <ContributeSection/>
           </div>
         )}
       </div>

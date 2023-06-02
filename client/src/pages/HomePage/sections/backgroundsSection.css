@@ -1,0 +1,32 @@
+.backgrounds-section{
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .row-2{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        >p{
+            max-width: 500px;
+            font-size: .9rem;
+            font-weight: 300;
+        }
+        >button{
+            width: fit-content;
+            padding: .4rem 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: "Inter";
+            border: 1px solid black;
+            border-radius: .5rem;
+            color: black;
+            background: rgb(255, 255, 255);
+        }
+    }
+}
+
+.backgrounds-section.dark{
+    background: radial-gradient(circle, rgb(15, 15, 19) 0%, rgb(10, 10, 10) 100%);
+}

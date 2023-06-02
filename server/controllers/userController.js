@@ -17,7 +17,7 @@ export const loginUser = async (req, res) => {
 
     res.status(200).json({ email, token, roles: user.roles, roles_name: user.roles_name });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: JSON.parse(error.message) });
   }
 };
 
@@ -33,6 +33,6 @@ export const signupUser = async (req, res) => {
 
     res.status(200).json({ email, token, roles: user.roles, roles_name: user.roles_name });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: JSON.parse(error.message) });
   }
 };

@@ -53,6 +53,27 @@ header {
   display: flex;
   align-items: center;
   gap: .5rem;
+  font-weight: 500;
+  font-size: .9rem;
+}
+
+.register{
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  transition: 0.2s ease-in-out;
+  padding: .6rem 1rem;
+  &:hover{
+    opacity: .8;
+    transition: 0.2s ease-in-out;
+  }
+}
+
+.register.dark{
+  background-color: white;
+  color: black !important;
+  border-radius: 10px;
+  transition: 0.2s ease-in-out;
 }
 
 .log-out {

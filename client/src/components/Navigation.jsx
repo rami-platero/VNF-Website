@@ -161,17 +161,17 @@ function Navigation() {
                         : `link inactive ${theme}`
                     }
                   >
-                    Login
+                    Log in
                   </NavLink>
                   <NavLink
                     to={"/signup"}
                     className={({ isActive }) =>
                       isActive
-                        ? `link active ${theme}`
-                        : `link inactive ${theme}`
+                        ? `link active ${theme} register`
+                        : `link inactive ${theme} register`
                     }
                   >
-                    Sign Up
+                    Register
                   </NavLink>
                 </>
               )}
