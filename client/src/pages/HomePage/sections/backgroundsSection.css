@@ -39,11 +39,6 @@
           width: 100%;
           border-radius: 15px;
           transition: 0.3s ease-in-out;
-
-          /* &:hover{
-            opacity: 0.7;
-            transition: 0.3s ease-in-out;
-          } */
         }
       }
     }

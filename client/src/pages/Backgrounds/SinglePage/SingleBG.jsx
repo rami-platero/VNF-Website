@@ -1,13 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { bgcontext } from "../../../context/bgsContext";
 import "./single-bg.css";
 import ItemTrack from "./components/ItemTrack";
 import DownloadButton from "../../../components/UI/DownloadButton.jsx";
-import BackButton from "../../../components/UI/BackButton";
 import { themecontext } from "../../../context/themeContext";
+import {IoArrowBack} from 'react-icons/io5'
 
 function SingleBG() {
   const [bg, setBg] = useState(null);
@@ -20,6 +20,8 @@ function SingleBG() {
       setBg(res);
     }
   };
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     getPost();
@@ -34,7 +36,15 @@ function SingleBG() {
       <div className="single-bg-wrapper">
       <div className="bg-container">
         <div className="button-align">
-          <BackButton />
+        <button
+          className={`back-btn`}
+          onClick={() => {
+            navigate("/backgrounds");
+          }}
+        >
+          <IoArrowBack />
+          Back
+        </button>
         </div>
         <img src={bg?.file?.url} />
         <DownloadButton link={bg?.file?.download_link} />

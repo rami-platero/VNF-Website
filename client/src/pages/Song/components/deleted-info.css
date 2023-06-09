@@ -4,6 +4,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: black;
+}
+
+.deleted-info-container.dark{
+  background: radial-gradient(circle, rgb(21, 21, 29) 0%, rgb(10, 10, 10) 100%);
+  color: white;
+
+  .deleted-wrapper .deleted-artwork button{
+    color: white;
+    border: 1px solid white;
+    &:hover{
+      background-color: white;
+      color: black;
+    }
+  }
 }
 
 .deleted-wrapper {
@@ -26,9 +41,8 @@
   display: flex;
   gap: 0.5rem;
   cursor: pointer;
-  border: 1px solid white;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.288);
+  border: 1px solid rgb(0, 0, 0);
+  background-color: transparent;
   font-size: 0.8rem;
   max-width: 10rem;
   padding: 0.5rem;
@@ -37,8 +51,8 @@
 
 .deleted-wrapper .deleted-artwork button:hover {
   transition: 0.2s ease-in-out;
-  color: black;
-  background-color: white;
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
 }
 
 .deleted-wrapper .deleted-artwork img {
@@ -67,7 +81,6 @@
 .deleted-wrapper .info-wrapper h1 {
   margin-bottom: 1rem;
   font-size: 2rem;
-  color: white;
   text-transform: uppercase;
   text-align: center;
   grid-column: 1/4;
@@ -78,6 +91,5 @@
 }
 
 .deleted-wrapper .info-wrapper p span {
-  color: white;
   font-weight: 700;
 }

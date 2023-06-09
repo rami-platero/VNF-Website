@@ -51,6 +51,8 @@ function DeletedSong() {
   return (
     <div className={`post-container ${theme}`}>
       <section className={`video-container ${theme}`} style={someStyle}>
+        <div className="video-wrapper">
+          <div className="video">
         <button
           className={`back-btn`}
           onClick={() => {
@@ -60,8 +62,6 @@ function DeletedSong() {
           <IoArrowBack />
           Back
         </button>
-        <div className="video-wrapper">
-          <div className="video">
             <h1>{song?.name}</h1>
             <h3>{artistsList}</h3>
             <h5>Uploaded on {song.upload_date}</h5>

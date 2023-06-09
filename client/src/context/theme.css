@@ -18,28 +18,18 @@ body {
 }
 
 .nav-header.dark {
-  /* background: linear-gradient(0deg, rgb(23, 26, 29) 0%, rgb(31, 31, 31) 100%); */
   background: rgba(0, 0, 0, 0.795);
   color: white;
   transition: 0.2s ease-in-out;
 }
 
-/* .songs-container.dark {
-  background-color: #0c0d0f;
-  color: white;
-} */
 
 .video-container.dark,
-.back-container.dark {
-  background-color: #0c0d0f;
-  color: white;
-}
-
-.post-container.dark,
+.back-container.dark,
 .backgrounds-container.dark,
 .form-bg-container.dark {
-  color: white;
   background-color: #0c0d0f;
+  color: white;
 }
 
 .form-container.dark {
@@ -161,6 +151,3 @@ body {
   color: white;
 }
 
-/*BACKGROUNDS*/
-
-/*add new bg*/

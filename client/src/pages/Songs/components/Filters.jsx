@@ -3,7 +3,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import "./filters.css";
 import { mainContext } from "../../../context/SongsContext";
 import { memo } from "react";
-import { RxDropdownMenu, RxSize } from "react-icons/rx";
+import { RxDropdownMenu} from "react-icons/rx";
 import { themecontext } from "../../../context/themeContext";
 
 const Filters = ({ setQuery }) => {

@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./deleted-info.css";
 import { IoMdDownload } from "react-icons/io";
+import {themecontext} from '../../../context/themeContext'
 
 function DeletedInfo({ song, artistsList }) {
   const someStyle = {
     "--art": `url(${song.artwork?.url})`,
   };
 
+  const {theme} = useContext(themecontext)
+
   return (
     <section
-      className="deleted-info-container"
+      className={`deleted-info-container ${theme}`}
       style={
         someStyle
       } /* style={{backgroundImage: `url(${song.artwork?.url})`}} */
@@ -42,15 +45,8 @@ function DeletedInfo({ song, artistsList }) {
           <p>
             <span>Duration:</span> {song.duration}
           </p>
-          <p /* style={{ color: "red" }} */>
+          <p>
             <span>Genre:</span> {song.genre}
-          </p>
-          <p className="trivia">
-            <span>Trivia: </span>Lorem, ipsum dolor sit amet consectetur
-            adipisicing elit. Natus error accusantium quasi corporis doloribus
-            vitae nisi obcaecati corrupti eligendi repudiandae quo, deleniti,
-            ratione sint consectetur explicabo doloremque impedit. Voluptatibus,
-            necessitatibus!
           </p>
         </div>
       </div>
