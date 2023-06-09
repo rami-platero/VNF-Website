@@ -20,15 +20,15 @@ import { useContext } from "react";
 import { themecontext } from "./context/themeContext.jsx";
 
 function App() {
-  axios.defaults.baseURL = `https://vnf.onrender.com/`;
+  axios.defaults.baseURL = `http://localhost:4000`;
   const { user } = useAuthContext();
   const {theme} = useContext(themecontext)
   return (
     <BgContextProvider>
       <BrowserRouter>
+        <div className={`routes-container ${theme}`}>
         <Navigation />
         <ScrollToTop />
-        <div className={`routes-container ${theme}`}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/HigherOrLower" element={<HigherOrLower />} />

@@ -4,6 +4,7 @@ import { mainContext } from "../../context/SongsContext";
 import { RiArrowDropDownFill } from "react-icons/ri";
 import { RiArrowDropUpFill } from "react-icons/ri";
 import Loading from "../../assets/loading.gif";
+import LossModal from "./LossModal";
 
 const HigherOrLower = () => {
   const { getSongsFilter } = useContext(mainContext);
@@ -14,6 +15,7 @@ const HigherOrLower = () => {
   const [gameState, setGameState] = useState(true);
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(false);
+  const lastScore = useRef(null)
 
   useEffect(() => {
     if (gameState) {
@@ -56,9 +58,9 @@ const HigherOrLower = () => {
         ref.current = 0;
         setState(0);
       } else {
+        lastScore.current=score
         setGameState(false);
         setScore(0);
-        console.log("you lost");
       }
     } else if (pick === "higher") {
       if (songs[randomIndex2]?.views > songs[randomIndex]?.views) {
@@ -82,9 +84,9 @@ const HigherOrLower = () => {
         ref.current = 0;
         setState(0);
       } else {
+        lastScore.current=score
         setGameState(false);
         setScore(0);
-        console.log("you lost");
       }
     }
   };
@@ -112,6 +114,7 @@ const HigherOrLower = () => {
     <>
     {(randomIndex || randomIndex2) &&
      <div className="high-low-container">
+      {!gameState && <LossModal setGameState={setGameState} lastScore={lastScore}/>}
      <div
        className="current"
        style={{ "--random1BG": `url(${songs[randomIndex]?.artwork?.url})` }}
@@ -158,6 +161,7 @@ const HigherOrLower = () => {
                onClick={() => {
                  handleGame("higher");
                }}
+               disabled={!gameState}
              >
               Higher
              </button>
@@ -165,6 +169,7 @@ const HigherOrLower = () => {
                onClick={() => {
                  handleGame("lower");
                }}
+               disabled={!gameState}
              >
               Lower
              </button>

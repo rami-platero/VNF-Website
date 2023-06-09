@@ -12,12 +12,9 @@ const ContributeSection = () => {
           <span>Contribute</span> to the community
         </h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit cum
-          esse praesentium quod consequuntur excepturi maiores numquam eveniet,
-          quibusdam ratione mollitia nostrum blanditiis consectetur assumenda
-          error optio corrupti, rem ut.
+          There are many ways that you can contribute to the community. One of them has always been by using tools that let users go back in time in the internet. <br/> Wayback Machine is the best example, you can enter any link related to NCS, like their YouTube channel and start looking for lost media and share it on discord server. 
         </p>
-        <button>Contribute</button>
+        <a href="https://web.archive.org/web/20230000000000*/https://www.youtube.com/user/NoCopyrightSounds" target="_blank">Contribute</a>
         <img src={Image} />
       </div>
     </div>

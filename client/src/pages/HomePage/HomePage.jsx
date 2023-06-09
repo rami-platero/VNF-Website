@@ -22,52 +22,54 @@ function HomePage() {
   };
 
   return (
-      <div className="home-page">
-          <div className="content-wrapper">
-            <div className="row-1">
-              <div className="wrapper">
-                <h1>VIP NCS Fans</h1>
-                <p>
-                  Discover the lost and recovered media that has been released
-                  throughout the years. This is the official website of our
-                  community,
-                  <span> built by fans for NCS fans.</span>
-                </p>
-                <button className="learn-more-btn">Learn More</button>
-              </div>
-              <div className="sources">
-                <p className="source-title">Sources and Tools</p>
-                <hr />
-                <div className="logos">
-                  <img src={WBM} />
-                  <img src={YT} />
-                  <img src={DS} />
-                </div>
-              </div>
+    <div className="home-page">
+      <div className="content-wrapper">
+        <div className="row-1">
+          <div className="wrapper">
+            <h1>VIP NCS Fans</h1>
+            <p>
+              Discover the lost and recovered media that has been released
+              throughout the years. This is the official website of our
+              community,
+              <span> built by fans for NCS fans.</span>
+            </p>
+            <button className="learn-more-btn">Learn More</button>
+          </div>
+          <div className="sources">
+            <p className="source-title">Sources and Tools</p>
+            <hr />
+            <div className="logos">
+              <img src={WBM} />
+              <img src={YT} />
+              <img src={DS} />
             </div>
-            <RxDoubleArrowDown
-              onClick={async () => {
-                await new Promise((resolve) => {
-                  setScroll(true);
-                  resolve();
-                });
-                executeScroll();
-              }}
-              className="scroll-down"
-              size={"4rem"}
-            />
           </div>
-        {scroll && (
-          <div ref={scrollRef} className={`topics ${theme}`}>
-            <Documentary />
-            <Engagement />
-            <div className="separator"></div>
-            <SongsSection/>
-            <BackgroundsSection/>
-            <ContributeSection/>
-          </div>
-        )}
+        </div>
+        <RxDoubleArrowDown
+          onClick={async () => {
+            await new Promise((resolve) => {
+              setScroll(true);
+              resolve();
+            });
+            executeScroll();
+          }}
+          className="scroll-down"
+          size={"4rem"}
+        />
       </div>
+      {scroll && (
+        <div ref={scrollRef} className={`topics ${theme}`}>
+          <Documentary />
+          <Engagement />
+          <div className="separator-wrapper">
+            <div className="separator"></div>
+          </div>
+          <SongsSection />
+          <BackgroundsSection />
+          <ContributeSection />
+        </div>
+      )}
+    </div>
   );
 }
 

@@ -3,12 +3,16 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto;
-  .separator {
-    background: radial-gradient(
-        circle,
-        rgb(238, 238, 238) 0%,
-        rgba(15, 15, 19, 0) 100%
-      );
+  .separator-wrapper{
+    background: radial-gradient(circle, rgb(15, 15, 19) 0%, rgb(10, 10, 10) 100%);
+    .separator {
+      
+      background: radial-gradient(
+          circle,
+          rgb(255, 255, 255) 0%,
+          rgba(94, 94, 192, 0) 100%
+        );
+    }
   }
 }
 

@@ -150,7 +150,10 @@
   height: 100px;
   margin-top: -50px;
   margin-left: -50px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.267);
+  font-weight: 400;
+  color: white;
+  border: 3px solid white;
 }
 
 .gameState img {
@@ -198,6 +201,7 @@
     height: 50vh;
     min-width: 100%;
     width: 100%;
+    text-align: center;
   }
   .high-low-container img {
     max-width: 150px;
@@ -208,7 +212,7 @@
   .current-content .views-amount,
   .next-content .views-amount {
     font-size: 2.5rem;
-    color: rgb(255, 255, 172);
+    color: #ffffac;
   }
   .current-content .artists-list,
   .next-content .artists-list {
