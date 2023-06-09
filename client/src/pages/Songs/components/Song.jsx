@@ -53,8 +53,10 @@ const Song = ({ song, setModalIsOpen }) => {
 
   return (
     <>
-      <div className={`song ${theme} ${idRemove === song?._id}`}>
-        <div className="artwork" onClick={handleSongDiv}>
+      <div className={`song ${theme} ${idRemove === song?._id}`}
+      onClick={handleSongDiv}
+      >
+        <div className="artwork">
           {song?.loading ? (
             <img src={Skeleton} className="skeleton-img" />
           ) : (
@@ -67,8 +69,7 @@ const Song = ({ song, setModalIsOpen }) => {
             />
           )}
         </div>
-        <div className="song-wrapper">
-          <div className="song-container">
+        <div className="song-container">
             {song?.loading ? (
               <div className={`song-info ${theme}`}>
                 <div className="song-name skeleton"></div>
@@ -84,7 +85,7 @@ const Song = ({ song, setModalIsOpen }) => {
                 <p className="song-genre">{song?.genre}</p>
                 <p className="song-views">
                   Views:{" "}
-                  <span style={{ color: "#a3a3a3" }}>
+                  <span>
                     {song?.views?.toLocaleString("en-US")}
                   </span>
                 </p>
@@ -128,7 +129,6 @@ const Song = ({ song, setModalIsOpen }) => {
               <Progress progress={progressSong} />
             )}
           </div>
-        </div>
       </div>
     </>
   );

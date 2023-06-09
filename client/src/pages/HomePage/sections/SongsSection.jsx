@@ -6,7 +6,6 @@ import { FaSoundcloud } from "react-icons/fa";
 import { AiFillYoutube } from "react-icons/ai";
 import {RiMusic2Fill} from 'react-icons/ri'
 import {Link} from 'react-router-dom'
-/* import Tracks from "../assets/deleted_songs.png"; */
 
 const SongsSection = () => {
   const { theme } = useContext(themecontext);

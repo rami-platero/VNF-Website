@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import "./login.css";
+import "./auth.css";
 import { themecontext } from "../../context/themeContext";
 import { useLogin } from "../../hooks/useLogin";
 import Loader from "../../components/UI/Loader";
@@ -23,7 +23,7 @@ function Login() {
   const { theme } = useContext(themecontext);
 
   return (
-    <div className={`login-container`}>
+    <div className={`auth-container ${theme}`}>
       {isLoading && <Loader />}
       <h1>LOGIN</h1>
       <form onSubmit={handleSubmit}>

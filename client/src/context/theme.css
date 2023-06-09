@@ -23,7 +23,6 @@ body {
   transition: 0.2s ease-in-out;
 }
 
-
 .video-container.dark,
 .back-container.dark,
 .backgrounds-container.dark,
@@ -120,34 +119,5 @@ body {
 
 /*LOGIN - SIGN UP*/
 
-.text-field.dark {
-  background-color: rgb(34, 34, 34);
-}
 
-.text-field.dark input {
-  color: white;
-}
-
-.login-btn.dark {
-  background: none;
-  border: 1.5px solid white;
-  transition: 0.2s ease-in-out;
-}
-
-.login-btn.dark:hover {
-  background-color: white;
-  color: black;
-  transition: 0.2s ease-in-out;
-}
-
-.log-out.dark {
-  border: 1px solid white;
-  background-color: white;
-  color: black;
-}
-
-.log-out.dark:hover {
-  background: none;
-  color: white;
-}
 

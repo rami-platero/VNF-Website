@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./deleted-info.css";
 import { IoMdDownload } from "react-icons/io";
 import {themecontext} from '../../../context/themeContext'
+import BackgroundInfo from './BackgroundInfo.jsx'
 
 function DeletedInfo({ song, artistsList }) {
   const someStyle = {

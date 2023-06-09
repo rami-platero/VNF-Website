@@ -2,6 +2,9 @@ import Song from "../models/Song.js";
 import { deleteArtwork, uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
 import Background from "../models/Background.js";
+import Redis from 'redis'
+
+const redisClient = Redis.createClient()
 
 const createID = async () => {
   let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
@@ -15,9 +18,19 @@ const createID = async () => {
 };
 
 export const getSongs = async (req, res) => {
+  /* await redisClient.connect(); */
   try {
-    const songs = await Song.find();
-    return res.send(songs);
+    /* redisClient.get('songs', async (error,songs)=>{
+      if(songs!=null){
+        return res.json(JSON.parse(songs))
+      } else {
+        const data = await Song.find();
+        redisClient.setEx('songs', 3600, JSON.stringify(data))
+        return res.send(songs);
+      }
+    }) */
+    const data = await Song.find();
+    return res.send(data);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

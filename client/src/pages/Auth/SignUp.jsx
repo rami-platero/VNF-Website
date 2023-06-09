@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import "./signup.css";
+import "./auth.css";
 import { themecontext } from "../../context/themeContext";
 import { useSignup } from "../../hooks/useSignUp";
 import Loader from "../../components/UI/Loader";
@@ -10,7 +10,6 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     await signup(form);
   };
 
@@ -24,7 +23,7 @@ function SignUp() {
   const { theme } = useContext(themecontext);
 
   return (
-    <div className={`login-container`}>
+    <div className={`auth-container ${theme}`}>
       {isLoading && <Loader/>}
       <h1>SIGN UP</h1>
       <form onSubmit={handleSubmit}>

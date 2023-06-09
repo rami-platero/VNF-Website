@@ -6,7 +6,6 @@ import { memo } from "react";
 import BGItem from "./components/BGItem";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import BackButton from "../../components/UI/BackButton";
 import { themecontext } from "../../context/themeContext";
 import { BiLandscape } from "react-icons/bi";
 import usePagination from "../../hooks/usePagination";
@@ -38,7 +37,6 @@ function Backgrounds() {
 
   return (
     <div className={`backgrounds-container`}>
-      <BackButton />
       <BGFilters setQuery={setQuery}/>
       {user != null && user?.roles_name?.includes("admin") && (
         <button

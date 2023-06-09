@@ -47,6 +47,7 @@
   max-width: 10rem;
   padding: 0.5rem;
   transition: 0.2s ease-in-out;
+  align-self: center;
 }
 
 .deleted-wrapper .deleted-artwork button:hover {
@@ -59,6 +60,7 @@
   box-shadow: rgba(0, 0, 0, 0.712) 0px 5px 15px;
   max-width: 400px;
   width: 100%;
+  border-radius: 100%;
 }
 
 .deleted-wrapper .info-wrapper {
