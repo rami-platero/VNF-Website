@@ -1,15 +1,15 @@
 import ReactPlayer from "react-player";
 import "./docModal.css";
+import { IoCloseSharp } from "react-icons/io5";
 
 const DocModal = ({ setPlaying }) => {
+  const closeModal = () => {
+    setPlaying(false);
+  };
   return (
-    <div
-      className="doc-container"
-      onClick={() => {
-        setPlaying(false);
-      }}
-    >
+    <div className="doc-container" onClick={closeModal}>
       <div className="doc-player-wrapper">
+        <IoCloseSharp onClick={closeModal} />
         <div className="doc-player">
           <ReactPlayer
             controls

@@ -34,13 +34,13 @@ const Documentary = () => {
           <h1>THE STORY OF NCS</h1>
         </div>
         <div
-          className="doc-thumbnail-container"
+          className="doc-thumbnail"
           onClick={() => {
             setPlaying(true);
           }}
         >
           <IoPlay />
-          <img src={Thumbnail} />|
+          <img src={Thumbnail} />
         </div>
       </div>
     </div>
