@@ -134,8 +134,8 @@ function DeletedSong() {
                     }}
                   />
                 </p>
-                <div className="description-text">
-                  {song.original_description}
+                <div className={`description-text ${!song.original_description && "no-data"}`}>
+                  {song.original_description? song.original_description: "NO DATA"}
                 </div>
               </div>
             </div>

@@ -164,6 +164,8 @@
 }
 
 .actions button {
+  z-index: 9;
+  pointer-events: all;
   cursor: pointer;
   width: 150px;
   padding: 0.4rem 0.5rem;

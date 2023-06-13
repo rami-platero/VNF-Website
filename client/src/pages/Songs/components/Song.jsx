@@ -21,7 +21,8 @@ const Song = ({ song, setModalIsOpen }) => {
     setIdEdit,
   } = useContext(mainContext);
   const { theme } = useContext(themecontext);
-  const handleEdit = async () => {
+  const handleEdit = async (e) => {
+    e.stopPropagation();
     setIdEdit(song.customID);
     setModalIsOpen(true);
   };
@@ -32,7 +33,8 @@ const Song = ({ song, setModalIsOpen }) => {
       return artist?.name;
     })
     .join(", ");
-  const handleRemove = () => {
+  const handleRemove = (e) => {
+    e.stopPropagation();
     if (user != null) {
       setIdRemove(song?._id);
       removeSong(song?._id, user);

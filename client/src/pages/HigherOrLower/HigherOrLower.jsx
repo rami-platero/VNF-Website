@@ -5,6 +5,7 @@ import { RiArrowDropDownFill } from "react-icons/ri";
 import { RiArrowDropUpFill } from "react-icons/ri";
 import Loading from "../../assets/loading.gif";
 import LossModal from "./LossModal";
+import { CSSTransition } from "react-transition-group";
 
 const HigherOrLower = () => {
   const { getSongsFilter } = useContext(mainContext);
@@ -15,7 +16,7 @@ const HigherOrLower = () => {
   const [gameState, setGameState] = useState(true);
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(false);
-  const lastScore = useRef(null)
+  const lastScore = useRef(null);
 
   useEffect(() => {
     if (gameState) {
@@ -34,10 +35,9 @@ const HigherOrLower = () => {
     }
   }, [gameState]);
 
-
   const handleGame = async (pick) => {
     if (pick === "lower") {
-      if (songs[randomIndex2]?.views < songs[randomIndex]?.views) {
+      if (songs[randomIndex2]?.views <= songs[randomIndex]?.views) {
         setLoading(true);
         setScore(score + 1);
         setEnd(songs[randomIndex2]?.views);
@@ -58,12 +58,12 @@ const HigherOrLower = () => {
         ref.current = 0;
         setState(0);
       } else {
-        lastScore.current=score
+        lastScore.current = score;
         setGameState(false);
         setScore(0);
       }
     } else if (pick === "higher") {
-      if (songs[randomIndex2]?.views > songs[randomIndex]?.views) {
+      if (songs[randomIndex2]?.views >= songs[randomIndex]?.views) {
         setLoading(true);
         setEnd(songs[randomIndex2]?.views);
         setScore(score + 1);
@@ -84,7 +84,7 @@ const HigherOrLower = () => {
         ref.current = 0;
         setState(0);
       } else {
-        lastScore.current=score
+        lastScore.current = score;
         setGameState(false);
         setScore(0);
       }
@@ -112,89 +112,103 @@ const HigherOrLower = () => {
 
   return (
     <>
-    {(randomIndex || randomIndex2) &&
-     <div className="high-low-container">
-      {!gameState && <LossModal setGameState={setGameState} lastScore={lastScore}/>}
-     <div
-       className="current"
-       style={{ "--random1BG": `url(${songs[randomIndex]?.artwork?.url})` }}
-     >
-       <div className="current-content">
-         <img src={songs[randomIndex]?.artwork?.url} />
-         <div className="info">
-           <h1 className="song-title">{songs[randomIndex]?.name}</h1>
-           <h3 className="artists-list">
-             {songs[randomIndex]?.artists
-               ?.map((artist) => {
-                 return artist?.name;
-               })
-               .join(", ")}
-           </h3>
-         </div>
-         <p>had</p>
-         <h1 className="views-amount">
-           {songs[randomIndex]?.views.toLocaleString("en-US")}
-         </h1>
-         <h3 style={{ textAlign: "center" }}>VIEWS</h3>
-       </div>
-     </div>
-     <div
-       className="next"
-       style={{ "--random2BG": `url(${songs[randomIndex2]?.artwork?.url})` }}
-     >
-       <div className="next-content">
-         <img src={songs[randomIndex2]?.artwork?.url} />
-         <div className="info">
-           <h1 className="song-title">{songs[randomIndex2]?.name}</h1>
-           <h3 className="artists-list">
-             {songs[randomIndex2]?.artists
-               ?.map((artist) => {
-                 return artist?.name;
-               })
-               .join(", ")}
-           </h3>
-         </div>
-         <p>had</p>
-         {!revealViews ? (
-           <div className="buttons-high-low">
-             <button
-               onClick={() => {
-                 handleGame("higher");
-               }}
-               disabled={!gameState}
-             >
-              Higher
-             </button>
-             <button
-               onClick={() => {
-                 handleGame("lower");
-               }}
-               disabled={!gameState}
-             >
-              Lower
-             </button>
-             <p>views than {songs[randomIndex]?.name}</p>
-           </div>
-         ) : (
-           <>
-             <h1 className="views-amount">
-               {state?.toLocaleString("en-US")}
-             </h1>
-             <h3 style={{ textAlign: "center" }}>VIEWS</h3>
-           </>
-         )}
-       </div>
-     </div>
-     <p className="score">Score: {score}</p>
-     {gameState? (
-       <div className="gameState">
-         {loading ? <img src={Loading} /> : <>VS</>}
-       </div>
-     ) : <div className="gameState">X</div>}
-   </div>
-    }
+      {(randomIndex || randomIndex2) && (
+        <div className="high-low-container">
+          <CSSTransition
+            in={!gameState}
+            unmountOnExit
+            classNames={"grow"}
+            timeout={300}
+          >
+            <LossModal setGameState={setGameState} lastScore={lastScore} />
+          </CSSTransition>
+
+          <div
+            className="current"
+            style={{
+              "--random1BG": `url(${songs[randomIndex]?.artwork?.url})`,
+            }}
+          >
+            <div className="current-content">
+              <img src={songs[randomIndex]?.artwork?.url} />
+              <div className="info">
+                <h1 className="song-title">{songs[randomIndex]?.name}</h1>
+                <h3 className="artists-list">
+                  {songs[randomIndex]?.artists
+                    ?.map((artist) => {
+                      return artist?.name;
+                    })
+                    .join(", ")}
+                </h3>
+              </div>
+              <p>had</p>
+              <h1 className="views-amount">
+                {songs[randomIndex]?.views.toLocaleString("en-US")}
+              </h1>
+              <h3 style={{ textAlign: "center" }}>VIEWS</h3>
+            </div>
+          </div>
+          <div
+            className="next"
+            style={{
+              "--random2BG": `url(${songs[randomIndex2]?.artwork?.url})`,
+            }}
+          >
+            <div className="next-content">
+              <img src={songs[randomIndex2]?.artwork?.url} />
+              <div className="info">
+                <h1 className="song-title">{songs[randomIndex2]?.name}</h1>
+                <h3 className="artists-list">
+                  {songs[randomIndex2]?.artists
+                    ?.map((artist) => {
+                      return artist?.name;
+                    })
+                    .join(", ")}
+                </h3>
+              </div>
+              <p>had</p>
+              {!revealViews ? (
+                <div className="buttons-high-low">
+                  <button
+                    onClick={() => {
+                      handleGame("higher");
+                    }}
+                    disabled={!gameState}
+                  >
+                    Higher
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleGame("lower");
+                    }}
+                    disabled={!gameState}
+                  >
+                    Lower
+                  </button>
+                  <p>views than {songs[randomIndex]?.name}</p>
+                </div>
+              ) : (
+                <>
+                  <h1 className="views-amount">
+                    {state?.toLocaleString("en-US")}
+                  </h1>
+                  <h3 style={{ textAlign: "center" }}>VIEWS</h3>
+                </>
+              )}
+            </div>
+          </div>
+          <p className="score">Score: {score}</p>
+          {gameState ? (
+            <div className="gameState">
+              {loading ? <img src={Loading} /> : <>VS</>}
+            </div>
+          ) : (
+            <div className="gameState">X</div>
+          )}
+        </div>
+      )}
     </>
-  )
+  );
 };
 
 export default HigherOrLower;

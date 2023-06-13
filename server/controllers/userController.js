@@ -12,7 +12,7 @@ export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.login(email,password);
+    const user = await User.login(email.toLowerCase(),password);
     const token = createToken(user._id);
 
     res.status(200).json({ email, token, roles: user.roles, roles_name: user.roles_name });
@@ -25,7 +25,7 @@ export const signupUser = async (req, res) => {
   const { email, password, roles } = req.body;
 
   try {
-    const user = await User.signup(email, password, roles);
+    const user = await User.signup(email.toLowerCase(), password, roles);
 
     const token = createToken(user._id);
 

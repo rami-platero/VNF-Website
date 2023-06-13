@@ -47,26 +47,6 @@ function EditSong({ setModalIsOpen }) {
 
   const { handleDynamicChange, removeDynamicField, addDynamicField } =
     useDynamicFields(artists, setArtists, { name: "" });
-
-  /* const handleArtistChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...artists];
-    list[index][name] = value;
-    setArtists(list);
-  };
-
-  const removeField = (index) => {
-    setArtists(
-      artists.filter((artist, idx) => {
-        return idx !== index;
-      })
-    );
-  };
-
-  const addInputField = () => {
-    setArtists([...artists, { name: "" }]);
-  }; */
-
   const ref = useRef();
   const { user } = useAuthContext();
 
@@ -92,8 +72,7 @@ function EditSong({ setModalIsOpen }) {
           setModalIsOpen(false);
         }}
       />
-      <img src={Logo} className={`modal-logo ${theme}`} />
-      <h1 className="title">Edit song</h1>
+      <h1 className="title">EDIT SONG</h1>
       <form onSubmit={handleSubmit}>
         <input
           defaultValue={song?.name}

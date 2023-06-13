@@ -1,60 +1,47 @@
 import "./documentary.css";
-import { Link } from "react-router-dom";
-import ReactPlayer from "react-player";
+import Thumbnail from "../assets/thumbnail.png";
+import { IoPlay } from "react-icons/io5";
+import { CSSTransition } from "react-transition-group";
 import docVideo from "../NCS-Documentary-trailer.mp4";
+import { useState } from "react";
+import DocModal from "./DocModal";
 
 const Documentary = () => {
+  const [playing, setPlaying] = useState(false);
   return (
     <div className={`documentary-container`}>
+      <CSSTransition
+        unmountOnExit
+        in={playing}
+        classNames={"grow"}
+        timeout={300}
+      >
+        <DocModal setPlaying={setPlaying} />
+      </CSSTransition>
       <div className="overlay">
-            <video
-              className="back-video"
-              src={docVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-            ></video>
-          </div>
+        <video
+          className="back-video"
+          src={docVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+        ></video>
+      </div>
       <div className={`documentary-wrapper`}>
         <div className="info-wrapper">
           <label>FEATURED</label>
           <h1>THE STORY OF NCS</h1>
-          {/* <h3>Watch Our Documentary</h3> */}
-          {/* <p>
-            The Story of NCS is a documentary made by NCS Fans that tells how
-            NoCopyrightSounds was born, starting from the beginning, 2011, back
-            when Billy Woodford decided to create NoCopyrightSounds, it started
-            as a promo channel for free music, and later would become a record
-            label and be considered the #1 source for free copyright music on
-            the platform while providing a great variety of music genres.
-          </p> */}
-
         </div>
-        <div className="doc-video-container">
-          <div className="doc-player-wrapper">
-            <div className="doc-player">
-              <ReactPlayer
-                controls
-                url={"https://www.youtube.com/watch?v=9O1mGkdKlyE"}
-                config={{
-                  youtube: {
-                    playerVars: { showinfo: 0 },
-                  },
-                }}
-                width="100%"
-                height="100%"
-              />
-            </div>
-          </div>
+        <div
+          className="doc-thumbnail-container"
+          onClick={() => {
+            setPlaying(true);
+          }}
+        >
+          <IoPlay />
+          <img src={Thumbnail} />|
         </div>
-       {/*  <Link
-            target="_blank"
-            className="watch-btn"
-            to={"https://www.youtube.com/watch?v=9O1mGkdKlyE"}
-          >
-            Watch On YouTube
-          </Link> */}
       </div>
     </div>
   );
