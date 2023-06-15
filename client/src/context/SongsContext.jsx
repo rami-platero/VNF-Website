@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   delSong,
   getSongsRequest,
@@ -7,6 +7,7 @@ import {
   updateSong,
   postSongExistingBG
 } from "../api/songs.jsx";
+import { errorContext } from "./errorsContext.jsx";
 
 export const mainContext = createContext();
 
@@ -16,6 +17,7 @@ export const SongsContextProvider = ({ children }) => {
   const [idRemove, setIdRemove] = useState(null);
   const [progressSong, setProgressSong] = useState(null);
   const [idEdit, setIdEdit] = useState(null)
+  const {setResponseError} = useContext(errorContext)
 
   const getSongs = async () => {
     try {
@@ -43,6 +45,7 @@ export const SongsContextProvider = ({ children }) => {
       setDelSongs([...delSongs, res.data]);
       setProgressSong(null);
     } catch (error) {
+      setResponseError({error: true, message: error.response.data.message})
       console.log(error);
     }
   };
@@ -53,6 +56,7 @@ export const SongsContextProvider = ({ children }) => {
       const res = await postSongExistingBG(song, user);
       setDelSongs([...delSongs, res.data]);
     } catch (error) {
+      setResponseError({error: true, message: error.response.data.message})
       console.log(error);
     }
   };
@@ -67,6 +71,7 @@ export const SongsContextProvider = ({ children }) => {
       );
       setIdRemove(null);
     } catch (error) {
+      setResponseError({error: true, message: error.response.data.message})
       setLoadingRemove(false);
       console.log(error);
     }
@@ -84,8 +89,12 @@ export const SongsContextProvider = ({ children }) => {
   };
 
   const editSong = async (id, body, user) => {
-    const res = await updateSong(id, body, user);
-    setDelSongs(res.data);
+    try {
+      const res = await updateSong(id, body, user);
+      setDelSongs(res.data);
+    } catch (error) {
+      setResponseError({error: true, message: error.response.data.message})
+    }
   };
 
   useEffect(() => {

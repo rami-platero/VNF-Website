@@ -41,7 +41,17 @@
     gap: 2rem;
     position: relative;
     z-index: 2;
-    .info-wrapper >h2{
+    .info-wrapper {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+      > label {
+        letter-spacing: 0.3rem;
+        font-size: 0.8rem;
+      }
+    }
+    .info-wrapper > h2 {
       font-size: 2rem;
     }
   }

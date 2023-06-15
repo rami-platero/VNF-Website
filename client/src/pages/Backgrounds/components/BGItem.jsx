@@ -7,6 +7,7 @@ import { bgcontext } from "../../../context/bgsContext";
 import Skeleton from "../../../assets/skeleton-image.png";
 import Progress from "../../../components/UI/Progress";
 import { themecontext } from "../../../context/themeContext";
+import {memo} from 'react'
 
 function BGItem({ bg }) {
   const { theme } = useContext(themecontext);
@@ -17,8 +18,6 @@ function BGItem({ bg }) {
     if (user?.roles_name?.includes("admin")) {
       setIdRemove(bg?._id)
       delBg(bg?._id, user);
-    } else {
-      console.log("you are not authorized");
     }
   };
   const [loading, setLoading] = useState(true)
@@ -32,7 +31,7 @@ function BGItem({ bg }) {
       >
         {loading && <div className="bg-loader"></div>}
         {!bg?.loading ? (
-          <img src={bg?.file?.url} onLoad={handleImageLoad} onClick={() => {
+          <img src={bg?.file?.preview} onLoad={handleImageLoad} onClick={() => {
             navigate(`/backgrounds/${bg?.customID}`);
           }}/>
         ) : (
@@ -60,4 +59,4 @@ function BGItem({ bg }) {
   );
 }
 
-export default BGItem;
+export default memo(BGItem);

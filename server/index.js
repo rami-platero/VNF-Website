@@ -37,8 +37,6 @@ run().catch(console.dir);
 
 
 import app from './app.js'
-import nodemon from 'nodemon'
-
 
 app.listen(app.get('port'))
 console.log("PORT:", app.get('port'))

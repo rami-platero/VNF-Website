@@ -1,6 +1,7 @@
 import Background from "../models/Background.js";
-import { deleteArtwork, uploadImage } from "../libs/cloudinary.js";
+import { deleteArtwork, getPreviewImage, uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
+import multer from "multer";
 
 export const getBackgrounds = async (req, res) => {
   try {
@@ -13,7 +14,6 @@ export const getBackgrounds = async (req, res) => {
 export const postBackground = async (req, res) => {
   try {
     let file;
-    if (req.files.file) {
       //UPLOAD TO CLOUDINARY
       const result = await uploadImage(req.files.file.tempFilePath);
       const dwLink = result?.secure_url?.split("upload/");
@@ -24,16 +24,17 @@ export const postBackground = async (req, res) => {
           req.files.file.name.replace(/[\(\)']+/g, "").split(".")[0]
         }/`
       );
+      const preview = await getPreviewImage(result.public_id)
       file = {
         name: req.files.file.name,
         download_link: dwLink.join(""),
         url: result.secure_url,
         public_id: result.public_id,
+        preview
       };
       await fs.remove(req.files.file.tempFilePath);
       let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
       let exists = await Background.findOne({ customID });
-      console.log(exists);
       while (exists) {
         customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
         exists = await Background.findOne({ customID });
@@ -45,7 +46,7 @@ export const postBackground = async (req, res) => {
       });
       await bg.save();
       return res.send(bg);
-    }
+    
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -71,14 +72,13 @@ export const putBackground = async (req, res) => {
 export const delBackground = async (req, res) => {
   try {
     const deletedBackground = await Background.findByIdAndDelete(req.params.id);
-    if (!deletedBackground) return res.sendStatus(404);
+    if (!deletedBackground) throw Error (JSON.stringify({message: "This background does not exist, probably because it has already been deleted by someone else."}))
     if (deletedBackground?.file?.public_id) {
       await deleteArtwork(deletedBackground.file.public_id);
     }
-
     return res.sendStatus(204);
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json(JSON.parse(error.message));
   }
 };
 export const newBackground = async (bgFile,body) => {

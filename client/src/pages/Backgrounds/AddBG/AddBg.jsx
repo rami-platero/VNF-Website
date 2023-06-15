@@ -113,18 +113,7 @@ function AddBg() {
                   {validField(trackIndex, "name") && (
                     <p className="val-text">This field must be filled</p>
                   )}
-                  <input
-                    required
-                    type="text"
-                    placeholder="YouTube Link"
-                    name="youtube_link"
-                    autoComplete="off"
-                    value={track.youtube_link}
-                    onChange={(e) => {
-                      handleDynamicChange(e, trackIndex);
-                    }}
-                    className={`input-val ${validField(trackIndex, "yt_link")}`}
-                  />
+                  
                   {validField(trackIndex, "yt_link") && (
                     <p className="val-text">This field must be filled</p>
                   )}
@@ -177,6 +166,18 @@ function AddBg() {
                       </>
                     );
                   })}
+                  <input
+                    required
+                    type="text"
+                    placeholder="YouTube Link"
+                    name="youtube_link"
+                    autoComplete="off"
+                    value={track.youtube_link}
+                    onChange={(e) => {
+                      handleDynamicChange(e, trackIndex);
+                    }}
+                    className={`input-val ${validField(trackIndex, "yt_link")}`}
+                  />
                   {tracks.length > 1 && (
                     <button
                       className="remove-track"

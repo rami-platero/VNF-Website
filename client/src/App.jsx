@@ -18,17 +18,30 @@ import HigherOrLower from "./pages/HigherOrLower/HigherOrLower.jsx";
 import SingleBG from "./pages/Backgrounds/SinglePage/SingleBG.jsx";
 import { useContext } from "react";
 import { themecontext } from "./context/themeContext.jsx";
+import About from "./pages/About/About.jsx";
+import { CSSTransition } from "react-transition-group";
+import ErrorModal from "./components/UI/ErrorModal.jsx";
+import { errorContext } from "./context/errorsContext.jsx";
 
 function App() {
   axios.defaults.baseURL = `http://localhost:4000`;
   const { user } = useAuthContext();
-  const {theme} = useContext(themecontext)
+  const { theme } = useContext(themecontext);
+  const { responseError } = useContext(errorContext);
   return (
     <BgContextProvider>
-      <BrowserRouter>
-        <div className={`routes-container ${theme}`}>
-        <Navigation />
-        <ScrollToTop />
+      <div className={`routes-container ${theme}`}>
+        <CSSTransition
+          classNames={"grow"}
+          timeout={300}
+          in={responseError.error}
+          unmountOnExit
+        >
+          <ErrorModal />
+        </CSSTransition>
+        <BrowserRouter>
+          <Navigation />
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/HigherOrLower" element={<HigherOrLower />} />
@@ -39,7 +52,7 @@ function App() {
             <Route
               path="/add-deleted-song"
               element={<AddSong />}
-             /*  element={user ? <AddSong /> : <Navigate to="/" />} */
+              /*  element={user ? <AddSong /> : <Navigate to="/" />} */
             />
             <Route
               path="/deleted-song/:customID/:name"
@@ -54,9 +67,10 @@ function App() {
               element={!user ? <SignUp /> : <Navigate to="/" />}
             />
             <Route path="*" element={<NotFoundPage />} />
+            <Route path="/about" element={<About />} />
           </Routes>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </div>
     </BgContextProvider>
   );
 }

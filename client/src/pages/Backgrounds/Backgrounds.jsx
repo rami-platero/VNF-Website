@@ -12,7 +12,6 @@ import usePagination from "../../hooks/usePagination";
 import Pagination from "../../components/UI/Pagination";
 import BGFilters from "./components/BGFilters";
 import { useState } from "react";
-import SkeletonBG from "./components/SkeletonBG";
 
 function Backgrounds() {
   const { data } = useContext(bgcontext);
@@ -25,16 +24,20 @@ function Backgrounds() {
 
   const filteredItems = useMemo(() => {
     return data.filter((bg) => {
-      return bg.tracks.some((track) => {
+      return bg?.tracks?.some((track) => {
         return (
-          track.name.toLowerCase().includes(query.toLowerCase()) ||
-          track.artists.some((artist) => {
-            return artist.name.toLowerCase().includes(query.toLowerCase());
+          track?.name?.toLowerCase().includes(query.toLowerCase()) ||
+          track?.artists?.some((artist) => {
+            return artist?.name?.toLowerCase().includes(query.toLowerCase());
           })
         );
-      });
-    });
+      }) || bg.loading 
+    })
   }, [data, query]);
+
+  useEffect(()=>{
+    console.log(data)
+  },[data])
 
   return (
     <div className={`backgrounds-container`}>
@@ -62,11 +65,6 @@ function Backgrounds() {
         {filteredItems?.length !== 0 &&
           filteredItems?.map((bg) => {
             return <BGItem key={bg?.customID} bg={bg} />;
-            /* return bg.isLoading ? (
-                <SkeletonBG />
-              ) : (
-                <BGItem key={bg?.customID} bg={bg} />
-              ); */
           })}
       </div>
       {currentItems.length > itemsPerPage && (

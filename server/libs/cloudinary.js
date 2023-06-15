@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import Background from "../models/Background.js";
 
 cloudinary.config({
   cloud_name: "dikp1fayh",
@@ -11,6 +12,15 @@ export const uploadImage = async (filePath) => {
     folder: "artworks",
   });
 };
+
+export const getPreviewImage = async (publicID) => {
+  return await cloudinary.url(publicID, {
+    transformation: [
+      { width: 533, height: 300, crop: "fill" },
+      { quality: "auto:low" },
+    ],
+  });
+}
 
 export const deleteArtwork = async id =>{
     return await cloudinary.uploader.destroy(id)

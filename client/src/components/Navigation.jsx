@@ -29,6 +29,17 @@ function Navigation() {
           {open && window.innerWidth <= 1200 && (
             <div className={`pages-nav ham ${theme}`}>
               <NavLink
+                to={"/about"}
+                onClick={() => {
+                  setOpen(false);
+                }}
+                className={({ isActive }) =>
+                  isActive ? `link active ${theme}` : `link inactive ${theme}`
+                }
+              >
+                About
+              </NavLink>
+              <NavLink
                 onClick={() => {
                   setOpen(false);
                 }}
@@ -73,6 +84,17 @@ function Navigation() {
               src={Logo}
             >
               <img src={Logo} className={`logo ${theme}`} />
+            </NavLink>
+            <NavLink
+              to={"/about"}
+              onClick={() => {
+                setOpen(false);
+              }}
+              className={({ isActive }) =>
+                isActive ? `link active ${theme}` : `link inactive ${theme}`
+              }
+            >
+              About
             </NavLink>
             <NavLink
               onClick={() => {

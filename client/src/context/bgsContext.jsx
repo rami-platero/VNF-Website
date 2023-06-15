@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   getBackgrounds,
   getBackground,
@@ -6,6 +6,7 @@ import {
   putBackground,
   delBackground,
 } from "../api/backgrounds";
+import { errorContext } from "./errorsContext";
 
 export const bgcontext = createContext();
 
@@ -13,6 +14,7 @@ export const BgContextProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [progress, setProgress] = useState(null);
   const [idRemove, setIdRemove] = useState(null);
+  const {setResponseError} = useContext(errorContext)
 
   const getBgs = async () => {
     try {
@@ -35,7 +37,10 @@ export const BgContextProvider = ({ children }) => {
       setData([...data, res.data]);
       setProgress(null);
     } catch (error) {
-      console.log(error);
+      setData(data.filter((bg)=>{
+        return !bg.loading
+      }))
+      setResponseError({error: true, message: error.response.data.message})
     }
   };
   const getBg = async (customID) => {
@@ -64,7 +69,7 @@ export const BgContextProvider = ({ children }) => {
       );
       setIdRemove(null);
     } catch (error) {
-      console.log(error);
+      setResponseError({error: true, message: error.response.data.message})
     }
   };
 

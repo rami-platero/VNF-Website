@@ -14,12 +14,12 @@ import ContributeSection from "./sections/ContributeSection";
 
 function HomePage() {
   const { theme } = useContext(themecontext);
-  const [scroll, setScroll] = useState(false);
+  /* const [scroll, setScroll] = useState(false); */
   const scrollRef = useRef(null);
 
-  const executeScroll = () => {
+ /*  const executeScroll = () => {
     scrollRef.current.scrollIntoView();
-  };
+  }; */
 
   return (
     <div className="home-page">
@@ -45,7 +45,7 @@ function HomePage() {
             </div>
           </div>
         </div>
-        <RxDoubleArrowDown
+        {/* <RxDoubleArrowDown
           onClick={async () => {
             await new Promise((resolve) => {
               setScroll(true);
@@ -55,10 +55,9 @@ function HomePage() {
           }}
           className="scroll-down"
           size={"4rem"}
-        />
+        /> */}
       </div>
-      {scroll && (
-        <div ref={scrollRef} className={`topics ${theme}`}>
+      <div ref={scrollRef} className={`topics ${theme}`}>
           <Documentary />
           <Engagement />
           <div className="separator-wrapper">
@@ -68,7 +67,9 @@ function HomePage() {
           <BackgroundsSection />
           <ContributeSection />
         </div>
-      )}
+      {/* {scroll && (
+        
+      )} */}
     </div>
   );
 }

@@ -6,6 +6,7 @@ const backgroundSchema = new Schema({
     name: String,
     url: String,
     public_id: String,
+    preview: String
   },
   tracks: [
     {

@@ -80,7 +80,7 @@ userSchema.statics.login = async function (email, password) {
   const match = await bcrypt.compare(password, user.password);
 
   if (!match) {
-    throw Error({password: "Incorrect password"});
+    throw Error(JSON.stringify({password: "Incorrect password"}));
   }
 
   return user;
