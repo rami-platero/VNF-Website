@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "./bg.css";
 import { IoMdDownload } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,16 +21,20 @@ function BGItem({ bg }) {
       console.log("you are not authorized");
     }
   };
+  const [loading, setLoading] = useState(true)
+  const handleImageLoad = ()=>{
+    setLoading(false)
+  }
   return (
     <div className={`bg-container ${theme} ${idRemove===bg?._id}`}>
       <div
         className="bg-image-wrapper"
-        onClick={() => {
-          navigate(`/backgrounds/${bg?.customID}`);
-        }}
       >
+        {loading && <div className="bg-loader"></div>}
         {!bg?.loading ? (
-          <img src={bg?.file?.url} />
+          <img src={bg?.file?.url} onLoad={handleImageLoad} onClick={() => {
+            navigate(`/backgrounds/${bg?.customID}`);
+          }}/>
         ) : (
           <div className="skeleton-bg">
             <img src={Skeleton} />

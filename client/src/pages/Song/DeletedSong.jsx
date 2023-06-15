@@ -13,7 +13,7 @@ import toast, { Toaster } from "react-hot-toast";
 function DeletedSong() {
   const navigate = useNavigate();
   const { customID } = useParams();
-  const { getSingleSong } = useContext(mainContext);
+  const { getSingleSong, loading } = useContext(mainContext);
   const { theme } = useContext(themecontext);
   const [song, setSong] = useState({});
   const getSong = async () => {
@@ -50,6 +50,9 @@ function DeletedSong() {
 
   return (
     <div className={`post-container ${theme}`}>
+      {loading && 
+      <div className="loader-song">ato</div>
+      }
       <section className={`video-container ${theme}`} style={someStyle}>
         <div className="video-wrapper">
           <div className="video">

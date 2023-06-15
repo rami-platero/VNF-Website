@@ -74,7 +74,9 @@ export const SongsContextProvider = ({ children }) => {
 
   const getSingleSong = async (id) => {
     try {
+      setLoading(true)
       const res = await singleSong(id);
+      setLoading(false)
       return res.data;
     } catch (error) {
       console.log(error);

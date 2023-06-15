@@ -11,7 +11,7 @@ const BackgroundsSection = () => {
       <div className="wrapper">
         <label>MEDIA</label>
         <div className="row-2">
-          <h1>Backgrounds</h1>
+          <h2>Backgrounds</h2>
           <p>
             Here's where you will find all the backgrounds that NCS has used for
             their YouTube videos.

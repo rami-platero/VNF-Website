@@ -12,6 +12,7 @@ import usePagination from "../../hooks/usePagination";
 import Pagination from "../../components/UI/Pagination";
 import BGFilters from "./components/BGFilters";
 import { useState } from "react";
+import SkeletonBG from "./components/SkeletonBG";
 
 function Backgrounds() {
   const { data } = useContext(bgcontext);
@@ -33,11 +34,11 @@ function Backgrounds() {
         );
       });
     });
-  });
+  }, [data, query]);
 
   return (
     <div className={`backgrounds-container`}>
-      <BGFilters setQuery={setQuery}/>
+      <BGFilters setQuery={setQuery} />
       {user != null && user?.roles_name?.includes("admin") && (
         <button
           onClick={() => {
@@ -61,6 +62,11 @@ function Backgrounds() {
         {filteredItems?.length !== 0 &&
           filteredItems?.map((bg) => {
             return <BGItem key={bg?.customID} bg={bg} />;
+            /* return bg.isLoading ? (
+                <SkeletonBG />
+              ) : (
+                <BGItem key={bg?.customID} bg={bg} />
+              ); */
           })}
       </div>
       {currentItems.length > itemsPerPage && (

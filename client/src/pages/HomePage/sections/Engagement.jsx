@@ -12,7 +12,7 @@ const Engagement = () => {
     <div className={`engagement ${theme}`}>
       <div className="header">
       <label htmlFor="">COMMUNITY</label>
-      <h1>OUR DISCORD COMMUNITY</h1>
+      <h2>OUR DISCORD COMMUNITY</h2>
       </div>
       <div className="perks">
         <div className="row">

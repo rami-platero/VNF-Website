@@ -50,6 +50,9 @@
       align-items: center;
       gap: 2rem;
       text-align: center;
+      >h2{
+        font-size: 2rem;
+      }
       > p {
         max-width: 500px;
         font-size: 0.9rem;

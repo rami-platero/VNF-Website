@@ -26,6 +26,9 @@
       gap: 2rem;
       text-align: center;
       align-items: center;
+      >h2{
+        font-size: 2rem;
+      }
       > p {
         max-width: 400px;
         font-size: 0.9rem;

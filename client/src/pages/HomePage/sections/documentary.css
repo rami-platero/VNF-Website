@@ -41,6 +41,9 @@
     gap: 2rem;
     position: relative;
     z-index: 2;
+    .info-wrapper >h2{
+      font-size: 2rem;
+    }
   }
 }
 

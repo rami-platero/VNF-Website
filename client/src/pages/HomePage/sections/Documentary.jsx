@@ -31,7 +31,7 @@ const Documentary = () => {
       <div className={`documentary-wrapper`}>
         <div className="info-wrapper">
           <label>FEATURED</label>
-          <h1>THE STORY OF NCS</h1>
+          <h2>THE STORY OF NCS</h2>
         </div>
         <div
           className="doc-thumbnail"
