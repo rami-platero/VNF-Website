@@ -1,18 +1,16 @@
 import Song from "../models/Song.js";
-import { deleteArtwork, uploadImage } from "../libs/cloudinary.js";
+import { deleteArtwork, uploadArtwork, uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
-import Background from "../models/Background.js";
 import Redis from 'redis'
 
 const redisClient = Redis.createClient()
 
 const createID = async () => {
   let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
-  let exists = await Background.findOne({ customID });
-  console.log(exists);
+  let exists = await Song.findOne({ customID });
   while (exists) {
     customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
-    exists = await Background.findOne({ customID });
+    exists = await Song.findOne({ customID });
   }
   return customID;
 };
@@ -38,21 +36,15 @@ export const getSongs = async (req, res) => {
 
 export const newSong = async (req, res) => {
   try {
-    let artwork;
+    console.log("passed existing section")
     /*CREATE CUSTOM ID*/
     const customID = await createID();
     //BACKGROUND & ARTWORK
     if (req.files?.background && req.files?.artwork) {
       //BACKGROUND
       const bgID = await Song.handleBG(req.files.background, req.body);
-      console.log("bgID is", bgID);
       //ARTWORK
-      const art_result = await uploadImage(req.files.artwork.tempFilePath);
-      artwork = {
-        url: art_result.secure_url,
-        public_id: art_result.public_id,
-      };
-      await fs.remove(req.files.artwork.tempFilePath);
+      const artwork = uploadArtwork(req)
       //
       const newSong = new Song({
         ...req.body,
@@ -66,12 +58,7 @@ export const newSong = async (req, res) => {
     }
     //ONLY ARTWORK
     if (req.files?.artwork && !req.files?.background) {
-      const result = await uploadImage(req.files.artwork.tempFilePath);
-      artwork = {
-        url: result.secure_url,
-        public_id: result.public_id,
-      };
-      await fs.remove(req.files.artwork.tempFilePath);
+      const artwork = uploadArtwork(req)
       const { background, ...rest } = req.body;
       const newSong = new Song({
         rest,

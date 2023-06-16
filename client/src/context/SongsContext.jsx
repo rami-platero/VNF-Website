@@ -45,8 +45,10 @@ export const SongsContextProvider = ({ children }) => {
       setDelSongs([...delSongs, res.data]);
       setProgressSong(null);
     } catch (error) {
+      setDelSongs(delSongs.filter((song)=>{
+        return !song.loading
+      }))
       setResponseError({error: true, message: error.response.data.message})
-      console.log(error);
     }
   };
 
@@ -56,8 +58,10 @@ export const SongsContextProvider = ({ children }) => {
       const res = await postSongExistingBG(song, user);
       setDelSongs([...delSongs, res.data]);
     } catch (error) {
+      setDelSongs(delSongs.filter((song)=>{
+        return !song.loading
+      }))
       setResponseError({error: true, message: error.response.data.message})
-      console.log(error);
     }
   };
 

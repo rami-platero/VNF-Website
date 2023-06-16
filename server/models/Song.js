@@ -37,15 +37,12 @@ songSchema.statics.handleBG = async function (file, body) {
   console.log(JSON.parse(body.artists));
   const background = await Background.findOne({ "file.name": file.name });
   if (background) {
-    console.log("bg exists");
     const exists = background.tracks.some((track) => {
       return track.name === body.name && track.youtube_link == body.link;
     });
     if (exists) {
-      console.log("track already exists");
       return background._id;
     } else {
-      console.log("adding track");
       await Background.updateOne(
         { _id: background._id },
         {
@@ -61,23 +58,18 @@ songSchema.statics.handleBG = async function (file, body) {
       return background._id;
     }
   }
-  console.log("passed this section tho");
   const createBG = newBackground(file, body);
   return createBG;
 };
 
 songSchema.statics.handleExistingBG = async function (body,bg) {
-  try {
     const background = await Background.findOne({_id: bg})
-    console.log("bg in schema is", bg)
     const exists = background.tracks.some((track) => {
       return track.name === body.name && track.youtube_link == body.link;
     });
     if (exists) {
-      console.log("track already exists");
       return bg;
     } else {
-      console.log("adding track");
       await Background.updateOne(
         { _id: bg},
         {
@@ -92,9 +84,6 @@ songSchema.statics.handleExistingBG = async function (body,bg) {
       );
       return bg;
     }
-  } catch (error) {
-    console.log(error);
-  }
 };
 
 export default model("Song", songSchema);

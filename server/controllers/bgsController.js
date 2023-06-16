@@ -94,16 +94,17 @@ export const newBackground = async (bgFile,body) => {
         bgFile.name.replace(/[\(\)']+/g, "").split(".")[0]
       }/`
     );
+    const preview = await getPreviewImage(result.public_id)
     file = {
       name: bgFile.name,
       download_link: dwLink.join(""),
       url: result.secure_url,
       public_id: result.public_id,
+      preview
     };
     await fs.remove(bgFile.tempFilePath);
     let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
     let exists = await Background.findOne({ customID });
-    console.log(exists);
     while (exists) {
       customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
       exists = await Background.findOne({ customID });
