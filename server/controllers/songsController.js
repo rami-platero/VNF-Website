@@ -1,9 +1,13 @@
 import Song from "../models/Song.js";
-import { deleteArtwork, uploadArtwork, uploadImage } from "../libs/cloudinary.js";
+import {
+  deleteArtwork,
+  uploadArtwork,
+  uploadImage,
+} from "../libs/cloudinary.js";
 import fs from "fs-extra";
-import Redis from 'redis'
+import Redis from "redis";
 
-const redisClient = Redis.createClient()
+const redisClient = Redis.createClient();
 
 const createID = async () => {
   let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
@@ -16,17 +20,7 @@ const createID = async () => {
 };
 
 export const getSongs = async (req, res) => {
-  /* await redisClient.connect(); */
   try {
-    /* redisClient.get('songs', async (error,songs)=>{
-      if(songs!=null){
-        return res.json(JSON.parse(songs))
-      } else {
-        const data = await Song.find();
-        redisClient.setEx('songs', 3600, JSON.stringify(data))
-        return res.send(songs);
-      }
-    }) */
     const data = await Song.find();
     return res.send(data);
   } catch (error) {
@@ -36,63 +30,40 @@ export const getSongs = async (req, res) => {
 
 export const newSong = async (req, res) => {
   try {
-    console.log("passed existing section")
+    const body = req.body
     /*CREATE CUSTOM ID*/
     const customID = await createID();
     //BACKGROUND & ARTWORK
-    if (req.files?.background && req.files?.artwork) {
-      //BACKGROUND
-      const bgID = await Song.handleBG(req.files.background, req.body);
-      //ARTWORK
-      const artwork = uploadArtwork(req)
-      //
-      const newSong = new Song({
-        ...req.body,
-        customID,
-        background: bgID,
-        artwork,
-        artists: JSON.parse(req.body.artists),
-      });
-      await newSong.save();
-      return res.send(newSong);
-    }
-    //ONLY ARTWORK
-    if (req.files?.artwork && !req.files?.background) {
-      const artwork = uploadArtwork(req)
-      const { background, ...rest } = req.body;
-      const newSong = new Song({
-        rest,
-        artwork,
-        customID,
-        artists: JSON.parse(req.body.artists),
-      });
-      await newSong.save();
-      return res.send(newSong);
-    }
-    // ONLY BACKGROUND
-    if (req.files?.background) {
-      const bgID = await Song.handleBG(req.files.background, req.body);
-      const newSong = new Song({
-        ...req.body,
-        customID,
-        background: bgID,
-        artists: JSON.parse(req.body.artists),
-      });
-      await newSong.save();
-      return res.send(newSong);
-    }
-    //NO ARTWORK AND BACKGROUND
-    if (!req.files?.artwork && !req.files?.background) {
-      const { background, ...rest } = req.body;
+    if (req?.files?.artwork) {
+      const {background, ...rest} = body
+      const bgID = await Song.handleBG(
+        req.files.background,
+        rest
+      );
+      const artwork = await uploadArtwork(req);
       const newSong = new Song({
         ...rest,
-        artists: JSON.parse(req.body.artists),
         customID,
+        background: bgID,
+        artwork,
+        artists: JSON.parse(body.artists),
       });
       await newSong.save();
       return res.send(newSong);
     }
+    //NO ARTWORK AND BACKGROUND FILE
+    const { background, artwork, ...rest } = body;
+    const bgID = await Song.handleBG(req.files.background, rest);
+    const newSong = new Song({
+      ...rest,
+      background: bgID,
+      artists: JSON.parse(body.artists),
+      customID,
+    });
+    await newSong.save();
+    return res.send(newSong);
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 };

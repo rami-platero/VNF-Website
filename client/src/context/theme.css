@@ -9,6 +9,7 @@ body {
 .routes-container {
   min-height: 100%;
   transition: 0.2s ease-in-out;
+  background-color: rgba(251, 252, 255, 0.747);
 }
 
 .routes-container.dark {

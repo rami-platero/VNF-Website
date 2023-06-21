@@ -34,10 +34,9 @@ const songSchema = new Schema({
 });
 
 songSchema.statics.handleBG = async function (file, body) {
-  console.log(JSON.parse(body.artists));
   const background = await Background.findOne({ "file.name": file.name });
-  if (background) {
-    const exists = background.tracks.some((track) => {
+  if (background!==null) {
+    const exists = background?.tracks?.some((track) => {
       return track.name === body.name && track.youtube_link == body.link;
     });
     if (exists) {
@@ -58,7 +57,7 @@ songSchema.statics.handleBG = async function (file, body) {
       return background._id;
     }
   }
-  const createBG = newBackground(file, body);
+  const createBG = await newBackground(file, body);
   return createBG;
 };
 

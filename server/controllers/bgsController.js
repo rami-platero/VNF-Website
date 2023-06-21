@@ -1,7 +1,20 @@
 import Background from "../models/Background.js";
-import { deleteArtwork, getPreviewImage, uploadImage } from "../libs/cloudinary.js";
+import {
+  deleteArtwork,
+  getPreviewImage,
+  uploadImage,
+} from "../libs/cloudinary.js";
 import fs from "fs-extra";
-import multer from "multer";
+
+const createID = async () => {
+  let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
+  let exists = await Background.findOne({ customID });
+  while (exists) {
+    customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
+    exists = await Background.findOne({ customID });
+  }
+  return customID;
+};
 
 export const getBackgrounds = async (req, res) => {
   try {
@@ -14,39 +27,33 @@ export const getBackgrounds = async (req, res) => {
 export const postBackground = async (req, res) => {
   try {
     let file;
-      //UPLOAD TO CLOUDINARY
-      const result = await uploadImage(req.files.file.tempFilePath);
-      const dwLink = result?.secure_url?.split("upload/");
-      dwLink?.splice(
-        1,
-        0,
-        `upload/fl_attachment:${
-          req.files.file.name.replace(/[\(\)']+/g, "").split(".")[0]
-        }/`
-      );
-      const preview = await getPreviewImage(result.public_id)
-      file = {
-        name: req.files.file.name,
-        download_link: dwLink.join(""),
-        url: result.secure_url,
-        public_id: result.public_id,
-        preview
-      };
-      await fs.remove(req.files.file.tempFilePath);
-      let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
-      let exists = await Background.findOne({ customID });
-      while (exists) {
-        customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
-        exists = await Background.findOne({ customID });
-      }
-      const bg = new Background({
-        customID,
-        tracks: JSON.parse(req.body.tracks),
-        file,
-      });
-      await bg.save();
-      return res.send(bg);
-    
+    //UPLOAD TO CLOUDINARY
+    const result = await uploadImage(req.files.file.tempFilePath);
+    const dwLink = result?.secure_url?.split("upload/");
+    dwLink?.splice(
+      1,
+      0,
+      `upload/fl_attachment:${
+        req.files.file.name.replace(/[\(\)']+/g, "").split(".")[0]
+      }/`
+    );
+    const preview = await getPreviewImage(result.public_id);
+    file = {
+      name: req.files.file.name,
+      download_link: dwLink.join(""),
+      url: result.secure_url,
+      public_id: result.public_id,
+      preview,
+    };
+    await fs.remove(req.files.file.tempFilePath);
+    const customID = await createID();
+    const bg = new Background({
+      customID,
+      tracks: JSON.parse(req.body.tracks),
+      file,
+    });
+    await bg.save();
+    return res.send(bg);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -72,7 +79,13 @@ export const putBackground = async (req, res) => {
 export const delBackground = async (req, res) => {
   try {
     const deletedBackground = await Background.findByIdAndDelete(req.params.id);
-    if (!deletedBackground) throw Error (JSON.stringify({message: "This background does not exist, probably because it has already been deleted by someone else."}))
+    if (!deletedBackground)
+      throw Error(
+        JSON.stringify({
+          message:
+            "This background does not exist, probably because it has already been deleted by someone else.",
+        })
+      );
     if (deletedBackground?.file?.public_id) {
       await deleteArtwork(deletedBackground.file.public_id);
     }
@@ -81,11 +94,15 @@ export const delBackground = async (req, res) => {
     return res.status(500).json(JSON.parse(error.message));
   }
 };
-export const newBackground = async (bgFile,body) => {
-  try {
+export const newBackground = async (bgFile, body) => {
     let file;
     //UPLOAD TO CLOUDINARY
+    
+    const customID = await createID();
     const result = await uploadImage(bgFile.tempFilePath);
+    const preview = await getPreviewImage(result.public_id);
+    await fs.remove(bgFile.tempFilePath);
+    
     const dwLink = result?.secure_url?.split("upload/");
     dwLink?.splice(
       1,
@@ -93,34 +110,25 @@ export const newBackground = async (bgFile,body) => {
       `upload/fl_attachment:${
         bgFile.name.replace(/[\(\)']+/g, "").split(".")[0]
       }/`
-    );
-    const preview = await getPreviewImage(result.public_id)
-    file = {
-      name: bgFile.name,
-      download_link: dwLink.join(""),
-      url: result.secure_url,
+      );
+      
+      file = {
+        name: bgFile.name,
+        download_link: dwLink.join(""),
+        url: result.secure_url,
       public_id: result.public_id,
-      preview
+      preview,
     };
-    await fs.remove(bgFile.tempFilePath);
-    let customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
-    let exists = await Background.findOne({ customID });
-    while (exists) {
-      customID = Math.floor(Math.random() * (999999 - 100000 + 1) + 10000);
-      exists = await Background.findOne({ customID });
-    }
+    
     const bg = new Background({
       customID,
-      tracks: {
+      tracks: [{
         name: body.name,
         youtube_link: body.link,
-        artists: JSON.parse(body.artists)
-      },
+        artists: JSON.parse(body.artists),
+      }],
       file,
     });
     const savedBG = await bg.save();
-    return savedBG._id
-  } catch (error) {
-    console.log(error)
-  }
+    return savedBG._id;
 };

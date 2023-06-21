@@ -45,6 +45,7 @@ export const SongsContextProvider = ({ children }) => {
       setDelSongs([...delSongs, res.data]);
       setProgressSong(null);
     } catch (error) {
+      console.log(error)
       setDelSongs(delSongs.filter((song)=>{
         return !song.loading
       }))
