@@ -18,6 +18,7 @@ function DeletedInfo({ song, artistsList }) {
         someStyle
       } /* style={{backgroundImage: `url(${song.artwork?.url})`}} */
     >
+      <h2>Additional Information</h2>
       <div className="deleted-wrapper">
         <div className="deleted-artwork">
           <img
@@ -30,7 +31,7 @@ function DeletedInfo({ song, artistsList }) {
           <button><IoMdDownload size="1rem"></IoMdDownload> Download Artwork</button>
         </div>
         <div className="info-wrapper">
-          <h1>Song info</h1>
+          {/* <h1>Song info</h1> */}
           <p>
             <span>Song Name:</span> {song.name}
           </p>

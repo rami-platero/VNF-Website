@@ -9,7 +9,6 @@ import "./context/theme.css";
 import Login from "./pages/Auth/Login.jsx";
 import SignUp from "./pages/Auth/SignUp.jsx";
 import { useAuthContext } from "./hooks/useAuthContext.jsx";
-import DeletedSong from "./pages/Song/DeletedSong.jsx";
 import Backgrounds from "./pages/Backgrounds/Backgrounds.jsx";
 import { BgContextProvider } from "./context/bgsContext.jsx";
 import axios from "axios";
@@ -22,9 +21,10 @@ import About from "./pages/About/About.jsx";
 import { CSSTransition } from "react-transition-group";
 import ErrorModal from "./components/UI/ErrorModal.jsx";
 import { errorContext } from "./context/errorsContext.jsx";
+import SinglePageSong from "./pages/Song Single Page/SinglePageSong.jsx";
 
 function App() {
-  axios.defaults.baseURL = `http://localhost:4000`;
+  axios.defaults.baseURL = `https://vnf.onrender.com`;
   const { user } = useAuthContext();
   const { theme } = useContext(themecontext);
   const { responseError } = useContext(errorContext);
@@ -56,7 +56,7 @@ function App() {
             />
             <Route
               path="/deleted-song/:customID/:name"
-              element={<DeletedSong />}
+              element={<SinglePageSong />}
             />
             <Route
               path="/login"
