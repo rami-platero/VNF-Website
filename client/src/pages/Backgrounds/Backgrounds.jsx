@@ -9,7 +9,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { themecontext } from "../../context/themeContext";
 import { BiLandscape } from "react-icons/bi";
 import usePagination from "../../hooks/usePagination";
-import Pagination from "../../components/UI/Pagination";
+import Pagination from "../../components/Pagination";
 import BGFilters from "./components/BGFilters";
 import { useState } from "react";
 
@@ -24,20 +24,22 @@ function Backgrounds() {
 
   const filteredItems = useMemo(() => {
     return data.filter((bg) => {
-      return bg?.tracks?.some((track) => {
-        return (
-          track?.name?.toLowerCase().includes(query.toLowerCase()) ||
-          track?.artists?.some((artist) => {
-            return artist?.name?.toLowerCase().includes(query.toLowerCase());
-          })
-        );
-      }) || bg.loading 
-    })
+      return (
+        bg?.tracks?.some((track) => {
+          return (
+            track?.name?.toLowerCase().includes(query.toLowerCase()) ||
+            track?.artists?.some((artist) => {
+              return artist?.name?.toLowerCase().includes(query.toLowerCase());
+            })
+          );
+        }) || bg.loading
+      );
+    });
   }, [data, query]);
 
-  useEffect(()=>{
-    console.log(data)
-  },[data])
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div className={`backgrounds-container`}>

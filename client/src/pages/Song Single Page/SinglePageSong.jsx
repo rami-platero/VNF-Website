@@ -6,6 +6,7 @@ import { mainContext } from "../../context/SongsContext";
 import DeletedInfo from "./sections/DeletedInfo";
 import BackgroundInfo from "./sections/BackgroundInfo";
 import DeletedSong from "./sections/DeletedSong";
+import PageLoader from "../../components/PageLoader";
 
 const SinglePageSong = () => {
   const { customID } = useParams();
@@ -31,7 +32,7 @@ const SinglePageSong = () => {
 
   return (
     <div className={`post-container ${theme}`}>
-      {loading && <div className="loader-song"></div>}
+      {loading && <PageLoader/>}
       <DeletedSong song={song} artistsList={artistsList} />
       <DeletedInfo song={song} artistsList={artistsList} />
       {song.background != null && <BackgroundInfo song={song} />}

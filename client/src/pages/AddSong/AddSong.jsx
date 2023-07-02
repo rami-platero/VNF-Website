@@ -6,7 +6,7 @@ import { mainContext } from "../../context/SongsContext";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import "./addsong.css";
-import BackButton from "../../components/UI/BackButton.jsx";
+import BackButton from "../../components/BackButton.jsx";
 import useDynamicFields from "../../hooks/useDynamicFields";
 import { bgcontext } from "../../context/bgsContext";
 
@@ -32,7 +32,7 @@ const initialForm = {
 };
 
 function AddSong() {
-  const { postSong,postSongwithBG } = useContext(mainContext);
+  const { postSong, postSongwithBG } = useContext(mainContext);
   const { theme } = useContext(themecontext);
   const navigate = useNavigate();
   const [artists, setArtists] = useState([{ name: "" }]);
@@ -67,7 +67,7 @@ function AddSong() {
         user
       );
     } else {
-      console.log("existing background")
+      console.log("existing background");
       postSongwithBG(
         {
           background,
@@ -76,7 +76,7 @@ function AddSong() {
           artwork: file,
         },
         user
-      )
+      );
     }
     navigate("/deleted-songs");
   };

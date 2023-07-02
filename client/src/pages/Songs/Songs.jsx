@@ -9,7 +9,7 @@ import { themecontext } from "../../context/themeContext.jsx";
 import Filters from "./components/Filters.jsx";
 import { AiOutlineYoutube } from "react-icons/ai";
 import EditSong from "./EditSong/EditSong.jsx";
-import Pagination from "../../components/UI/Pagination.jsx";
+import Pagination from "../../components/Pagination.jsx";
 import usePagination from "../../hooks/usePagination.jsx";
 
 const Songs = () => {
@@ -36,7 +36,7 @@ const Songs = () => {
     handlePage,
     currentItems,
     currentPage,
-    itemsPerPage
+    itemsPerPage,
   } = usePagination(itemsFiltered);
 
   useEffect(() => {

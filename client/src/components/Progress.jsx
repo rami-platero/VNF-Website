@@ -1,6 +1,6 @@
 import React, { useContext, memo } from "react";
 import "./progress.css";
-import { themecontext } from "../../context/themeContext";
+import { themecontext } from "../context/themeContext";
 
 function Progress({ progress }) {
   const { theme } = useContext(themecontext);

@@ -5,9 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { bgcontext } from "../../../context/bgsContext";
 import Skeleton from "../../../assets/skeleton-image.png";
-import Progress from "../../../components/UI/Progress";
+import Progress from "../../../components/Progress";
 import { themecontext } from "../../../context/themeContext";
-import {memo} from 'react'
+import { memo } from "react";
 
 function BGItem({ bg }) {
   const { theme } = useContext(themecontext);
@@ -16,24 +16,26 @@ function BGItem({ bg }) {
   const navigate = useNavigate();
   const handleRemove = () => {
     if (user?.roles_name?.includes("admin")) {
-      setIdRemove(bg?._id)
+      setIdRemove(bg?._id);
       delBg(bg?._id, user);
     }
   };
-  const [loading, setLoading] = useState(true)
-  const handleImageLoad = ()=>{
-    setLoading(false)
-  }
+  const [loading, setLoading] = useState(true);
+  const handleImageLoad = () => {
+    setLoading(false);
+  };
   return (
-    <div className={`bg-container ${theme} ${idRemove===bg?._id}`}>
-      <div
-        className="bg-image-wrapper"
-      >
+    <div className={`bg-container ${theme} ${idRemove === bg?._id}`}>
+      <div className="bg-image-wrapper">
         {loading && <div className="bg-loader"></div>}
         {!bg?.loading ? (
-          <img src={bg?.file?.preview} onLoad={handleImageLoad} onClick={() => {
-            navigate(`/backgrounds/${bg?.customID}`);
-          }}/>
+          <img
+            src={bg?.file?.preview}
+            onLoad={handleImageLoad}
+            onClick={() => {
+              navigate(`/backgrounds/${bg?.customID}`);
+            }}
+          />
         ) : (
           <div className="skeleton-bg">
             <img src={Skeleton} />

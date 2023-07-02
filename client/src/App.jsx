@@ -19,7 +19,7 @@ import { useContext } from "react";
 import { themecontext } from "./context/themeContext.jsx";
 import About from "./pages/About/About.jsx";
 import { CSSTransition } from "react-transition-group";
-import ErrorModal from "./components/UI/ErrorModal.jsx";
+import ErrorModal from "./components/ErrorModal.jsx";
 import { errorContext } from "./context/errorsContext.jsx";
 import SinglePageSong from "./pages/Song Single Page/SinglePageSong.jsx";
 

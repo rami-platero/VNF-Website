@@ -8,7 +8,7 @@ import { useAuthContext } from "../../../hooks/useAuthContext";
 import { IoArrowBack } from "react-icons/io5";
 import { themecontext } from "../../../context/themeContext";
 import "../../AddSong/addsong.css";
-import BackButton from "../../../components/UI/BackButton";
+import BackButton from "../../../components/BackButton";
 import "./edit-song.css";
 import useDynamicFields from "../../../hooks/useDynamicFields";
 
@@ -34,7 +34,7 @@ function EditSong({ setModalIsOpen }) {
       original_description: res?.original_description,
       views: res?.views,
       views_date: res?.views_date,
-    })
+    });
   };
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function EditSong({ setModalIsOpen }) {
       },
       user
     );
-    setModalIsOpen(false)
+    setModalIsOpen(false);
   };
 
   return (

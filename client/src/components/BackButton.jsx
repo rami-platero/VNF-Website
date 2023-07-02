@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import './back_btn.css'
+import "./back_btn.css";
 import { IoArrowBack } from "react-icons/io5";
 import { useContext } from "react";
-import { themecontext } from "../../context/themeContext";
+import { themecontext } from "../context/themeContext";
 
 function BackButton() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { theme } = useContext(themecontext);
   return (
     <button

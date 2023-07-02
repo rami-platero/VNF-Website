@@ -2,15 +2,15 @@ import { useContext, useState } from "react";
 import "./auth.css";
 import { themecontext } from "../../context/themeContext";
 import { useLogin } from "../../hooks/useLogin";
-import Loader from "../../components/UI/Loader";
+import Loader from "../../components/Loader";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
-  const { login, error, isLoading,setError } = useLogin();
+  const { login, error, isLoading, setError } = useLogin();
 
   const handleChange = (e) => {
-    if(error !== null && e.target.value.trim()){
-      setError(null)
+    if (error !== null && e.target.value.trim()) {
+      setError(null);
     }
     setForm({ ...form, [e.target.name]: e.target.value });
   };

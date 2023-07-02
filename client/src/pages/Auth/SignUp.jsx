@@ -2,11 +2,11 @@ import { useContext, useState } from "react";
 import "./auth.css";
 import { themecontext } from "../../context/themeContext";
 import { useSignup } from "../../hooks/useSignUp";
-import Loader from "../../components/UI/Loader";
+import Loader from "../../components/Loader";
 
 function SignUp() {
   const [form, setForm] = useState({ email: "", password: "" });
-  const { signup, error, isLoading,setError } = useSignup();
+  const { signup, error, isLoading, setError } = useSignup();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,8 +14,8 @@ function SignUp() {
   };
 
   const handleChange = (e) => {
-    if(error !== null && e.target.value.trim()){
-      setError(null)
+    if (error !== null && e.target.value.trim()) {
+      setError(null);
     }
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -24,7 +24,7 @@ function SignUp() {
 
   return (
     <div className={`auth-container ${theme}`}>
-      {isLoading && <Loader/>}
+      {isLoading && <Loader />}
       <h1>SIGN UP</h1>
       <form onSubmit={handleSubmit}>
         <div className={`text-field ${theme} ${error?.email && "error"}`}>
@@ -48,7 +48,9 @@ function SignUp() {
             value={form.password}
           />
           <label htmlFor="password">PASSWORD</label>
-          {error?.password && <div className="auth-error">{error.password}</div>}
+          {error?.password && (
+            <div className="auth-error">{error.password}</div>
+          )}
         </div>
         <button
           type="submit"

@@ -7,7 +7,7 @@ import { BGForm } from "./components/BGForm";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import { useValFields } from "../../../hooks/useValFields";
-import BackButton from "../../../components/UI/BackButton";
+import BackButton from "../../../components/BackButton";
 import { memo } from "react";
 import { themecontext } from "../../../context/themeContext";
 import useDynamicFields from "../../../hooks/useDynamicFields";
@@ -113,7 +113,7 @@ function AddBg() {
                   {validField(trackIndex, "name") && (
                     <p className="val-text">This field must be filled</p>
                   )}
-                  
+
                   {validField(trackIndex, "yt_link") && (
                     <p className="val-text">This field must be filled</p>
                   )}
@@ -202,7 +202,7 @@ function AddBg() {
               );
             })}
           </>
-          <input type="submit" value={"Submit"}/>
+          <input type="submit" value={"Submit"} />
         </form>
       </div>
     </div>

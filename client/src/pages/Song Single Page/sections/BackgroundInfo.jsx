@@ -1,13 +1,11 @@
 import "./background-info.css";
 import { memo } from "react";
-import DownloadButton from "../../../components/UI/DownloadButton";
+import DownloadButton from "../../../components/DownloadButton";
 
 function BackgroundInfo({ song }) {
-
   const bg = {
     "--bg": `url(${song.background?.file?.url})`,
   };
-
 
   return (
     <section className="background-section" style={bg}>
@@ -15,7 +13,7 @@ function BackgroundInfo({ song }) {
       <div className="background-container">
         <div className="background-wrapper">
           <img src={song.background?.file?.url} />
-          <DownloadButton link={song.background?.file?.download_link}/>
+          <DownloadButton link={song.background?.file?.download_link} />
         </div>
       </div>
     </section>
