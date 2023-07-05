@@ -11,6 +11,7 @@ import "./dark_theme.css";
 import SongsSection from "./sections/SongsSection";
 import BackgroundsSection from "./sections/BackgroundsSection";
 import ContributeSection from "./sections/ContributeSection";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   const { theme } = useContext(themecontext);
@@ -24,7 +25,7 @@ function HomePage() {
   return (
     <div className="home-page">
       <div className="content-wrapper">
-        <div className="row-1">
+        <div className="content">
           <div className="wrapper">
             <h1>VIP NCS Fans</h1>
             <p>
@@ -33,7 +34,7 @@ function HomePage() {
               community,
               <span> built by fans for NCS fans.</span>
             </p>
-            <button className="learn-more-btn">Learn More</button>
+            <Link className="learn-more-btn" to={"./about"}>Learn More</Link>
           </div>
           <div className="sources">
             <p className="source-title">Sources and Tools</p>

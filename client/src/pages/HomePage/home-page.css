@@ -63,7 +63,7 @@ main {
   flex-wrap: wrap !important;
   padding: 1rem;
 
-  .row-1 {
+  .content {
     max-width: 1550px;
     width: 100%;
     display: flex;
@@ -178,6 +178,8 @@ main {
 }
 
 .learn-more-btn {
+  display: block;
+  text-decoration: none;
   margin-top: 2rem;
   cursor: pointer;
   width: fit-content;

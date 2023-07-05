@@ -21,7 +21,7 @@
       font-size: 0.8rem;
     }
 
-    .row-1 {
+    .col-1 {
       width: 100%;
       display: flex;
       align-items: center;
@@ -43,7 +43,7 @@
       }
     }
 
-    .row-2 {
+    .col-2 {
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -84,7 +84,7 @@
 
 .backgrounds-section.dark {
   background: radial-gradient(circle, rgb(21, 21, 29) 0%, rgb(10, 10, 10) 100%);
-  .wrapper .row-2 {
+  .wrapper .col-2 {
     > a {
       background: transparent;
       color: white;

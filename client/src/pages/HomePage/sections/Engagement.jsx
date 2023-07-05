@@ -15,17 +15,17 @@ const Engagement = () => {
       <h2>OUR DISCORD COMMUNITY</h2>
       </div>
       <div className="perks">
-        <div className="row">
+        <div className="card">
             <BsChatDots />
             <h3>Chat with fans/artists</h3>
             <p>Chat with other fans and NCS artists, share your favorite music with others, vote for your favorite songs, and more...</p>
         </div>
-        <div className="row">
+        <div className="card">
             <RiMusic2Line />
             <h3>Upcoming NCS Releases</h3>
             <p>Discover if your favorite artist is releasing a new song on NCS soon and listen to upcoming songs before the release date!</p>
           </div>
-        <div className="row">
+        <div className="card">
             <BsChatDots />
             <h3>Participate in events</h3>
             <p>Chat with other fans and NCS artists, share your music taste, participate in events and more...</p>

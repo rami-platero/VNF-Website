@@ -10,7 +10,7 @@ const BackgroundsSection = () => {
     <div className={`backgrounds-section ${theme}`}>
       <div className="wrapper">
         <label>MEDIA</label>
-        <div className="row-2">
+        <div className="col-2">
           <h2>Backgrounds</h2>
           <p>
             Here's where you will find all the backgrounds that NCS has used for
@@ -18,7 +18,7 @@ const BackgroundsSection = () => {
           </p>
           <Link to={"/backgrounds"}>See More</Link>
         </div>
-        <div className="row-1">
+        <div className="col-1">
           <div className="carousel">
             <img src={BGImage} />
             <img

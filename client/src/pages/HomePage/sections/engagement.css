@@ -53,7 +53,7 @@
     max-width: 900px;
     width: 100%;
     margin: 0 auto;
-    .row {
+    .card {
       user-select: none;
       display: flex;
       flex-direction: column;
@@ -85,7 +85,7 @@
 
 .engagement.dark{
   background: radial-gradient(circle, rgb(21, 21, 29) 0%, rgb(10, 10, 10) 100%);
-  .perks .row{
+  .perks .card{
     background: linear-gradient(180deg, #24262c 0%, #24262c3f 100%);
     >p{
       color: rgb(214, 214, 214);
