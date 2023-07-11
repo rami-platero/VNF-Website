@@ -38,8 +38,6 @@ const Song = ({ song, setModalIsOpen }) => {
     if (user != null) {
       setIdRemove(song?._id);
       removeSong(song?._id, user);
-    } else {
-      console.log("you can't remove a song if you are not logged in");
     }
   };
 

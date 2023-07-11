@@ -30,21 +30,24 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   min-height: 100vh;
-  padding: 3.5rem;
+  padding: 2rem;
 
-  .title{
+  .close {
+    margin-left: auto;
+  }
+
+  .title {
     font-size: 2.5rem;
     margin-bottom: 3rem;
   }
 }
 
-
 .close {
   color: rgb(0, 0, 0);
-  align-self: right;
+  left: 0;
   cursor: pointer;
 }
 
@@ -52,12 +55,12 @@
   color: gray;
 }
 
-.form-container.modal.dark .close{
+.form-container.modal.dark .close {
   color: rgb(255, 255, 255);
 }
 
 .modal-logo {
-    width: 100px;
-    height: 45px;
-    margin-bottom: 1rem;
+  width: 100px;
+  height: 45px;
+  margin-bottom: 1rem;
 }

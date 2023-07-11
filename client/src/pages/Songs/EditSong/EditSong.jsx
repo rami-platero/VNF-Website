@@ -2,23 +2,20 @@ import { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
-import Logo from "../../../assets/ncs-logo-resized.png";
 import { mainContext } from "../../../context/SongsContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { IoArrowBack } from "react-icons/io5";
 import { themecontext } from "../../../context/themeContext";
 import "../../AddSong/addsong.css";
-import BackButton from "../../../components/BackButton";
 import "./edit-song.css";
 import useDynamicFields from "../../../hooks/useDynamicFields";
+import Loader from "../../../components/Loader";
 
 function EditSong({ setModalIsOpen }) {
-  const { editSong, getSingleSong, idEdit } = useContext(mainContext);
+  const { editSong, getSingleSong, idEdit, loading } = useContext(mainContext);
   const { theme } = useContext(themecontext);
   const [song, setSong] = useState(null);
   const [artists, setArtists] = useState(null);
   const [form, setForm] = useState(null);
-  const [artwork, setArtwork] = useState(null);
   const getSong = async () => {
     const res = await getSingleSong(idEdit);
     setSong(res);
@@ -65,6 +62,7 @@ function EditSong({ setModalIsOpen }) {
 
   return (
     <div className={`form-container modal ${theme}`}>
+      {loading && <Loader/>}
       <IoIosClose
         size="3rem"
         className="close"
@@ -72,7 +70,7 @@ function EditSong({ setModalIsOpen }) {
           setModalIsOpen(false);
         }}
       />
-      <h1 className="title">EDIT SONG</h1>
+      <h1 className="title">Edit Song</h1>
       <form onSubmit={handleSubmit}>
         <input
           defaultValue={song?.name}
@@ -93,7 +91,6 @@ function EditSong({ setModalIsOpen }) {
                 placeholder="Artist Name"
                 className="artist-field"
                 defaultValue={artist?.name}
-                /* value={artist?.name} */
                 onChange={(e) => {
                   handleDynamicChange(e, index);
                 }}
@@ -167,34 +164,6 @@ function EditSong({ setModalIsOpen }) {
           autoComplete="off"
           required
         />
-        {/* <label htmlFor="artwork" style={{ alignSelf: "center" }}>
-          Artwork
-        </label> */}
-        {/* <div
-          className={`drop-container ${theme}`}
-          onDragOver={dragOver}
-          onDragEnter={dragEnter}
-          onDragLeave={dragLeave}
-          onDrop={fileDrop}
-        >
-          <h2>Drag And Drop</h2>
-          {artworkPreview != null && (
-            <img
-              src={artworkPreview.src}
-              alt={artworkPreview.name}
-              className="artwork-preview"
-            />
-          )}
-          <input
-            type="file"
-            placeholder="Artwork"
-            name="artwork"
-            onChange={(e) => {
-              handleImageReader(e);
-              setArtwork(e.target.files[0]);
-            }}
-          />
-        </div> */}
         <h5>Original Info</h5>
         <input
           defaultValue={song?.original_link}
