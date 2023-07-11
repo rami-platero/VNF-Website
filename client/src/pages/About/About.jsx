@@ -8,7 +8,7 @@ const About = () => {
   return (
     <div className={`about-us ${theme}`}>
       <label>WHO WE ARE</label>
-      <h2>A community made by fans for NCS Fans</h2>
+      <h1>A community made by fans for NCS Fans</h1>
       <div className="description-wrapper">
         <p>
           VIP NCS Fans is a community that shares facts about the record label
