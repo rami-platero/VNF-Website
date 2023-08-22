@@ -24,7 +24,7 @@ import { errorContext } from "./context/errorsContext.jsx";
 import SinglePageSong from "./pages/Song Single Page/SinglePageSong.jsx";
 
 function App() {
-  axios.defaults.baseURL = `https://vnf.onrender.com`;
+  axios.defaults.baseURL = `https://vnf-api.vercel.app`;
   const { user } = useAuthContext();
   const { theme } = useContext(themecontext);
   const { responseError } = useContext(errorContext);

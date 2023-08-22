@@ -10,7 +10,7 @@ export const useSignup = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("https://vnf.onrender.com/signup", {
+    const response = await fetch("https://vnf-api.vercel.app/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
